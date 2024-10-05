@@ -1,1 +1,1 @@
-export * from './honeycomb.jsx';
+export * from './honeycomb.js';
