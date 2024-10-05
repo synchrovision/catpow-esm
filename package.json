@@ -30,6 +30,8 @@
   "homepage": "https://github.com/synchrovision/catpow-esm#readme",
   "devDependencies": {
     "@testing-library/react": "^16.0.1",
+    "esbuild": "^0.24.0",
+    "esbuild-jest": "^0.5.0",
     "jest": "^29.7.0"
   }
 }
