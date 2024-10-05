@@ -1,4 +1,4 @@
-import {debounce} from 'util';
+import {debounce} from 'catpow/util';
 
 export const scrollsync=function(el,param={}){
 	const app={};

@@ -1,4 +1,4 @@
-﻿import {bem} from 'util';
+﻿import {bem} from 'catpow/util';
 
 export const TextBuild=(props)=>{
 	const {useState,useCallback,useMemo,useEffect}=React;

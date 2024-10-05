@@ -1,5 +1,5 @@
-import {Nav} from 'component';
-import {bem} from 'util';
+import {Nav} from 'catpow/component';
+import {bem} from 'catpow/util';
 
 export const MenuItem=(props)=>{
 	const {useState,useCallback,useMemo,useContext}=React;

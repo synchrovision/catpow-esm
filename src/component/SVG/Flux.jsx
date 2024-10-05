@@ -1,4 +1,4 @@
-import {bez,preserveAnimationValues,waveFromBase36,bem} from 'util';
+import {bez,preserveAnimationValues,waveFromBase36,bem} from 'catpow/util';
 
 export const Flux=(props)=>{
 	const {className='cp-svg-flux',dur=2000,delay=10,gap=4,width=1920,height=1080,color="white",amount=20,progress=0}=props;

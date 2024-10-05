@@ -1,4 +1,6 @@
-﻿export const Animation=(props)=>{
+﻿import * as React from 'react';
+
+export const Animation=(props)=>{
 	const {className="cp-animation"}=props
 	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	

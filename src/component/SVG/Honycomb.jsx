@@ -1,5 +1,5 @@
-import {SVG} from 'component';
-import {bem} from 'util';
+import {SVG} from 'catpow/component';
+import {bem} from 'catpow/util';
 
 export const Honycomb=(props)=>{
 	const {useCallback,useMemo,useContext}=React;

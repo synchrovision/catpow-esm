@@ -1,5 +1,6 @@
-import {Animation} from 'component';
-import {easeOutQuad,preserveDistances,preserveAnimationValues,bem} from 'util';
+import * as React from 'react';
+import {Animation} from 'catpow/component';
+import {easeOutQuad,preserveDistances,preserveAnimationValues,bem} from 'catpow/util';
 
 export const MosaicWave=(props)=>{
 	const {className='cp-mosaicwave',size=40,dur=200,hue=240,saturation=80,lightness=80,amount=8}=props;

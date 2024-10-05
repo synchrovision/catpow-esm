@@ -1,26 +1,22 @@
-import {Nav,Menu} from 'component';
-import {bem,getItemsOfLevel} from 'util';
+import {Nav,Menu} from 'catpow/component';
+import {bem,getItemsOfLevel} from 'catpow/util';
 
-export const SubMenu=(props)=>{
+export const MainMenu=(props)=>{
 	const {useCallback,useMemo,useContext,useRef,useEffect}=React;
 	const {state}=useContext(Nav.State);
 	const menuState=useContext(Menu.State);
-	const {className='cp-nav-menu-submenu',menu=menuState.menu,level=menuState.level+1}=props;
-	const classes=useMemo(()=>bem(className+' is-level-'+level),[className]);
-	const stateValues=useMemo(()=>({menu,level}),[menu,level]);
+	const {className='cp-nav-menu-mainmenu',menu=menuState.menu}=props;
+	const classes=useMemo(()=>bem(className),[className]);
+	const stateValues=useMemo(()=>({menu,level:0}),[menu]);
 	
-	const items=useMemo(()=>getItemsOfLevel(menu,level-1).filter((item)=>item.children),[menu,level]);
-	
-	const isActive=items.some((item)=>item.active);
-	const levelDiff=level-state.currentLevel;
+	const isActive=state.activeMenu===menu;
+	const levelDiff=-state.currentLevel;
 	
 	const classFlags=useMemo(()=>{
 		const flags={'is-active':isActive};
+		flags['is-current-level']=levelDiff===0;
 		flags['is-upper-level']=levelDiff<0;
 		flags['is-prev-level']=levelDiff===-1;
-		flags['is-current-level']=levelDiff===0;
-		flags['is-next-level']=levelDiff===1;
-		flags['is-lower-level']=levelDiff>0;
 		return flags;
 	},[isActive,levelDiff]);
 	

@@ -1,4 +1,4 @@
-﻿import {bem} from 'util';
+﻿import {bem} from 'catpow/util';
 
 export const Cloak=(props)=>{
 	const {className='cp-cloak',onComplete}=props;

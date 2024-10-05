@@ -1,4 +1,4 @@
-﻿import {bem} from 'util';
+﻿import {bem} from 'catpow/util';
 
 export const ElasticBox=(props)=>{
 	const {useMemo,useState,useCallback,useEffect,useRef}=React;

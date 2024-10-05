@@ -1,4 +1,4 @@
-﻿import {bem} from 'util';
+﻿import {bem} from 'catpow/util';
 
 export const TabPanel=(props)=>{
 	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
