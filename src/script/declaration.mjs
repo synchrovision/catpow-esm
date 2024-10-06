@@ -18,7 +18,7 @@ const {values:options,positionals:files} = parseArgs({allowPositionals:true,opti
 	}
 }});
 if(files.length===0){
-	files.push('modules/script/test.jsx');
+	files.push('modules/src/index.js');
 }
 
 const results={};
@@ -47,6 +47,7 @@ function extractExportedFunctionsRecursive(file,options,functions,importMap){
 	const code=fs.readFileSync(file);
 	const ast=acorn.Parser.extend(jsx()).parse(code, options);
 	const exportedFunctions={};
+	//if(functions.ast==null){functions.ast=[];}functions.ast.push(ast);
 	ast.body.forEach((token)=>{
 		switch(token.type){
 			case 'ExportAllDeclaration':{
@@ -64,7 +65,6 @@ function extractExportedFunctionsRecursive(file,options,functions,importMap){
 				else if(token.specifiers){
 					extractExportedFunctionsRecursive(resolve(file,'../',token.source.value),options,exportedFunctions,token.specifiers.reduce((p,c)=>p[c.local.name]=c.exported.name,{}));
 				}
-				
 				break;
 			}
 			case 'ExportDefaultDeclaration':{
@@ -73,6 +73,11 @@ function extractExportedFunctionsRecursive(file,options,functions,importMap){
 				}
 				break;
 			}
+		}
+	});
+	Object.keys(exportedFunctions).forEach(key=>{
+		if(exportedFunctions[key].file==null){
+			exportedFunctions[key].file=file;
 		}
 	});
 	if(importMap!=null){
@@ -88,9 +93,14 @@ function extractExportedFunctionsRecursive(file,options,functions,importMap){
 }
 function getFunctionInfo(token){
 	return {
+		start:token.start,
+		end:token.end,
 		params:token.params.map((param)=>{
 			if(param.type==='AssignmentPattern'){
 				return {name:param.left.name,default:param.right.value};
+			}
+			else if(param.type==='RestElement'){
+				return {name:param.argument.name};
 			}
 			return {name:param.name};
 		})
