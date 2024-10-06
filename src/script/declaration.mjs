@@ -56,7 +56,7 @@ function extractExportedFunctionsRecursive(file,options,functions,importMap){
 			case 'ExportNamedDeclaration':{
 				if(token.declaration!=null && token.declaration.declarations!=null){
 					for(const declaration of token.declaration.declarations){
-						if(declaration.init.type==='ArrowFunctionExpression' || declaration.init.type==='FunctionDeclaration'){
+						if(declaration.init.type==='ArrowFunctionExpression' || declaration.init.type==='FunctionExpression' || declaration.init.type==='FunctionDeclaration'){
 							exportedFunctions[declaration.id.name]=getFunctionInfo(declaration.init);
 						}
 					}
