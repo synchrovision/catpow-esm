@@ -1,4 +1,6 @@
-﻿export const Loop=(props)=>{
+﻿import * as React from 'react';
+
+export const Loop=(props)=>{
 	const {current=0,Component='div',loop=false,...otherProps}=props;
 	const {useState,useMemo,useCallback,useEffect,useRef}=React;
 	const items=useMemo(()=>{

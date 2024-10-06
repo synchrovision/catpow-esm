@@ -1,4 +1,5 @@
-﻿import {bem} from 'catpow/util';
+﻿import * as React from 'react';
+import {bem} from 'catpow/util';
 
 export const Parallax=(props)=>{
 	const {useState,useCallback,useEffect,useRef}=React;

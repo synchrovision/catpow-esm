@@ -1,4 +1,5 @@
-﻿export const Portal=(props)=>{
+﻿import * as React from 'react';
+export const Portal=(props)=>{
 	const {children,trace}=props;
 	const {render,useState,useMemo,useCallback,useEffect,useRef}=React;
 	const {createPortal}=ReactDOM;

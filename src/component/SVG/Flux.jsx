@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {bez,preserveAnimationValues,waveFromBase36,bem} from 'catpow/util';
 
 export const Flux=(props)=>{

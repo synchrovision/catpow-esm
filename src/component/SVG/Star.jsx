@@ -1,3 +1,4 @@
+import * as React from 'react';
 export const Star=(props)=>{
 	const {className='cp-svg-star',n=5,x=100,y=100,r1=100,r2=50,fill='black',stroke="none",...otherProps}=props;
 	const {useMemo}=React;

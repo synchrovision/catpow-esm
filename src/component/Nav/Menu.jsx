@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {Nav} from 'catpow/component';
 import {bem} from 'catpow/util';
 

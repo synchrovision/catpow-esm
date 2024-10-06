@@ -1,4 +1,5 @@
-﻿export const Nav=(props)=>{
+﻿import * as React from 'react';
+export const Nav=(props)=>{
 	const {menus}=props;
 	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	

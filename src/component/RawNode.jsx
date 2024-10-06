@@ -1,4 +1,5 @@
-﻿export const RawNode=(props)=>{
+﻿import * as React from 'react';
+export const RawNode=(props)=>{
 	const {useEffect,useRef}=React;
 	const {className='cp-rawnode'}=props;
 	const ref=useRef();
