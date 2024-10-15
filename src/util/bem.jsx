@@ -1,5 +1,6 @@
 export const bem=(className)=>{
 	const children={};
+	const firstClass=className.split(' ')[0];
 	return new Proxy(function(){
 		if(arguments.length>0){
 			const classes=[];let i;
@@ -15,13 +16,13 @@ export const bem=(className)=>{
 					Object.keys(arguments[i]).filter((c)=>arguments[i][c])
 				);
 			}
-			if(classes.length>0){return className+' '+classes.join(' ');}
+			if(classes.length>0){return (className+' '+classes.join(' ')).replace(' --',' '+firstClass+'--');}
 		}
 		return className;
 	},{
 		get:(target,prop)=>{
 			if(undefined===children[prop]){
-				children[prop]=bem(className.split(' ')[0]+(prop[0]==='_'?'_':'-')+prop);
+				children[prop]=bem(firstClass+(prop[0]==='_'?'_':'-')+prop);
 			}
 			return children[prop];
 		}
