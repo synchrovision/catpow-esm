@@ -14,6 +14,7 @@ describe('test util',()=>{
 		expect(classes({'is-active':true})).toBe('cp-test is-active');
 		expect(classes({'is-active':false})).toBe('cp-test');
 		expect(classes(['is-active','is-visible'])).toBe('cp-test is-active is-visible');
+		expect(classes.hoge._fuga('--active')).toBe('cp-test-hoge__fuga cp-test-hoge__fuga--active');
 	});
 	test('calc',()=>{
 		expect(dataSizeStringToInt('1KB')).toBe(1024);
