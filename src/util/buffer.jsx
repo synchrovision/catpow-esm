@@ -8,11 +8,11 @@ export const debounce=(callback,interval)=>{
 export const throttle=(callback,interval)=>{
 	let timer,hold=false;
 	return (e)=>{
+		if(timer){clearTimeout(timer);}
 		if(hold){
 			timer=setTimeout(callback,interval,e);
 		}
 		else{
-			if(timer){clearTimeout(timer);}
 			hold=true;
 			callback(e);
 			setTimeout(()=>hold=false,interval);
