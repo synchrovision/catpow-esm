@@ -1,10 +1,9 @@
-import React from 'react';
+import {useMemo,useCallback} from 'react';
 import {Animation} from 'catpow/component';
 import {easeOutQuad,preserveDistances,preserveAnimationValues,bem} from 'catpow/util';
 
 export const MosaicWave=(props)=>{
 	const {className='cp-mosaicwave',size=40,dur=200,hue=240,saturation=80,lightness=80,amount=8}=props;
-	const {useMemo,useCallback}=React;
 	const frames=React.useContext(Animation.Frames);
 	const screen=React.useContext(Animation.Screen);
 	

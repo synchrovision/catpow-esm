@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useCallback,useEffect,useRef} from 'react';
 import {bem} from 'catpow/util';
 
 export const Parallax=(props)=>{
-	const {useState,useCallback,useEffect,useRef}=React;
 	const {className='cp-parallax',minRatio=0.1}=props;
 	const [aspect,setAspect]=useState('outer');
 	const [distant,setDistant]=useState('outer');

@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useMemo,useCallback,useEffect,useRef,useReducer} from 'react';
 
 export const Animation=(props)=>{
-	const {className="cp-animation"}=props
-	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
+	const {className="cp-animation"}=props;
 	
 	const ref=useRef({});
 	const [time,setTime]=useState(0);

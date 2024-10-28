@@ -1,7 +1,10 @@
+import {render} from 'react-dom';
+import {createElement} from 'react';
+
 export const renderComponents=()=>{
 	const list=document.querySelectorAll('[data-component]');
 	Array.prototype.forEach.call(list,(el)=>{
-		ReactDOM.render(React.createElement(window[el.dataset.component]),{...el.dataset});
+		render(createElement(window[el.dataset.component]),{...el.dataset});
 	});
 };
 export const nl2br=(text)=>{

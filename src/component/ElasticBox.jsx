@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useMemo,useState,useCallback,useEffect,useRef} from 'react';
 import {bem} from 'catpow/util';
 
 export const ElasticBox=(props)=>{
-	const {useMemo,useState,useCallback,useEffect,useRef}=React;
 	const {className="cp-elasticbox",children,observeHeight=true,observeWidth=false}=props;
 	const [current,setCurrent]=useState(props.initialOpen || 0);
 	const classes=useMemo(()=>bem(className),[className]);

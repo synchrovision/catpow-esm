@@ -1,9 +1,8 @@
-import React from 'react';
+import {useCallback,useMemo,useContext,useRef,useEffect} from 'react';
 import {Nav,Menu} from 'catpow/component';
 import {bem,getItemsOfLevel} from 'catpow/util';
 
 export const MainMenu=(props)=>{
-	const {useCallback,useMemo,useContext,useRef,useEffect}=React;
 	const {state}=useContext(Nav.State);
 	const menuState=useContext(Menu.State);
 	const {className='cp-nav-menu-mainmenu',menu=menuState.menu}=props;

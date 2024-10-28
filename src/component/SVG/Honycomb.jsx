@@ -1,9 +1,8 @@
-import React from 'react';
+import {useCallback,useMemo,useContext} from 'react';
 import {SVG} from 'catpow/component';
 import {bem} from 'catpow/util';
 
 export const Honycomb=(props)=>{
-	const {useCallback,useMemo,useContext}=React;
 	const Screen=useContext(SVG.Screen);
 	const Colors=useContext(SVG.Colors);
 	const {className='cp-honycomb',width=Screen.width,height=Screen.height,size=34,gap=2,callback,...otherProps}=props;

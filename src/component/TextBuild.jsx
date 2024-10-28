@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useCallback,useMemo,useEffect} from 'react';
 import {bem} from 'catpow/util';
 
 export const TextBuild=(props)=>{
-	const {useState,useCallback,useMemo,useEffect}=React;
 	const {className="cp-textbuild",children,delay=5,interval=150}=props;
 	const classes=useMemo(()=>bem(className),[className]);
 	

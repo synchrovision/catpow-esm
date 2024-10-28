@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useMemo,useCallback,useEffect,useRef} from 'react';
 
 export const Loop=(props)=>{
 	const {current=0,Component='div',loop=false,...otherProps}=props;
-	const {useState,useMemo,useCallback,useEffect,useRef}=React;
 	const items=useMemo(()=>{
 		const items=Array.isArray(props.items)?props.items:(
 			Number.isInteger(props.items)?[...Array(props.items).keys()]:Array.from(props.items)

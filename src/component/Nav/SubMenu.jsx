@@ -1,9 +1,8 @@
-import React from 'react';
+import {useCallback,useMemo,useContext,useRef,useEffect} from 'react';
 import {Nav,Menu} from 'catpow/component';
 import {bem,getItemsOfLevel} from 'catpow/util';
 
 export const SubMenu=(props)=>{
-	const {useCallback,useMemo,useContext,useRef,useEffect}=React;
 	const {state}=useContext(Nav.State);
 	const menuState=useContext(Menu.State);
 	const {className='cp-nav-menu-submenu',menu=menuState.menu,level=menuState.level+1}=props;

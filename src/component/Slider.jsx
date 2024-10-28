@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useMemo,useCallback,useEffect,useRef,useReducer} from 'react';
 import {bem} from 'catpow/util';
 
 export const Slider=(props)=>{
-	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	const {className="cp-slider",children,loop=false,dots=true,arrow=true,timer=false,touch=false,interval=5000,onSwipeLeft,onSwipeRight}=props;
 	const [isHold,setIsHold]=useState(false);
 	const ref=useRef();

@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useCallback,useEffect,useRef,useReducer} from 'react';
 import {flagsToWords} from 'catpow/util';
 
 export const ScrollSpy=(props)=>{
-	const {useState,useCallback,useEffect,useRef,useReducer}=React;
 	const {className='cp-scrollspy'}=props;
 	const ref=useRef();
 	

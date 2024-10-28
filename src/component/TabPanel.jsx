@@ -1,8 +1,7 @@
-﻿import React from 'react';
+﻿import {useState,useMemo,useCallback,useEffect,useRef,useReducer} from 'react';
 import {bem} from 'catpow/util';
 
 export const TabPanel=(props)=>{
-	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	const {className="cp-tabpanel",children}=props;
 	const [current,setCurrent]=useState(props.initialOpen || 0);
 	const classes=useMemo(()=>bem(className),[className]);

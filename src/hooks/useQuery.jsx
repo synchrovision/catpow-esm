@@ -1,8 +1,7 @@
-import React from 'react';
+import {useState,useEffect,useRef} from 'react';
 
 const cache={};
 export const useQuery=(uri)=>{
-	const {useState,useEffect,useRef}=React;
 	const [data,setData]=useState(false);
 	const [isPending,setIsPending]=useState(true);
 	

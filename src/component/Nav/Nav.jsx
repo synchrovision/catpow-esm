@@ -1,7 +1,6 @@
-﻿import React from 'react';
+﻿import {useState,useMemo,useCallback,useEffect,useRef,useReducer} from 'react';
 export const Nav=(props)=>{
 	const {menus}=props;
-	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	
 	if(undefined===Nav.State){Nav.State=React.createContext({});}
 	if(undefined===Nav.Functions){Nav.Functions=React.createContext({});}
