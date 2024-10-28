@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {SVG} from 'catpow/component';
 import {bem} from 'catpow/util';
 

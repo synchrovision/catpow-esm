@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+﻿import React from 'react';
 
 export const Loop=(props)=>{
 	const {current=0,Component='div',loop=false,...otherProps}=props;

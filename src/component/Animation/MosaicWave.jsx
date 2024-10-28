@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Animation} from 'catpow/component';
 import {easeOutQuad,preserveDistances,preserveAnimationValues,bem} from 'catpow/util';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export const ComputeLine=(props)=>{
 	const {callback,step=100,fill='none',stroke="black",...otherProps}=props;

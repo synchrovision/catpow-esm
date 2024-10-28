@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Nav,Menu} from 'catpow/component';
 import {bem,getItemsOfLevel} from 'catpow/util';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 export const useTransition=(isInitialActive=false)=>{
 	const {useState,useEffect,useRef}=React;

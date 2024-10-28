@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+﻿import React from 'react';
 export const Portal=(props)=>{
 	const {children,trace}=props;
 	const {render,useState,useMemo,useCallback,useEffect,useRef}=React;

@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+﻿import React from 'react';
 
 export const SVG=(props)=>{
 	const {className="cp-svg",width=1200,height=400,colors,children,...otherProps}=props
