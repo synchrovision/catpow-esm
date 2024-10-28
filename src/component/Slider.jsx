@@ -13,17 +13,19 @@ export const Slider=(props)=>{
 			case 'PREV':
 			case 'NEXT':
 			case 'GOTO':{
-				if(action.type==='PREV'){state.current--;}
-				else if(action.type==='NEXT'){state.current++;}
-				else{state.current=action.index;}
+				let {current}=state;
+				if(action.type==='PREV'){current--;}
+				else if(action.type==='NEXT'){current++;}
+				else if(!isNaN(action.index)){current=action.index;}
+				else{console.log({action});return state;}
 				if(loop){
-					while(state.current<0){state.current+=children.length;}
-					state.current%=children.length;
+					while(current<0){current+=children.length;}
+					current%=children.length;
 				}
 				else{
-					state.current=Math.max(0,Math.min(state.current,children.length-1));
+					current=Math.max(0,Math.min(current,children.length-1));
 				}
-				return {...state};
+				return {...state,current};
 			}
 		}
 		return state;
@@ -69,7 +71,7 @@ export const Slider=(props)=>{
 				{dots && (
 					<div className={className+"-dots"}>
 						{[...Array(children.length).keys()].map((index)=>(
-							<div className={className+"-dots-dot"+(index===current?' is-active':'')} onClick={()=>dispatch({type:'GOTO',index})}></div>
+							<div className={className+"-dots-dot"+(index===current?' is-active':'')} onClick={()=>dispatch({type:'GOTO',index})} key={index}></div>
 						))}
 					</div>
 				)}
@@ -82,7 +84,6 @@ export const Slider=(props)=>{
 		);
 	},[arrow,dots,loop,timer]);
 	useEffect(()=>{
-		return;
 		var requestID;
 		const {org,crr,diff,delta,time}=tmp.current;
 		const updateValue=(obj,e)=>{
@@ -150,6 +151,7 @@ export const Slider=(props)=>{
 		}
 		time.c=1/interval;
 		const tick=(timestamp)=>{
+			console.log('tick');
 			if(time.s===0 || diff.x){time.s=timestamp;}
 			if(time.p===1){time.s=timestamp;dispatch({type:'NEXT'});}
 			time.p=Math.min(1,(timestamp-time.s)*time.c);
@@ -167,10 +169,9 @@ export const Slider=(props)=>{
 			}
 		};
 	},[ref.current,tmp.current,setIsHold,timer,interval]);
-	
 	return (
 		<div className={classes({'is-hold':isHold})} ref={ref}>
-			<div class={classes._slides()}>
+			<div className={classes._slides()}>
 				{children.map((child,index)=><div className={classes._slides.slide(getSlideClasses(index-state.current))} key={index}>{child}</div>)}
 			</div>
 			<Control className={classes._controls()} current={state.current}/>
