@@ -1,6 +1,7 @@
-import {useState,useEffect,useRef} from 'react';
+import React from 'react';
 
 export const useTransition=(isInitialActive=false)=>{
+	const {useState,useEffect,useRef}=React;
 	const [isActive,setIsActive]=useState(isInitialActive);
 	const [status,setStatus]=useState(isActive?'is-active':'is-inactive');
 	const ref=useRef();

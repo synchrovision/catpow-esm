@@ -1,9 +1,10 @@
-import {useMemo,useRef,useCallback,useEffect,useContext} from 'react';
+import React from 'react';
 import {Animation} from 'catpow/component';
 import {preserveAnimationValues} from 'catpow/util';
 
 export const Particle=(props)=>{
 	const {className='cp-particle',dur=200,speed=100,gravity=1,amount=20,children}=props;
+	const {useMemo,useRef,useCallback,useEffect,useContext}=React;
 	const frames=useContext(Animation.Frames);
 	const screen=useContext(Animation.Screen);
 	const cache=useRef({parts:[]});

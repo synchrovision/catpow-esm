@@ -1,7 +1,8 @@
-﻿import {useState,useMemo,useCallback,useEffect,useRef,forwardRef} from 'react';
+﻿import React from 'react';
 import {bem} from 'catpow/util';
 
 export const Transition=(props)=>{
+	const {useState,useMemo,useCallback,useEffect,useRef}=React;
 	const {className='cp-transition',children,fitHeight=false}=props;
 	const [contents,setContents]=useState(children);
 	const [ready,setReady]=useState(false);

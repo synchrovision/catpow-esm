@@ -1,8 +1,9 @@
-﻿import {useMemo,useState,useRef,useEffect,useCallback,forwardRef} from 'react';
+﻿import React from 'react';
 import {bem} from 'catpow/util';
 
 export const Cloak=(props)=>{
 	const {className='cp-cloak',onComplete}=props;
+	const {useMemo,useState,useRef,useEffect,useCallback,forwardRef}=React;
 	const classes=useMemo(()=>bem(className));
 	
 	const ref=useRef({});

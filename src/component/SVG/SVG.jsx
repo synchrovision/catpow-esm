@@ -1,7 +1,8 @@
-﻿import {useState,useMemo,useCallback,useEffect,useRef,useReducer} from 'react';
+﻿import React from 'react';
 
 export const SVG=(props)=>{
-	const {className="cp-svg",width=1200,height=400,colors,children,...otherProps}=props;
+	const {className="cp-svg",width=1200,height=400,colors,children,...otherProps}=props
+	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
 	
 	const {Colors,Screen}=useMemo(()=>{
 		['Colors','Screen'].forEach((contextName)=>{
