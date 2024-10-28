@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export const useTransition=(isInitialActive=false)=>{
 	const {useState,useEffect,useRef}=React;
 	const [isActive,setIsActive]=useState(isInitialActive);
@@ -12,39 +14,24 @@ export const useTransition=(isInitialActive=false)=>{
 					setStatus('is-active');
 				});
 			}
+			else{
+				setStatus('is-active');
+			}
 		}
 		else{
 			if(status==='is-active'){
 				setStatus('is-leave');
-				let stackCount=0;
-				const checkTransitionStack=()=>{
-					if(stackCount<1){
-						removeEventListeners();
-						setStatus('is-inactive');
-					}
-				}
-				const onTransitionRun=()=>{
-					stackCount++;
-					checkTransitionStack();
-				};
-				const onTransitionEnd=()=>{
-					stackCount--;
-					checkTransitionStack();
-				};
-				const timer=setTimeout(checkTransitionStack,100);
-				const removeEventListeners=()=>{
-					ref.current.removeEventListener('transitionrun',onTransitionRun);
-					ref.current.removeEventListener('transitionend',onTransitionEnd);
-					ref.current.removeEventListener('transitioncancel',onTransitionEnd);
-					clearTimeout(timer);
-				}
-				ref.current.addEventListener('transitionrun',onTransitionRun);
-				ref.current.addEventListener('transitionend',onTransitionEnd);
-				ref.current.addEventListener('transitioncancel',onTransitionEnd);
-				return removeEventListeners;
+				setTimeout(()=>{
+					Promise.all(ref.current.getAnimations({subTree:true}).map((animation)=>animation.finished)).then(()=>setStatus('is-inactive'));
+				},100);
+			}
+			else{
+				setStatus('is-inactive');
 			}
 		}
-		
 	},[ref.current,isActive]);
+	useEffect(()=>{
+		setIsActive(isInitialActive);
+	},[isInitialActive]);
 	return [ref,status,setIsActive];
 }
