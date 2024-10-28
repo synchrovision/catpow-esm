@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 const cache={};
 export const useQuery=(uri)=>{
 	const {useState,useEffect,useRef}=React;
