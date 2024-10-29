@@ -6,11 +6,11 @@ const elementClassMap=new WeakMap();
 
 const getClosestBlockClass=(el)=>{
 	if(blockClassMap.has(el)){return blockClassMap.get(el);}
-	getClosestBlockClass(el.parentElement);
+	return getClosestBlockClass(el.parentElement);
 }
 const getClosestElementClass=(el)=>{
 	if(elementClassMap.has(el)){return elementClassMap.get(el);}
-	getClosestElementClass(el.parentElement);
+	return getClosestElementClass(el.parentElement);
 }
 
 const hasClassNameToModify=(className)=>className.match(/(\b[\-_]|[\-_]\b)/);
