@@ -74,7 +74,7 @@ export const useBem=(prefix='')=>{
 			for(const mutation of mutations){
 				for(const addedNode of mutation.addedNodes){
 					if(addedNode instanceof Element){
-						modifyClassName(addedNode,prefix);
+						modifyClassNameRecursive(addedNode,prefix);
 					}
 				}
 			}
