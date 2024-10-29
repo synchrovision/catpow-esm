@@ -14,13 +14,13 @@ const getClosestElementClass=(el)=>{
 }
 
 const hasClassNameToModify=(className)=>className.match(/(\b[\-_]|[\-_]\b)/);
-const modifyClassName=(el)=>{
+const modifyClassName=(el,prefix)=>{
 	if(hasClassNameToModify(el.className)){
 		for(const className of el.classList){
 			const head=className.slice(0,1);
 			const tail=className.slice(-1);
 			if(tail==='-'){
-				const newClassName=className.slice(0,-1);
+				const newClassName=prefix+className.slice(0,-1);
 				blockClassMap.set(el,newClassName);
 				elementClassMap.set(el,newClassName);
 				el.classList.replace(className,newClassName);
@@ -54,14 +54,14 @@ const modifyClassName=(el)=>{
 		}
 	}
 }
-const modifyClassNameRecursive=(el)=>{
-	modifyClassName(el);
+const modifyClassNameRecursive=(el,prefix)=>{
+	modifyClassName(el,prefix);
 	for(const child of el.children){
-		modifyClassNameRecursive(child);
+		modifyClassNameRecursive(child,prefix);
 	}
 }
 
-export const useBem=()=>{
+export const useBem=(prefix='')=>{
 	const {useLayoutEffect,useRef}=React;
 	const ref=useRef({});
 	
@@ -74,19 +74,19 @@ export const useBem=()=>{
 			for(const mutation of mutations){
 				for(const addedNode of mutation.addedNodes){
 					if(addedNode instanceof Element){
-						modifyClassName(addedNode);
+						modifyClassName(addedNode,prefix);
 					}
 				}
 			}
 		});
 		const classMutationobserver=new MutationObserver((mutations)=>{
 			for(const mutation of mutations){
-				modifyClassName(mutation.target);
+				modifyClassName(mutation.target,prefix);
 			}
 		});
 		contentsMutationObserver.observe(ref.current,{subtree:true,childList:true});
 		classMutationobserver.observe(ref.current,{subtree:true,attributes:true,attributeFilter:['class']});
-		modifyClassNameRecursive(ref.current);
+		modifyClassNameRecursive(ref.current,prefix);
 	},[ref.current]);
 	
 	return ref;
