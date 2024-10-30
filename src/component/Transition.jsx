@@ -1,18 +1,19 @@
 ﻿import React from 'react';
 import {bem} from 'catpow/util';
+import {useTransition} from 'catpow/hooks';
+
+const contensIdMap=new WeakMap();
+let lastContentsId=0;
 
 export const Transition=(props)=>{
-	const {useState,useMemo,useCallback,useEffect,useRef}=React;
-	const {className='cp-transition',children,fitHeight=false}=props;
-	const [ready,setReady]=useState(false);
+	const {useState,useMemo,useCallback,useEffect,useRef,forwadRef}=React;
+	const {className='cp-transition',children,initialSize=[100,100]}=props;
+	const [contents,setContents]=useState(false);
+	const [prevContents,setPrevContents]=useState(false);
+	const [size,setSize]=useState(initialSize);
 	const classes=useMemo(()=>bem(className),[className]);
 	
-	const refContainer=useRef();
-	const refPrev=useRef();
-	const refCurrent=useRef();
-	
-	const [type,setType]=useState(props.type || 'init');
-	
+	if(!contensIdMap.has(children)){contensIdMap.set(children,lastContentsId++);}
 	
 	const getTransitionType=useCallback((prev,next)=>{
 		if(!prev.props || !next.props){return 'none';}
@@ -29,40 +30,49 @@ export const Transition=(props)=>{
 		}
 		return 'none';
 	},[]);
-	
-	useEffect(()=>{
-		const transitionType=getTransitionType(contents,children);
-		if(transitionType==='none'){
-			setContents(children);
-			if(fitHeight){
-				setTimeout(()=>{
-					refContainer.current.style.height=refCurrent.current.clientHeight+'px';
-				},1);
-			}
-		}
-		else{
-			setType(transitionType);
-			setReady(true);
-			setTimeout(()=>{
-				setContents(children);
-				setTimeout(()=>{
-					if(fitHeight){
-						refContainer.current.style.height=refCurrent.current.clientHeight+'px';
-					}
-					setReady(false);
-				},1);
-			},1);
-		}
-		return ()=>{
-			if(!refPrev.current || !refCurrent.current){return;}
-			refPrev.current.innerHTML=refCurrent.current.innerHTML;
-		};
+	const transitionType=useMemo(()=>{
+		if(!contents){return 'init';}
+		return getTransitionType(contents,children);
 	},[children]);
 	
+	useEffect(()=>{
+		setPrevContents(contents);
+		setContents(children);
+	},[children]);
+	
+	
+	const Contents=useCallback((props)=>{
+		const {classes,active,setSize,children}=props;
+		const [ref,status,setIsActive]=useTransition();
+		useEffect(()=>{
+			setIsActive(active);
+			if(setSize){
+				const observer=new ResizeObserver(()=>{
+					setSize([
+						ref.current.children[0].offsetWidth+'px',
+						ref.current.children[0].offsetHeight+'px'
+					]);
+				});
+				observer.observe(ref.current);
+				return ()=>observer.disconnect();
+			}
+		},[active,ref.current]);
+
+		return (
+			<div className={classes(status)} ref={ref}>
+				<div className={classes._body()}>{children}</div>
+			</div>
+		);
+	},[]);
+	
+	const sizeVars=useMemo(()=>({'--contents-width':size[0],'--contents-height':size[1]}),size);
+	
+	
+	
 	return (
-		<div className={classes('is-type-'+type)} ref={refContainer}>
-			<div className={classes.contents(['is-prev','is-'+(ready?"from":"to")])}><div className={classes.contents._body()} ref={refPrev}></div></div>
-			<div className={classes.contents(['is-current','is-'+(ready?"from":"to")])}><div className={classes.contents._body()} ref={refCurrent}>{contents}</div></div>
+		<div className={classes('is-type-'+transitionType)} style={sizeVars}>
+			<Contents classes={classes.contents} active={false} key={contensIdMap.get(prevContents)}>{prevContents}</Contents>
+			<Contents classes={classes.contents} active={true} setSize={setSize} key={contensIdMap.get(contents)}>{contents}</Contents>
 		</div>
 	);
 }
