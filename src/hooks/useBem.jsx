@@ -3,6 +3,7 @@ import React from 'react';
 
 const blockClassMap=new WeakMap();
 const elementClassMap=new WeakMap();
+const keyClassMap=new WeakMap();
 
 const getClosestBlockClass=(el)=>{
 	if(blockClassMap.has(el)){return blockClassMap.get(el);}
@@ -16,42 +17,64 @@ const getClosestElementClass=(el)=>{
 const hasClassNameToModify=(className)=>className.match(/(\b[\-_]|[\-_]\b)/);
 const modifyClassName=(el,prefix)=>{
 	if(hasClassNameToModify(el.className)){
-		for(const className of el.classList){
+		let className,newClassName;
+		for(className of el.classList){
 			const head=className.slice(0,1);
 			const tail=className.slice(-1);
 			if(tail==='-'){
-				const newClassName=prefix+className.slice(0,-1);
+				newClassName=prefix+className.slice(0,-1);
 				blockClassMap.set(el,newClassName);
-				elementClassMap.set(el,newClassName);
-				el.classList.replace(className,newClassName);
-				return;
+				break;
 			}
 			else if(head==='-'){
-				const newClassName=getClosestBlockClass(el.parentElement)+className;
+				newClassName=getClosestBlockClass(el.parentElement)+className;
 				blockClassMap.set(el,newClassName);
-				elementClassMap.set(el,newClassName);
-				el.classList.replace(className,newClassName);
-				return;
+				break;
 			}
 			else if(tail==='_'){
-				const newClassName=getClosestBlockClass(el.parentElement)+'__'+className.slice(0,-1);
-				elementClassMap.set(el,newClassName);
-				el.classList.replace(className,newClassName);
-				return;
+				newClassName=getClosestBlockClass(el.parentElement)+'__'+className.slice(0,-1);
+				blockClassMap.delete(el);
+				break;
 			}
 			else if(head==='_'){
-				let newClassName=getClosestElementClass(el.parentElement);
+				newClassName=getClosestElementClass(el.parentElement);
+				blockClassMap.delete(el);
 				if(newClassName.includes('__')){
 					newClassName+='-'+className.slice(1);
 				}
 				else{
 					newClassName+='_'+className;
 				}
-				elementClassMap.set(el,newClassName);
-				el.classList.replace(className,newClassName);
-				return;
+				break;
 			}
 		}
+		if(newClassName){
+			elementClassMap.set(el,newClassName);
+			if(keyClassMap.has(el) && keyClassMap.get(el)!==className){
+				if(blockClassMap.has(el)){
+					revertBlockClassNameRecursive(el);
+				}
+				else{
+					revertElementClassNameRecursive(el);
+				}
+			}
+			keyClassMap.set(el,className);
+			el.classList.replace(className,newClassName);
+		}
+	}
+}
+const revertBlockClassNameRecursive=(el)=>{
+	for(const child of el.children){
+		if(!elementClassMap.has(child) || blockClassMap.has(child) && keyClassMap(child).slice(-1)==='-'){continue;}
+		child.classList.replace(elementClassMap.get(child),keyClassMap.get(child));
+		revertBlockClassNameRecursive(child);
+	}
+}
+const revertElementClassNameRecursive=(el)=>{
+	for(const child of el.children){
+		if(!elementClassMap.has(child) || blockClassMap.has(child) || keyClassMap(child).slice(-1)==='_'){continue;}
+		child.classList.replace(elementClassMap.get(child),keyClassMap.get(child));
+		revertElementClassNameRecursive(child);
 	}
 }
 const modifyClassNameRecursive=(el,prefix)=>{
