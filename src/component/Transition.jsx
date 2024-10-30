@@ -48,10 +48,12 @@ export const Transition=(props)=>{
 			setIsActive(active);
 			if(setSize){
 				const observer=new ResizeObserver(()=>{
-					setSize([
-						ref.current.children[0].offsetWidth+'px',
-						ref.current.children[0].offsetHeight+'px'
-					]);
+					if(ref.current.children[0].offsetWidth>0 && ref.current.children[0].offsetHeight>0){
+						setSize([
+							ref.current.children[0].offsetWidth+'px',
+							ref.current.children[0].offsetHeight+'px'
+						]);
+					}
 				});
 				observer.observe(ref.current);
 				return ()=>observer.disconnect();
