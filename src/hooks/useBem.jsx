@@ -65,14 +65,14 @@ const modifyClassName=(el,prefix)=>{
 }
 const revertBlockClassNameRecursive=(el)=>{
 	for(const child of el.children){
-		if(!elementClassMap.has(child) || blockClassMap.has(child) && keyClassMap(child).slice(-1)==='-'){continue;}
+		if(!elementClassMap.has(child) || blockClassMap.has(child) && keyClassMap.get(child).slice(-1)==='-'){continue;}
 		child.classList.replace(elementClassMap.get(child),keyClassMap.get(child));
 		revertBlockClassNameRecursive(child);
 	}
 }
 const revertElementClassNameRecursive=(el)=>{
 	for(const child of el.children){
-		if(!elementClassMap.has(child) || blockClassMap.has(child) || keyClassMap(child).slice(-1)==='_'){continue;}
+		if(!elementClassMap.has(child) || blockClassMap.has(child) || keyClassMap.get(child).slice(-1)==='_'){continue;}
 		child.classList.replace(elementClassMap.get(child),keyClassMap.get(child));
 		revertElementClassNameRecursive(child);
 	}
