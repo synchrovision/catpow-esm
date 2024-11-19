@@ -30,6 +30,13 @@ export const appBase=()=>{
 			if(callbacks[event]==null){return;}
 			callbacks[event].delete(callback);
 		},
+		once(event,callback){
+			const cb=(app,args)=>{
+				callback(app,args);
+				this.off(event,cb);
+			}
+			this.on(event,cb);
+		},
 		trigger(event,args){
 			if(callbacks[event]==null){return;}
 			callbacks[event].forEach((callback)=>callback(this,args));
