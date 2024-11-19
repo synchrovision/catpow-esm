@@ -9,9 +9,9 @@ export const appBase=()=>{
 				dataLoader=loaderOrUrl;
 			}
 			else{
-				dateLoader=fetch(loaderOrUrl).then(res=>res.json());
+				dataLoader=fetch(loaderOrUrl).then(res=>res.json());
 			}
-			dateLoader.then(data=>{
+			return dataLoader.then(data=>{
 				this.data=data;
 				this.trigger('load',data);
 			}).catch((e)=>{
