@@ -14,7 +14,10 @@ const getClosestElementClass=(el)=>{
 	return getClosestElementClass(el.parentElement);
 }
 
-const hasClassNameToModify=(className)=>className.match(/(\b[\-_]|[\-_]\b)/);
+const hasClassNameToModify=(className)=>{
+	if(className instanceof SVGAnimatedString){className=className.baseVal;}
+	return className.match(/(\b[\-_]|[\-_]\b)/);
+}
 const modifyClassName=(el,prefix)=>{
 	if(hasClassNameToModify(el.className)){
 		let className,newClassName;
