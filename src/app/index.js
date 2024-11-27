@@ -1,1 +1,1 @@
-export * from './appBase.js';
+export * from './appBase.jsx';

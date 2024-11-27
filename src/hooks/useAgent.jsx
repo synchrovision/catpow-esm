@@ -4,12 +4,12 @@ import {useLazyProvider} from 'catpow/hooks';
 import {deepMap} from 'catpow/util';
 
 export const useAgent=(settings,deps)=>{
-	const {useMemo,useReducer,useCallback,useRef,useEffect}=React;
+	const {useMemo,useState,useCallback,useRef,useEffect}=React;
 	
 	const agent=useMemo(()=>{
 		const sharedPromises=deepMap();
-		const chainedPromises=deepmap();
-		const agent=Object.assign(appBase(),(typeof settings==='function')?settings(..deps):settings,{
+		const chainedPromises=deepMap();
+		const agent=Object.assign(appBase(),(typeof settings==='function')?settings(...deps):settings,{
 			sharePromise(callback,keys){
 				if(!sharedPromises.has(keys)){
 					sharedPromises.set(keys,new Promise(callback));
@@ -34,14 +34,16 @@ export const useAgent=(settings,deps)=>{
 			},
 			useStates(states){
 				const ref=useRef({});
-				for(const name of states){
+				for(const name in states){
 					ref.current[name]=useState(states[name]);
 				}
 				this.states=useMemo(()=>new Proxy(ref,{
 					get(prop){
+						if(ref.current[prop]==null){return null;}
 						return ref.current[prop][0];
 					},
 					set(prop,value){
+						if(ref.current[prop]==null){return null;}
 						this.trigger(prop+':update',{prev:ref.current[prop][0],current:value});
 						ref.current[prop][0]=value;
 						ref.current[prop][1](value);
