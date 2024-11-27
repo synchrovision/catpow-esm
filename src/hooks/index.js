@@ -1,3 +1,4 @@
+export * from './useAgent.jsx';
 export * from './useBem.jsx';
 export * from './useCache.jsx';
 export * from './useQuery.jsx';
