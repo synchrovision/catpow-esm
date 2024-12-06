@@ -17,7 +17,7 @@ export const Slider=(props)=>{
 				if(action.type==='PREV'){current--;}
 				else if(action.type==='NEXT'){current++;}
 				else if(!isNaN(action.index)){current=action.index;}
-				else{console.log({action});return state;}
+				else{return state;}
 				if(loop){
 					while(current<0){current+=children.length;}
 					current%=children.length;
@@ -151,7 +151,6 @@ export const Slider=(props)=>{
 		}
 		time.c=1/interval;
 		const tick=(timestamp)=>{
-			console.log('tick');
 			if(time.s===0 || diff.x){time.s=timestamp;}
 			if(time.p===1){time.s=timestamp;dispatch({type:'NEXT'});}
 			time.p=Math.min(1,(timestamp-time.s)*time.c);
