@@ -1,15 +1,19 @@
 import React from 'react';
 import {appBase} from 'catpow/app';
-import {useLazyProvider} from 'catpow/hooks';
+import {useLazyProvider,useLazyComponent} from 'catpow/hooks';
 import {deepMap} from 'catpow/util';
 
+const {useMemo,useState,useCallback,useRef,useEffect,createContext,useContext}=React;
+
+const AgentContext=createContext();
+
 export const useAgent=(settings,deps)=>{
-	const {useMemo,useState,useCallback,useRef,useEffect}=React;
 	
 	const agent=useMemo(()=>{
 		const sharedPromises=deepMap();
 		const chainedPromises=deepMap();
 		const agent=Object.assign(appBase(),(typeof settings==='function')?settings(...deps):settings,{
+			AgentProvider:({children})=>(<AgentContext.Provider value={agent}>{children}</AgentContext.Provider>),
 			sharePromise(callback,keys){
 				if(!sharedPromises.has(keys)){
 					sharedPromises.set(keys,new Promise(callback));
@@ -38,15 +42,16 @@ export const useAgent=(settings,deps)=>{
 					ref.current[name]=useState(states[name]);
 				}
 				this.states=useMemo(()=>new Proxy(ref,{
-					get(prop){
+					get(ref,prop){
 						if(ref.current[prop]==null){return null;}
 						return ref.current[prop][0];
 					},
-					set(prop,value){
-						if(ref.current[prop]==null){return null;}
-						this.trigger(prop+':update',{prev:ref.current[prop][0],current:value});
+					set(ref,prop,value){
+						if(ref.current[prop]==null){return false;}
+						agent.trigger(prop+':update',{prev:ref.current[prop][0],current:value});
 						ref.current[prop][0]=value;
 						ref.current[prop][1](value);
+						return true;
 					}
 				}),[ref]);
 			},
@@ -57,11 +62,11 @@ export const useAgent=(settings,deps)=>{
 					return <Context.Provider value={ref.current}>{props.children}</Context.Provider>
 				},[Context]);
 			},
-			useLazyProvider(Context,asynCallback,deps){
-				return useLazyProvider(Context,asynCallback,[this,...deps]);
+			useLazyProvider(Context,asyncCallback,deps){
+				return useLazyProvider(Context,asyncCallback,[this,...deps]);
 			},
 			useLazyComponent(Component,asyncCallback,deps){
-				return useLazyComponent(Component,asynCallback,[this,...deps]);
+				return useLazyComponent(Component,asyncCallback,[this,...deps]);
 			},
 			useEventListeners(handlers){
 				useEffect(()=>{
@@ -79,6 +84,15 @@ export const useAgent=(settings,deps)=>{
 		});
 		if(agent.init){agent.init(agent);}
 		if(agent.states){agent.stateSettings=agent.states;}
+		agent.$=new Proxy(agent,{
+			get(agent,prop){
+				if(agent.hasOwnProperty(prop)){return agent[prop];}
+				return agent.states[prop];
+			},
+			set(agent,prop,value){
+				agent.states[prop]=value;
+			}
+		});
 		return agent;
 	},deps);
 	
@@ -86,3 +100,5 @@ export const useAgent=(settings,deps)=>{
 	
 	return agent;
 }
+
+export const useAgentContext=()=>useContext(AgentContext);
