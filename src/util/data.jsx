@@ -65,7 +65,7 @@ export const deepMap=()=>{
 	const maps={};
 	const getMap=(keys,shift=0)=>{
 		const depth=keys.length+shift;
-		if(maps[depth]){maps[depth]=new Map;}
+		if(maps[depth]==null){maps[depth]=new Map;}
 		let currentMap=maps[depth];
 		for(const key of keys){
 			if(!currentMap.has(key)){
