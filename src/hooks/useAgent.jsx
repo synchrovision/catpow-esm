@@ -14,19 +14,19 @@ export const useAgent=(settings,deps)=>{
 		const chainedPromises=deepMap();
 		const agent=Object.assign(appBase(),(typeof settings==='function')?settings(...deps):settings,{
 			AgentProvider:({children})=>(<AgentContext.Provider value={agent}>{children}</AgentContext.Provider>),
-			sharePromise(callback,keys){
+			sharePromise(asyncCallback,keys){
 				if(!sharedPromises.has(keys)){
-					sharedPromises.set(keys,new Promise(callback));
+					sharedPromises.set(keys,asyncCallback(keys));
 				}
 				return sharedPromises.get(keys);
 			},
-			chainPromise(callback,keys,clearStuck){
+			chainPromise(asyncCallback,keys,clearStuck){
 				if(!chainedPromises.has(keys)){
 					chainedPromises.set(keys,{isPending:false,stuck:[]});
 				}
 				const data=chainedPromises.get(keys);
 				if(clearStuck){data.stuck=[];}
-				data.stuck.push(callback);
+				data.stuck.push(asyncCallback);
 				if(!data.isPending){
 					const step=async(prev)=>{
 						if(data.stuck.length===0){return data.isPending=false;}
