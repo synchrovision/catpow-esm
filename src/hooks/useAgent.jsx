@@ -91,6 +91,7 @@ export const useAgent=(settings,deps)=>{
 			},
 			set(agent,prop,value){
 				agent.states[prop]=value;
+				return true;
 			}
 		});
 		return agent;
