@@ -1,4 +1,6 @@
 ﻿import React from 'react';
+import ReactDOM from 'react-dom';
+
 export const Portal=(props)=>{
 	const {children,trace}=props;
 	const {render,useState,useMemo,useCallback,useEffect,useRef}=React;
