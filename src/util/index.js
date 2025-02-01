@@ -6,6 +6,7 @@ export * from './geom.jsx';
 export * from './buffer.jsx';
 
 export * from './string.jsx';
+export * from './rtf.jsx';
 export * from './dom.jsx';
 export * from './data.jsx';
 export * from './bem.jsx';
