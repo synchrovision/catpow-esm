@@ -42,7 +42,7 @@ const replaceBlockFormat=(text,pref, level = 0)=>{
 
 	const h='^'+(level>0?`([　\\t]{${level}})`:'()');
 	const t='(.+((\\n'+(level>0?'\\1':'')+'[　\\t]).+)*)$';
-	const c=level>0?" is-level-{$level}":'';
+	const c=level>0?` is-level-${level}`:'';
 	const l=level+4;
 	const p="$2\n";
 	const p2="$3\n";
