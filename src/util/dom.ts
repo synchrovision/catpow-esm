@@ -1,5 +1,5 @@
-export const el=(tag,props,children,namespace)=>{
-	const el=namespace?document.createElementNS(namespace,tag):document.createElement(tag);;
+export const el:(tag:string,props:object,children?:children,namespace?:string)=>Element=(tag,props,children,namespace)=>{
+	const el:Element=namespace?document.createElementNS(namespace,tag):document.createElement(tag);
 	const appendChild=(child)=>{
 		if(child==null){return;}
 		if(child instanceof Node){
@@ -24,3 +24,5 @@ export const el=(tag,props,children,namespace)=>{
 export const xhtmlEl=(tag,props,children)=>el(tag,props,children,'http://www.w3.org/1999/xhtml');
 export const svgEl=(tag,props,children)=>el(tag,props,children,'http://www.w3.org/2000/svg');
 export const mathEl=(tag,props,children)=>el(tag,props,children,'http://www.w3.org/1998/Math/MathML');
+
+type children=(Element|string|children)[];

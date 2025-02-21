@@ -7,7 +7,7 @@ export * from './buffer.jsx';
 
 export * from './string.jsx';
 export * from './rtf.jsx';
-export * from './dom.jsx';
+export * from './dom.ts';
 export * from './data.jsx';
 export * from './bem.jsx';
 export * from './calc.jsx';
