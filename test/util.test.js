@@ -17,10 +17,10 @@ describe('test util',()=>{
 		expect(classes.hoge._fuga('--active')).toBe('cp-test-hoge__fuga cp-test-hoge__fuga--active');
 	});
 	test('bemSelector',()=>{
-		const selector=bemSelector('cp-test');
-		expect(selector('.-block')).toBe('.cp-test-block');
-		expect(selector('._element')).toBe('.cp-test__element');
-		expect(selector('.-block > ._element')).toBe('.cp-test-block > .cp-test-block__element');
+		const sels=bemSelector('cp-test');
+		expect(sels('.-block')).toBe('.cp-test-block');
+		expect(sels('._element')).toBe('.cp-test__element');
+		expect(sels('.-block > ._element')).toBe('.cp-test-block > .cp-test-block__element');
 	});
 	test('calc',()=>{
 		expect(dataSizeStringToInt('1KB')).toBe(1024);
