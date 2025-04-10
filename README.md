@@ -4,6 +4,8 @@ Catpow ESM
 Index
 --
 
+### app
+[appBase](#appbase)
 ### component
 [renderComponents](#rendercomponents)
 [nl2br](#nl2br)
@@ -20,6 +22,7 @@ Index
 [Flux](#flux)
 [Star](#star)
 [SVG](#svg)
+[Bem](#bem)
 [Cloak](#cloak)
 [ElasticBox](#elasticbox)
 [Parallax](#parallax)
@@ -31,11 +34,19 @@ Index
 [TextBuild](#textbuild)
 [Transition](#transition)
 [Loop](#loop)
+### dom
+[divideText](#dividetext)
 ### graphic
 [honeycomb](#honeycomb)
 ### hooks
+[useAgent](#useagent)
+[useAgentContext](#useagentcontext)
+[useBem](#usebem)
+[useCache](#usecache)
 [useQuery](#usequery)
 [useTransition](#usetransition)
+[useLazyProvider](#uselazyprovider)
+[useLazyComponent](#uselazycomponent)
 ### ui
 [slider](#slider)
 [scrollsync](#scrollsync)
@@ -67,6 +78,10 @@ Index
 [camelToSnake](#cameltosnake)
 [kebabToCamel](#kebabtocamel)
 [snakeToCamel](#snaketocamel)
+[ucFirst](#ucfirst)
+[ucWords](#ucwords)
+[getCharCategory](#getcharcategory)
+[rtf](#rtf)
 [el](#el)
 [xhtmlEl](#xhtmlel)
 [svgEl](#svgel)
@@ -74,7 +89,9 @@ Index
 [getTreeData](#gettreedata)
 [getChildrensOfLevel](#getchildrensoflevel)
 [getItemsOfLevel](#getitemsoflevel)
+[deepMap](#deepmap)
 [bem](#bem)
+[bemSelector](#bemselector)
 [dataSizeStringToInt](#datasizestringtoint)
 [intToDataSizeString](#inttodatasizestring)
 [pfloor](#pfloor)
@@ -102,6 +119,13 @@ Index
 [range](#range)
 [waveFromBase36](#wavefrombase36)
 [sinWave](#sinwave)
+
+
+## app
+### appBase
+<small>app/appBase.jsx</small>
+
+
 
 
 ## component
@@ -223,6 +247,13 @@ props
 
 
 
+### Bem
+<small>component/Bem.jsx</small>
+#### Params
+
+
+
+
 ### Cloak
 <small>component/Cloak.jsx</small>
 #### Params
@@ -311,6 +342,16 @@ props
 
 
 
+## dom
+### divideText
+<small>dom/divideText.jsx</small>
+#### Params
+target
+param
+
+
+
+
 ## graphic
 ### honeycomb
 <small>graphic/honeycomb.js</small>
@@ -321,6 +362,38 @@ param
 
 
 ## hooks
+### useAgent
+<small>hooks/useAgent.jsx</small>
+#### Params
+settings
+deps
+
+
+
+
+### useAgentContext
+<small>hooks/useAgent.jsx</small>
+
+
+
+
+### useBem
+<small>hooks/useBem.jsx</small>
+#### Params
+prefix
+
+
+
+
+### useCache
+<small>hooks/useCache.jsx</small>
+#### Params
+callback
+args
+
+
+
+
 ### useQuery
 <small>hooks/useQuery.jsx</small>
 #### Params
@@ -333,6 +406,26 @@ uri
 <small>hooks/useTransition.jsx</small>
 #### Params
 isInitialActive
+
+
+
+
+### useLazyProvider
+<small>hooks/useLazyProvider.jsx</small>
+#### Params
+Context
+callback
+args
+
+
+
+
+### useLazyComponent
+<small>hooks/useLazyComponent.jsx</small>
+#### Params
+Component
+asyncCallback
+args
 
 
 
@@ -586,8 +679,41 @@ str
 
 
 
+### ucFirst
+<small>util/string.jsx</small>
+#### Params
+str
+
+
+
+
+### ucWords
+<small>util/string.jsx</small>
+#### Params
+str
+
+
+
+
+### getCharCategory
+<small>util/string.jsx</small>
+#### Params
+chr
+
+
+
+
+### rtf
+<small>util/rtf.jsx</small>
+#### Params
+text
+pref
+
+
+
+
 ### el
-<small>util/dom.jsx</small>
+<small>util/dom.ts</small>
 #### Params
 tag
 props
@@ -598,7 +724,7 @@ namespace
 
 
 ### xhtmlEl
-<small>util/dom.jsx</small>
+<small>util/dom.ts</small>
 #### Params
 tag
 props
@@ -608,7 +734,7 @@ children
 
 
 ### svgEl
-<small>util/dom.jsx</small>
+<small>util/dom.ts</small>
 #### Params
 tag
 props
@@ -618,7 +744,7 @@ children
 
 
 ### mathEl
-<small>util/dom.jsx</small>
+<small>util/dom.ts</small>
 #### Params
 tag
 props
@@ -653,7 +779,21 @@ level
 
 
 
+### deepMap
+<small>util/data.jsx</small>
+
+
+
+
 ### bem
+<small>util/bem.jsx</small>
+#### Params
+className
+
+
+
+
+### bemSelector
 <small>util/bem.jsx</small>
 #### Params
 className
