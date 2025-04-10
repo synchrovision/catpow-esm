@@ -1,47 +1,47 @@
 {
-  "name": "catpow",
-  "version": "1.1.0",
-  "type": "module",
-  "description": "Various mudule package.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/synchrovision/catpow-esm.git"
-  },
-  "keywords": [
-    "dom",
-    "bem",
-    "react",
-    "hooks",
-    "slider",
-    "animation",
-    "easing",
-    "color",
-    "convert"
-  ],
-  "author": "synchrovision",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/synchrovision/catpow-esm/issues"
-  },
-  "homepage": "https://github.com/synchrovision/catpow-esm#readme",
-  "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/jest": "^29.5.14",
-    "esbuild": "^0.24.0",
-    "esbuild-jest": "^0.5.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.2.6"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  }
+	"name": "catpow",
+	"version": "1.1.0",
+	"type": "module",
+	"description": "Various mudule package.",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/synchrovision/catpow-esm.git"
+	},
+	"keywords": [
+		"dom",
+		"bem",
+		"react",
+		"hooks",
+		"slider",
+		"animation",
+		"easing",
+		"color",
+		"convert"
+	],
+	"author": "synchrovision",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/synchrovision/catpow-esm/issues"
+	},
+	"homepage": "https://github.com/synchrovision/catpow-esm#readme",
+	"devDependencies": {
+		"@testing-library/dom": "^10.4.0",
+		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/react": "^16.1.0",
+		"@testing-library/user-event": "^14.5.2",
+		"@types/jest": "^29.5.14",
+		"esbuild": "^0.24.0",
+		"esbuild-jest": "^0.5.0",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
+		"ts-jest": "^29.2.6"
+	},
+	"dependencies": {
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	}
 }
