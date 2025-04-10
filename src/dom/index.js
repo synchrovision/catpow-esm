@@ -1,1 +1,1 @@
-export * from './divideText.jsx';
+export * from "./divideText.jsx";

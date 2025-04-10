@@ -1,23 +1,25 @@
-﻿import React from 'react';
+﻿import React from "react";
 
-export const SVG=(props)=>{
-	const {className="cp-svg",width=1200,height=400,colors,children,...otherProps}=props
-	const {useState,useMemo,useCallback,useEffect,useRef,useReducer}=React;
-	
-	const {Colors,Screen}=useMemo(()=>{
-		['Colors','Screen'].forEach((contextName)=>{
-			if(undefined===SVG[contextName]){
-				SVG[contextName]=React.createContext({});
+export const SVG = (props) => {
+	const { className = "cp-svg", width = 1200, height = 400, colors, children, ...otherProps } = props;
+	const { useState, useMemo, useCallback, useEffect, useRef, useReducer } = React;
+
+	const { Colors, Screen } = useMemo(() => {
+		["Colors", "Screen"].forEach((contextName) => {
+			if (undefined === SVG[contextName]) {
+				SVG[contextName] = React.createContext({});
 			}
 		});
 		return SVG;
-	},[]);
-	const ColorsValue=useMemo(()=>{
-		if(undefined!==colors){return colors;}
-		return {h:20,s:80,l:80};
-	},[colors]);
-	const ScreenValue=useMemo(()=>({width,height}),[width,height]);
-	
+	}, []);
+	const ColorsValue = useMemo(() => {
+		if (undefined !== colors) {
+			return colors;
+		}
+		return { h: 20, s: 80, l: 80 };
+	}, [colors]);
+	const ScreenValue = useMemo(() => ({ width, height }), [width, height]);
+
 	return (
 		<Colors.Provider value={ColorsValue}>
 			<Screen.Provider value={ScreenValue}>
@@ -27,4 +29,4 @@ export const SVG=(props)=>{
 			</Screen.Provider>
 		</Colors.Provider>
 	);
-}
+};

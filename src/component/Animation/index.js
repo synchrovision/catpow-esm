@@ -1,2 +1,2 @@
-export * from './Animation.jsx';
-export * from './MosaicWave.jsx';
+export * from "./Animation.jsx";
+export * from "./MosaicWave.jsx";

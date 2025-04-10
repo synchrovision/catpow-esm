@@ -1,24 +1,25 @@
-import React from 'react';
+import React from "react";
 
-const cache={};
-export const useQuery=(uri)=>{
-	const {useState,useEffect,useRef}=React;
-	const [data,setData]=useState(false);
-	const [isPending,setIsPending]=useState(true);
-	
-	useEffect(()=>{
-		if(cache.hasOwnProperty(uri)){
+const cache = {};
+export const useQuery = (uri) => {
+	const { useState, useEffect, useRef } = React;
+	const [data, setData] = useState(false);
+	const [isPending, setIsPending] = useState(true);
+
+	useEffect(() => {
+		if (cache.hasOwnProperty(uri)) {
 			setData(cache[uri]);
 			setIsPending(false);
-		}
-		else{
+		} else {
 			setIsPending(true);
-			fetch(uri).then((res)=>res.json()).then((data)=>{
-				cache[uri]=data;
-				setData(data);
-				setIsPending(false);
-			})
+			fetch(uri)
+				.then((res) => res.json())
+				.then((data) => {
+					cache[uri] = data;
+					setData(data);
+					setIsPending(false);
+				});
 		}
-	},[uri]);
-	return [data,isPending];
-}
+	}, [uri]);
+	return [data, isPending];
+};
