@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"jsx": "react",
+		"baseUrl": "./",
+		"lib": ["ESNext"],
+		"types": ["jest", "jsdom"],
+		"paths": {
+			"catpow/*": ["./src/*"]
+		}
+	}
+}
