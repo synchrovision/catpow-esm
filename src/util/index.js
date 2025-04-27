@@ -17,3 +17,5 @@ export * from "./observer.jsx";
 export * from "./color.jsx";
 export * from "./array.jsx";
 export * from "./wave.jsx";
+
+export * from "./statistics.jsx";
