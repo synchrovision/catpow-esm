@@ -15,7 +15,10 @@ import {
 	hslToHex,
 	hexToHsb,
 	hsbToHex,
-	colorToHsla, //color
+	colorToHsla, //color,
+	getExpectedCtr,
+	getCtrScore,
+	getWilsonScoreInterval,
 } from "catpow/util";
 
 describe("test util", () => {
@@ -59,5 +62,21 @@ describe("test util", () => {
 		expect(rgbToHex({ r: 255, g: 0, b: 0 })).toBe("#ff0000");
 		expect(hexToHsl("#FF0000")).toEqual({ h: 0, s: 100, l: 50 });
 		expect(hexToHsl("#FFFFFF")).toEqual({ h: 0, s: 0, l: 100 });
+	});
+	test("statistics", () => {
+		expect(getExpectedCtr(1)).toBeCloseTo(0.3);
+		expect(getExpectedCtr(2)).toBeCloseTo(0.17);
+		expect(getExpectedCtr(3)).toBeCloseTo(0.12);
+		expect(getExpectedCtr(4)).toBeCloseTo(0.1);
+		expect(getCtrScore(1, 1000, 500)).toEqual(2);
+		expect(getCtrScore(1, 1000, 400)).toEqual(1);
+		expect(getCtrScore(1, 1000, 300)).toEqual(0);
+		expect(getCtrScore(1, 1000, 200)).toEqual(-1);
+		expect(getCtrScore(1, 1000, 100)).toEqual(-2);
+		expect(getCtrScore(1, 100, 40)).toEqual(0);
+		expect(getCtrScore(1, 100, 30)).toEqual(0);
+		expect(getCtrScore(1, 100, 20)).toEqual(0);
+		expect(getCtrScore(1, 10, 4)).toEqual(0);
+		expect(getCtrScore(1, 10, 1)).toEqual(0);
 	});
 });
