@@ -30,7 +30,7 @@ const applyBem = (component, { ...ctx }) => {
 			})
 			.join(" ");
 		if (component.props.className === className) {
-			const matches = className.match(/\b((\w+)\-\w+(\-\w+)*)(__\w+(\-\w+)*)?\b/);
+			const matches = className.match(/\b(([a-z]+)\-[a-z]+(\-[a-z]+)*)(__[a-z]+(\-[a-z]+)*)?\b/);
 			if (!matches) {
 				return;
 			}
