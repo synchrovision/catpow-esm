@@ -4,6 +4,33 @@
 	"type": "module",
 	"description": "Various mudule package.",
 	"main": "src/index.js",
+	"exports": {
+		".": {
+			"import": "./src/index.js"
+		},
+		"./app": {
+			"import": "./src/app/index.js"
+		},
+		"./component": {
+			"import": "./src/component/index.js"
+		},
+		"./graphic": {
+			"import": "./src/graphic/index.js"
+		},
+		"./hooks": {
+			"import": "./src/hooks/index.js"
+		},
+		"./script": {
+			"import": "./src/script/index.js"
+		},
+		"./ui": {
+			"import": "./src/ui/index.js"
+		},
+		"./util": {
+			"import": "./src/util/index.js"
+		},
+		"./package.json": "./package.json"
+	},
 	"scripts": {
 		"test": "jest"
 	},
