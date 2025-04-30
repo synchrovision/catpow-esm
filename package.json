@@ -1,6 +1,6 @@
 {
 	"name": "catpow",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"type": "module",
 	"description": "Various mudule package.",
 	"main": "src/index.js",
