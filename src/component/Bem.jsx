@@ -1,6 +1,9 @@
 ﻿import React from "react";
 
 const applyBem = (component, { ...ctx }) => {
+	if (component == null || component.props == null) {
+		return;
+	}
 	const {
 		props: { className, children },
 	} = component;
