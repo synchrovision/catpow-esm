@@ -1,6 +1,12 @@
 ﻿import React from "react";
 
 const applyBem = (component, { ...ctx }) => {
+	if (Array.isArray(component)) {
+		component.forEach((child) => {
+			applyBem(child, ctx);
+		});
+		return;
+	}
 	if (component == null || component.props == null) {
 		return;
 	}
@@ -57,12 +63,6 @@ const applyBem = (component, { ...ctx }) => {
 
 export const Bem = ({ prefix = "cp", block, element, children }) => {
 	const ctx = { prefix, block, element };
-	if (Array.isArray(children)) {
-		children.forEach((child) => {
-			applyBem(child, ctx);
-		});
-	} else {
-		applyBem(children, ctx);
-	}
+	applyBem(children, ctx);
 	return <>{children}</>;
 };
