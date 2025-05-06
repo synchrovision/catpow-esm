@@ -29,6 +29,12 @@
 		"./util": {
 			"import": "./src/util/index.js"
 		},
+		"./scss": {
+			"import": "./scss/_index.scss"
+		},
+		"./scss/*": {
+			"import": "./scss/*.scss"
+		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {

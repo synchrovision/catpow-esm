@@ -1,0 +1,44 @@
+@use "_basic.scss" as *;
+
+@mixin svg($svg){
+	$keys:(
+		c:color,
+		f:fill,fo:fill-opacity,
+		s:stroke,w:stroke-width,so:stroke-opacity,
+		sda:stroke-dasharray,sdo:stroke-dashoffset,
+		slc:stroke-linecap,slj:stroke-linejoin,
+		sml:stroke-miterlimit,
+		sc:stop-color,
+		ta:text-anchor,
+		db:dominant-baseline,
+		po:paint-order
+	);
+	$cvals:(m:square,b:butt,r:round);
+	$jvals:(m:miter,b:bevel,r:round);
+	$tavals:(l:start,c:middle,r:end);
+	$dbvals:(t:baseline,m:middle,b:hanging);
+	$povals:(s:stroke,f:fill,m:markers);
+	@each $key,$val in $svg{
+		@if $key == c or $key == f or $key == s or $key == sc{$val:clr($val);}
+		@if $key == w{$val:sz($val);}
+		@if $key == ta{$val:replace_values($val,$tavals);}
+		@if $key == db{$val:replace_values($val,$dbvals);}
+		@if $key == po{$val:replace_values($val,$povals);}
+		@if $key == slc{$val:replace_values($val,$cvals);}
+		@if $key == slj{$val:replace_values($val,$jvals);}
+		@if $key == e{
+			stroke-linecap:replace_values($val,$cvals);
+			stroke-linejoin:replace_values($val,$jvals);
+		}
+		@if $key == d{
+			@if type-of($val) =='list' and type-of(nth($val,1)) == 'list'{
+				stroke-dasharray:nth($val,1);
+				stroke-dashoffset:nth($val,2);
+			}
+			@else{
+				stroke-dasharray:$val;
+			}
+		}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+	}
+}

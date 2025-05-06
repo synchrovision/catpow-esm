@@ -1,0 +1,21 @@
+@use "_basic.scss" as *;
+
+@mixin bp($bp){
+	@if global-variable-exists("breakpoints") and type-of($breakpoints) == 'map' {
+		@if map-has-key($breakpoints,$bp){$bp:map-get($breakpoints,$bp);}
+	}
+	@if type-of($bp) == 'number'{
+		@if unitless($bp){
+			$bp:$bp * 1px;
+		}
+		@if $bp < 0{
+			$bp:'max-width:' + abs($bp);
+		}
+		@else if $bp > 0{
+			$bp:'min-width:' + $bp;
+		}
+	}
+	@media(#{$bp}){
+		@content;
+	}
+}

@@ -1,0 +1,66 @@
+@use "_basic.scss" as *;
+
+@mixin ctn($cnd){
+	@if type-of($cnd) == 'list'{
+		@for $i from 1 through length($cnd) {
+			$c:nth($cnd,$i);
+			@if type-of($c) == 'number'{
+				$c:sz($c);
+				@if $c < 0{
+					$c:'(width < ' + abs($c) + ')';
+				}
+				@else if $c > 0{
+					$c:'(width > ' + $c + ')';
+				}
+			}
+			$cnd:set-nth($cnd,$i,$c);
+		}
+	}
+	@else if type-of($cnd) == 'map'{
+		$keys:(w:width,h:height,a:aspect-ratio,o:orientation);
+		$ovals:(l:landscape,p:portrait);
+		$map:$cnd;
+		$ctn:'';
+		$cnd:'';
+		@each $key,$val in $map{
+			@if $key == c{$ctn:$val + ' ';}
+			@else if $key == h or $key == w or $key == a or $key == o{
+				$op:'';
+				@if $key == o{
+					$val:replace_values($val,$ovals);
+				}
+				@else if type-of($val) == 'number'{
+					@if($key == h or $key == w){
+						$val:sz($val);
+					}
+					@if $val < 0{
+						$op:' < ';
+						$val:abs($val);
+					}
+					@else{
+						$op:' > ';
+					}
+				}
+				@if $cnd == ''{
+					$cnd:'(' + map-get($keys,$key) + $op + $val + ')';
+				}
+				@else{
+					$cnd:$cnd + ' and (' + map-get($keys,$key) + $op + $val + ')';
+				}
+			}
+		}
+		$cnd:$ctn + $cnd;
+	}
+	@else if type-of($cnd) == 'number'{
+		$cnd:sz($cnd);
+		@if $cnd < 0{
+			$cnd:'(width < ' + abs($cnd) + ')';
+		}
+		@else if $cnd > 0{
+			$cnd:'(width > ' + $cnd + ')';
+		}
+	}
+	@container #{$cnd} {
+		&{@content;}
+	}
+}

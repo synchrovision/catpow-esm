@@ -1,0 +1,239 @@
+@use 'sass:color';
+@use 'sass:string';
+@use 'config' as *;
+
+@mixin default_break(){
+	*{margin:0;padding:0;background:transparent;text-decoration:none;font-style:normal;}
+	img{vertical-align:bottom;border:none;}
+	html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+}
+@mixin hide_scrollbar(){
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar{
+		display:none;
+	}
+}
+@function tint($color,$tint,$alpha:false){
+	@if type-of($color) =='list'{
+		$a:false;
+		$t:100;
+		@if length($color) >2{$a:nth($color,3);}
+		@if length($color) >1{$t:nth($color,2);@if $t <= 1{$t:$t*100};}
+		$t:$t * $tint / 100;
+		$c:nth($color,1);
+		@if type-of($alpha) == 'number'{
+			@if type-of($a) == 'number'{
+				$a:$a * $alpha;
+			}
+			@else{
+				$a:$alpha;
+			}
+		}
+		@return clr(($c,$t,$a));
+	}
+	$tint:$tint*0.01;$ff:255;
+	$r:$ff+$tint*(red($color)-$ff);
+	$g:$ff+$tint*(green($color)-$ff);
+	$b:$ff+$tint*(blue($color)-$ff);
+	@if $r<0{$r:0}
+	@if $g<0{$g:0}
+	@if $b<0{$b:0}
+	@return rgb($r,$g,$b);
+}
+
+@function ease($ease){
+	@if $ease == l{$ease:linear;}
+	@if $ease == e{$ease:ease;}
+	@if $ease == i{$ease:ease-in;}
+	@if $ease == o{$ease:ease-out;}
+	@if $ease == io{$ease:ease-in-out;}
+	
+	@if $ease == ib{$ease:cubic-bezier(0.6,0.3,0.8,-1.0);}
+	@if $ease == b or $ease == ob{$ease:cubic-bezier(0.2,2.0,0.4,0.7);}
+	@if $ease == iob{$ease:cubic-bezier(0.3,-0.5,0.7,1.5);}
+	
+	@if $ease == ij{$ease:cubic-bezier(0.2,-10.0,0.8,-10.0);}
+	@if $ease == j or $ease == oj{$ease:cubic-bezier(0.2,10.0,0.8,10.0);}
+	@if $ease == ioj{$ease:cubic-bezier(0.2,-10.0,0.8,10.0);}
+	
+	@if $ease == u{$ease:cubic-bezier(0,.8,1,.2);}
+	
+	@return $ease;
+}
+
+@function replace_values($vals,$dct){
+	@if type-of($vals) == 'list' or type-of($vals) == 'arglist'{
+		@for $i from 1 through length($vals){
+			$v:nth($vals,$i);
+			@if type-of($v) == 'list'{$vals:set-nth($vals,$i,replace_values($v,$dct));}
+			@else if map-has-key($dct,$v){$vals:set-nth($vals,$i,map-get($dct,$v));}
+		}
+		@return $vals;
+	}
+	@else{
+		@if map-has-key($dct,$vals){@return map-get($dct,$vals);}
+		@else{@return $vals;}
+	}
+}
+
+@function fill_4_values($vals){
+	@if type-of($vals) == 'list' or type-of($vals) == 'arglist'{
+		@if length($vals) == 1{
+			$v:nth($vals,1);
+			@return ($v,$v,$v,$v);
+		}
+		@if length($vals) == 2{
+			$v1:nth($vals,1);
+			$v2:nth($vals,2);
+			@return ($v1,$v2,$v1,$v2);
+		}
+		@if length($vals) == 3{
+			$v1:nth($vals,1);
+			$v2:nth($vals,2);
+			$v3:nth($vals,3);
+			@return ($v1,$v2,$v3,$v2);
+		}
+		@return $vals;
+	}
+	@else{
+		@return ($vals,$vals,$vals,$vals);
+	}
+}
+@function img($img){
+	@if $img == n{@return none;}
+	@if type-of($img) == 'string' and str-index($img,'var(') == 1{
+		@return $img;
+	}
+	$clr:false;
+	@if type-of($img) == 'list' {
+		$clr:clr(nth($img,2));
+		@if(str-slice($clr,0,1) == '#'){
+			$clr:'%23' + str-slice($clr,1);
+		}
+		$img:nth($img,1);
+	}
+	@if global-variable-exists("images") and type-of($images) == 'map' {
+		@if map-has-key($images,$img){$img:map-get($images,$img);}
+	}
+	@if $clr{
+		$img:$img + '?color=' + $clr;
+	}
+	@return url($img);
+}
+
+
+@function sel($sels){
+	@if global-variable-exists("selectors") and type-of($selectors) == 'map' {
+		@if type-of($sels) == 'list' {
+			$rtn:false;
+			@each $sel in $sels{
+				@if $rtn == false{$rtn:map-get($selectors,$sel);}
+				@else {$rtn:$rtn + ',' + map-get($selectors,$sel);}
+			}
+			@return $rtn;
+		}
+		@if map-has-key($selectors,$sels){@return map-get($selectors,$sels);}
+	}
+	@return $sels;
+}
+@function clr($clr){
+	@if type-of($clr) == 'color'{@return $clr;}
+	@if $clr == n{@return transparent;}
+	$alpha:false;
+	$tint:false;
+	@if type-of($clr) =='list'{
+		@if length($clr) >2{$alpha:nth($clr,3);}
+		@if length($clr) >1{$tint:nth($clr,2);@if type-of($tint) == 'number' and $tint <= 1{$tint:$tint*100};}
+		$clr:nth($clr,1);
+	}
+	@if string.index($clr,'-') != null{
+		$list:string.split($clr,'-');
+		$c1:nth($list,1);
+		$c2:nth($list,2) + 0;
+		@if type-of($tint) != 'number'{$tint:50%;}
+		@if global-variable-exists("colors") and type-of($colors) == 'map'{
+			@if map-has-key($colors, $c1){$c1:map-get($colors,$c1);}
+			@if map-has-key($colors, $c2){$c2:map-get($colors,$c2);}
+		}
+		$clr:color.mix($c1,$c2,$weight:$tint);
+		$tint:false;
+	}
+	@if global-variable-exists("colors") and type-of($colors) == 'map' and map-has-key($colors,$clr){
+		$clr:map-get($colors,$clr);
+	}
+	@if type-of($tint) == 'number'{$clr:tint($clr,$tint);}
+	@if type-of($alpha) == 'number'{$clr:color.scale($clr,$alpha:$alpha);}
+	@return $clr;
+}
+@function sz($val){
+	@if global-variable-exists("sizes") and type-of($sizes) == 'map' {
+		@if map-has-key($sizes,$val){$val:map-get($sizes,$val);}
+	}
+	@else if function-exists('translate_size') {
+		$size:translate_size($val);
+		@if($size != false){$val:$size;}
+	}
+	$svals:(
+		f:100%,a:auto,i:inherit,
+		min:min-content,max:max-content,
+		fit:fit-content,
+		siat:env(safe-area-inset-top),
+		saib:env(safe-area-inset-bottom)
+	);
+	@if map-has-key($svals,$val){@return map-get($svals,$val);}
+	@if type-of($val) == 'number' and unitless($val){
+		@if global-variable-exists("size-unit"){@return $val*$size-unit;}
+		@return $val * 1px;
+	}
+	@return $val;
+}
+@function szs($vals){
+	@if type-of($vals) == 'list'{
+		$rtn:false;
+		@each $v in $vals{
+			@if type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
+			@else if $rtn == false{$rtn:sz($v);}
+			@else {$rtn:$rtn sz($v);}
+		}
+		@return $rtn;
+	}
+	@else{
+		@return sz($vals);
+	}
+}
+@function wt($val){
+	@if global-variable-exists("weights") and type-of($weights) == 'map' {
+		@if map-has-key($weights,$val){$val:map-get($weights,$val);}
+	}
+	@else if function-exists('translate_weight') {
+		$weight:translate_weight($val);
+		@if($weight != false){$val:$weight;}
+	}
+	$wvals:(t:100,e:200,l:300,r:400,m:500,d:600,b:700,u:800,h:900);
+	@if map-has-key($wvals,$val){@return map-get($wvals,$val);}
+	@return $val;
+}
+@function fnt($fnt){
+	@if global-variable-exists("fonts") and type-of($fonts) == 'map' and map-has-key($fonts,$fnt){
+		$fnt:map-get($fonts,$fnt);
+	}
+	@else if function-exists('translate_font') {
+		$font:translate_font($fnt);
+		@if $font{@return $font;}
+	}
+	@return $fnt;
+}
+@function slice($list,$start:1,$end:length($list)){
+	$rtn:();
+	@if $start < 0 {
+		$start: length($list) + $start;
+	}
+	@if $end < 1 {
+		$end: length($list) + $end;
+	}
+	@for $i from $start through $end {
+		$rtn:append($rtn,nth($list,$i));
+	}
+	@return $rtn;
+}

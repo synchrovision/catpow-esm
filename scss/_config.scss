@@ -1,0 +1,19 @@
+$size-unit:0.0625rem !default;
+$colors:(
+	b:#fff,
+	s:#eee,
+	m:#234,
+	a:#08c,
+	t:#1a1e23,
+	i:#fff,
+	shd:rgba(0,0,0,.2),
+	sh:rgba(0,0,0,.1),
+) !default;
+$breakpoints:(
+	pc:'min-width:960px',
+	-pc:'max-width:959px',
+	tb:'max-width:959px and min-width:480px',
+	-tb:'min-width:960px or max-width:479px',
+	sp:'max-width:479px',
+	-sp:'min-width:480px',
+) !default;

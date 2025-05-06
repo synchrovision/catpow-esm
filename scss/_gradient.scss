@@ -1,0 +1,53 @@
+@use "_basic.scss" as *;
+
+@mixin gradient($colorA:#666,$colorB:#888,$orientation:vertical){
+	@if($orientation==vertical or $orientation==v){
+		@include linear-gradient(180deg,$colorA,$colorB);
+	}@else if($orientation==horizontal or $orientation==h){
+		@include linear-gradient(90deg,$colorA,$colorB);
+	}@else if($orientation==radial or $orientation==r){
+		background-image:radial-gradient($colorA,$colorB);
+	}
+}
+@mixin linear-gradient($deg,$colors...){
+	$drc:false;
+	$drcs:(0deg:top,90deg:left,180deg:bottom,270deg:right);
+	@if(map-has-key($drcs,$deg)){$drc:map-get($drcs,$deg);}
+	@else{$drc:top;}
+	background-image: -webkit-linear-gradient($drc,$colors);
+	background-image:    -moz-linear-gradient($drc,$colors);
+	background-image:     -ms-linear-gradient($drc,$colors);
+	background-image:      -o-linear-gradient($drc,$colors);
+	background-image:         linear-gradient($deg,$colors);
+}
+@mixin radial-gradient($prm,$colors){
+	background-image: -webkit-radial-gradient($prm,$colors);
+	background-image:    -moz-radial-gradient($prm,$colors);
+	background-image:     -ms-radial-gradient($prm,$colors);
+	background-image:      -o-radial-gradient($prm,$colors);
+	background-image:         radial-gradient($prm,$colors);
+	
+}
+@mixin shade($color:#fff,$contrust:8){
+	$color:clr($color);
+	@include linear-gradient(180deg,clr($color),tint($color,100 + $contrust));
+}
+@mixin glass($color:#666,$contrust:40){
+	$color:clr($color);
+	@include linear-gradient(180deg,
+		tint($color,100-$contrust),
+		tint($color,100-$contrust/2) 49%,
+		clr($color) 50%,
+		tint($color,100-$contrust/2)
+	);
+}
+
+@mixin mist($color:#fff,$min:0.4,$max:0.8,$deg:90deg){
+	$color:clr($color);
+	@include linear-gradient($deg,tint($color,1,$max),tint($color,1,$min),tint($color,1,$max));
+}
+@mixin stripe($color1,$color2:transparent,$deg:0deg,$width:50){
+	$color1:clr($color1);
+	$color2:clr($color2);
+	@include linear-gradient($deg,$color1,$color1 $width * 1%,$color2 $width * 1% + .1%,$color2);
+}

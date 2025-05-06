@@ -1,0 +1,199 @@
+@use "_basic.scss" as *;
+
+@mixin bnd($bnd){
+	$keys:(
+		d:display,p:position,w:width,h:height,v:visibility,
+		l:left,r:right,t:top,b:bottom,i:inset,
+		x:left,y:bottom,z:z-index,
+		pd:padding,mg:margin,
+		pdt:padding-top,mgt:margin-top,
+		pdb:padding-bottom,mgb:margin-bottom,
+		pdl:padding-left,mgl:margin-left,
+		pdr:padding-right,mgr:margin-right,
+		pdi:padding-inline,mgi:margin-inline,
+		bs:box-sizing,fl:float,cl:clear,
+		bi:break-inside,
+		pbb:page-break-before,
+		pbi:page-break-inside,
+		pba:page-break-after,
+		o:overflow,ox:overflow-x,oy:overflow-y,
+		of:object-fit,op:object-position,
+		a:aspect-ratio,
+		as:align-self,
+		ac:align-content,
+		g:gap,
+		ga:grid-area,
+		gr:grid-row,grs:grid-row-start,gre:grid-row-end,
+		gc:grid-column,gcs:grid-column-start,gce:grid-column-end,
+		nth:order,
+		sss:scroll-snap-stop,ssa:scroll-snap-align,sst:scroll-snap-type,
+		spd:scroll-padding,smg:scroll-margin,
+		spdt:scroll-padding-top,smgt:scroll-margin-top,
+		spdb:scroll-padding-bottom,smgb:scroll-margin-bottom,
+		spdl:scroll-padding-left,smgl:scroll-margin-left,
+		spdr:scroll-padding-right,smgr:scroll-margin-right,
+		sb:scroll-behavior
+	);
+	$dvals:(
+		b:block,ib:inline-block,
+		f:flex,if:inline-flex,
+		g:grid,
+		c:contents,
+		i:inline,
+		t:table,it:inline-table,
+		th:table-header-group,
+		tb:table-row-group,
+		tf:table-footer-group,
+		tr:table-row,tc:table-cell,
+		li:list-item,
+		n:none
+	);
+	$vvals:(
+		v:visible,
+		h:hidden,
+		c:collapse
+	);
+	$pvals:(n:static,r:relative,a:absolute,f:fixed,s:sticky);
+	$bsvals:(b:border-box,c:content-box);
+	$ovals:(v:visible,h:hidden,c:clip,s:scroll,a:auto);
+	$flvals:(l:left,r:right,n:none);
+	$clvals:(l:left,r:right,b:both);
+	$apvals:(n:none,b:button);
+	$bivals:(n:auto,a:avoid,b:always,p:avoid-page,c:avoid-column);
+	$ofvals:(f:fill,c:cover,i:contain,cvr:cover,cnt:contain,sd:scale-down);
+	$avals:(a:auto,v:'4 / 3',h:'16 / 9');
+	$asvals:(f:stretch,c:center,e:flex-end,s:flex-start);
+	$acvals:(f:stretch,c:center,e:end,s:start,fe:flex-end,fs:flex-start,n:normal,b:baseline,sb:space-between,sa:space-around);
+	$opvals:(c:center);
+	$sssvals:(n:normal,a:always);
+	$ssavals:(n:none,s:start,e:end,c:center);
+	$sstvals:(n:none,m:mandatory,p:proximity);
+	$sbvals:(a:auto,s:smooth);
+	$ctnvals:(s:size,i:inline-size,n:normal);
+	
+	$abstractSize:(auto,min-content,max-content,fit-content);
+	@each $key,$val in $bnd{
+		@if $key == p{$val:map-get($pvals,$val);}
+		@if $key == d{$val:map-get($dvals,$val);}
+		@if $key == v{$val:map-get($vvals,$val);}
+		@if $key == fl{$val:map-get($flvals,$val);}
+		@if $key == cl{$val:map-get($clvals,$val);}
+		@if $key == bs{$val:map-get($bsvals,$val);}
+		@if $key == bi or $key == pbb or $key == pbi or $key == pba
+			{$val:map-get($bivals,$val);}
+		@if $key == w or $key == h or $key == x or $key == y or $key == g or 
+			$key == l or $key == r or $key == t or $key == b or $key == i or 
+			$key == pd or $key == mg or
+			$key == pdt or $key == mgt or
+			$key == pdb or $key == mgb or
+			$key == pdl or $key == mgl or
+			$key == pdr or $key == mgr or
+			$key == pdi or $key == mgi or
+			$key == spd or $key == smg or
+			$key == spdt or $key == smgt or
+			$key == spdb or $key == smgb or
+			$key == spdl or $key == smgl or
+			$key == spdr or $key == smgr
+			{$val:szs($val);}
+		@if $key == i{
+			$vals:fill_4_values($val);
+			top:nth($vals,1);
+			right:nth($vals,2);
+			bottom:nth($vals,3);
+			left:nth($vals,4);
+		}
+		@if $key == w or $key == h{
+			@if type-of($val) == 'list'{
+				@if length($val) == 2{
+					@if (
+						type-of(nth($val,1)) != 'number' or
+						(
+							type-of(nth($val,1)) == 'number' and
+							index(('%','vw','vh','vmax','vmin'),unit(nth($val,1))) != null and
+							type-of(nth($val,2)) == 'number'
+						)
+					){
+						max-#{map-get($keys,$key)}:nth($val,2);
+						$val:nth($val,1);
+					}
+					@else{
+						min-#{map-get($keys,$key)}:nth($val,1);
+						$val:nth($val,2);
+					}
+				}
+				@else{
+					min-#{map-get($keys,$key)}:nth($val,1);
+					max-#{map-get($keys,$key)}:nth($val,3);
+					$val:nth($val,2);
+				}
+			}
+		}
+		@if $key == o or $key == ox or $key == oy{$val:map-get($ovals,$val);}
+		@if $key == of{$val:map-get($ofvals,$val);}
+		@if $key == op{$val:replace_values($val,$opvals);}
+		@if $key == f{
+			@if type-of($val) == 'list'{
+				-webkit-box-flex:nth($val,1);
+				flex-grow:nth($val,1);
+				flex-shrink: nth($val,2);
+				@if length($val) > 2{
+					flex-basis:sz(nth($val,3));
+				}
+				@if length($val) > 3{
+					-webkit-order:nth($val,4);
+					order:nth($val,4);
+				}
+			}
+			@else{
+				@if unitless($val){
+					-webkit-box-flex:$val;
+					flex-grow:$val;
+					flex-shrink:$val;
+					flex-basis:$val + px;
+				}
+				@else{
+					flex-basis:$val;
+				}
+			}
+		}
+		@if $key == c{
+			@if(is-unitless($val) and $val > 20){$val:szs($val);}
+			-webkit-columns:$val;
+			   -moz-columns:$val;
+					columns:$val;
+		}
+		@if $key == ap{
+			$val:replace_values($val,$apvals);
+			-webkit-appearance:$val;
+			   -moz-appearance:$val;
+					appearance:$val;
+		}
+		@if $key == as{$val:map-get($asvals,$val);}
+		@if $key == ac{$val:map-get($acvals,$val);}
+		@if $key == sss{$val:replace_values($val,$sssvals);}
+		@if $key == ssa{$val:replace_values($val,$ssavals);}
+		@if $key == sst{$val:replace_values($val,$sstvals);}
+		@if $key == sb{$val:replace_values($val,$sbvals);}
+		@if $key == ctn{
+			@if type-of($val) == 'list' {
+				@each $v in $val{
+					@if map-has-key($ctnvals,$v){
+						container-type:map-get($ctnvals,$v);
+					}
+					@else{
+						container-name:$v;
+					}
+				}
+			}
+			@else{
+				@if map-has-key($ctnvals,$val){
+					container-type:map-get($ctnvals,$val);
+				}
+				@else{
+					container-name:$val;
+				}
+			}
+		}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:#{$val};}
+	}
+}

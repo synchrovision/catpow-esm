@@ -1,0 +1,22 @@
+@use "_basic.scss" as *;
+
+@mixin msk($msk){
+	$keys:(i:mask-image,b:mask-border,m:mask-mode,c:mask-composite,p:mask-position,r:mask-repeat,s:mask-size);
+	$mvals:(a:alpha,l:luminance,m:match-source);
+	$cvals:(a:add,s:intersect,i:intersect,e:exclude);
+	$pvals:(l:left,c:center,r:right,t:top,b:bottom);
+	$rvals:(x:repeat-x,y:repeat-y,s:space,r:round,n:no-repeat);
+	$svals:(i:contain,c:cover);
+	@each $key,$val in $msk{
+		@if $key == i{$val:img($val);}
+		@if $key == m{$val:replace_values($val,$mvals);}
+		@if $key == c{$val:replace_values($val,$cvals);}
+		@if $key == p{$val:replace_values($val,$pvals);}
+		@if $key == r{$val:replace_values($val,$rvals);}
+		@if $key == s{$val:replace_values($val,$svals);}
+		@if map-has-key($keys,$key){
+			-webkit-#{map-get($keys,$key)}:#{$val};
+			#{map-get($keys,$key)}:#{$val};
+		}
+	}
+}

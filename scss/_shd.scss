@@ -1,0 +1,132 @@
+@use "_basic.scss" as *;
+
+@mixin shd($shd){
+	$btvals:(n:none);
+	@each $key,$val in $shd{
+		$clr:false;
+		$blur:false;
+		@if type-of($val) == 'list' and length($val) == 2{
+			$clr:nth($val,2);
+			$val:nth($val,1);
+		}
+		@else{
+			$clr:shd;
+		}
+		@if type-of($val) == 'number'{
+			$inset:($val < 0);
+			@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
+				$blur:abs($val) * 2 + 1;
+			}
+			@else{$blur:abs($val);}
+			@if $inset{
+				@if $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
+					$spr:$blur * -1;
+					$tx:0;$ty:0;
+					@if $key == 'bt'{$tx:0;$ty:$blur;}
+					@if $key == 'bb'{$tx:0;$ty:$blur * -1;}
+					@if $key == 'bl'{$tx:$blur;$ty:0;}
+					@if $key == 'br'{$tx:$blur * -1;$ty:0;}
+					@if $key == 'bc'{$tx:0;$ty:0;}
+					$val:#{$tx}px #{$ty}px #{$blur}px #{$spr}px #{clr($clr)} inset;
+				}
+				@else if $key == 'bc' or $key == 'tc'{
+					$val:0 0 #{$blur}px #{clr($clr)} inset;
+				}
+				@else{$val:0 #{abs($val)}px #{$blur}px #{clr($clr)} inset;}
+			}
+			@else{
+				@if $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
+					$spr:$blur * -1;
+					$tx:0;$ty:0;
+					@if $key == 'bt'{$tx:0;$ty:$blur * -1;}
+					@if $key == 'bb'{$tx:0;$ty:$blur;}
+					@if $key == 'bl'{$tx:$blur * -1;$ty:0;}
+					@if $key == 'br'{$tx:$blur;$ty:0;}
+					@if $key == 'bc'{$tx:0;$ty:0;}
+					$val:#{$tx}px #{$ty}px #{$blur}px #{$spr}px #{clr($clr)};
+				}
+				@else if $key == 'bc' or $key == 'tc'{
+					$val:0 0 #{$blur}px #{clr($clr)};
+				}
+				@else if $key == 'ts'{
+					$c:clr($clr);
+					$b:$val / 2;
+					$l0:0;
+					$l1:$val * 3 /5;
+					$l2:$val * 4 /5;
+					$l3:$val;
+					$val:(
+						(#{$l0}px #{$l3}px #{$b}px #{$c}),
+						(#{$l1}px #{$l2}px #{$b}px #{$c}),
+						(#{$l2}px #{$l1}px #{$b}px #{$c}),
+						(#{$l3}px #{$l0}px #{$b}px #{$c}),
+						(#{$l2}px -#{$l1}px #{$b}px #{$c}),
+						(#{$l1}px -#{$l2}px #{$b}px #{$c}),
+						(#{$l0}px -#{$l3}px #{$b}px #{$c}),
+						(-#{$l1}px -#{$l2}px #{$b}px #{$c}),
+						(-#{$l2}px -#{$l1}px #{$b}px #{$c}),
+						(-#{$l3}px #{$l0}px #{$b}px #{$c}),
+						(-#{$l2}px #{$l1}px #{$b}px #{$c}),
+						(-#{$l1}px #{$l2}px #{$b}px #{$c})
+					);
+				}
+				@else if $key == 'tg'{
+					$c:clr($clr);
+					$b1:$val / 16;
+					$b2:$val / 8;
+					$b3:$val / 4;
+					$b4:$val / 2;
+					$b5:$val;
+					$val:(
+						(0 0 #{$b1}px #{$c}),
+						(0 0 #{$b2}px #{$c}),
+						(0 0 #{$b3}px #{$c}),
+						(0 0 #{$b4}px #{$c}),
+						(0 0 #{$b5}px #{$c})
+					);
+				}
+				@else{$val:0 #{abs($val)}px #{$blur}px #{clr($clr)};}
+			}
+			@if $key == 'tbv'{
+				$b:$blur;
+				$c1:clr(lt);
+				$c2:clr(sh);
+				@if $inset{
+					$c1:clr(sh);
+					$c2:clr(lt);
+				}
+				$val:
+					-#{$b}px -#{$b}px #{$b}px #{$c1},
+					#{$b}px #{$b}px #{$b}px #{$c2};
+
+			}
+			@if $key == 'bv' or $key == 'bvi' or $key == 'bvo' or $key == 'bve'{
+				$bi:$blur;
+				$bo:$blur;
+				$ci1:clr(lt);
+				$ci2:clr(sh);
+				$co1:clr(lt);
+				$co2:clr(sh);
+				@if $key == 'bvi'{$bo:1;}
+				@if $key == 'bvo'{$bi:1;}
+				@if $inset{
+					$ci1:clr(sh);
+					$ci2:clr(lt);
+					$co1:clr(sh);
+					$co2:clr(lt);
+				}
+				@if $key == 'bve'{$ci1:$co2;$ci2:$co1;}
+				
+				$val:
+					#{$bi}px #{$bi}px #{$bi}px #{$ci1} inset,
+					-#{$bo}px -#{$bo}px #{$bo}px #{$co1},
+					-#{$bi}px -#{$bi}px #{$bi}px #{$ci2} inset,
+					#{$bo}px #{$bo}px #{$bo}px #{$co2};
+			}
+		}
+		@if map-has-key($btvals,$val){$val:map-get($btvals,$val);}
+		@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br' or $key == 'bc' or $key == 'bv' or $key == 'bvi' or $key == 'bvo' or $key == 'bve'
+		{box-shadow:$val;}
+		@if $key == 't' or $key == 'tc' or $key == 'ts' or $key == 'tg' or $key == 'tbv'{text-shadow:$val;}
+	}
+}

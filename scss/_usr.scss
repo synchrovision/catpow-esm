@@ -1,0 +1,28 @@
+@use "_basic.scss" as *;
+
+@mixin usr($usr){
+	$keys:(c:cursor,e:pointer-events);
+	$cvals:(
+		a:auto,p:pointer,w:wait,n:none,
+		na:not-allowed,nd:no-drop,
+		c:cell,ch:crosshair,
+		t:text,vt:vertical-text,
+		g:grab,h:help,
+		zi:zoom-in,zo:zoom-out,
+		cr:col-resize,rr:row-resize,
+		mv:move,cp:copy
+	);
+	$evals:(a:auto,n:none);
+	$svals:(n:none,a:all,t:text,c:contain);
+	@each $key,$val in $usr{
+		@if $key == c{$val:replace_values($val,$cvals);}
+		@if $key == e{$val:replace_values($val,$evals);}
+		@if $key == s{
+			$val:replace_values($val,$svals);
+			-webkit-user-select:$val;
+				-ms-user-select:$val;
+					user-select:$val;
+		}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+	}
+}

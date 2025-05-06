@@ -1,0 +1,90 @@
+@use "_basic.scss" as *;
+@use "_gradient.scss" as *;
+
+@mixin bg($bg){
+	$keys:(
+		i:background-image,c:background-color,
+		r:background-repeat,a:background-attachment,
+		s:background-size,p:background-position,
+		bm:background-blend-mode
+	);
+	$rvals:(n:no-repeat,x:repeat-x,y:repeat-y,xy:repeat,r:round,s:space);
+	$avals:(f:fixed,s:scroll);
+	$svals:(fit:100% 100%,cnt:contain,cvr:cover,f:100% 100%,c:cover,i:contain);
+	$pvals:(l:left,r:right,t:top,b:bottom,c:center);
+	$clvals:(b:border-box,p:padding-box,c:content-box,t:text);
+	$bmvals:(n:normal,m:multiply,d:darken,s:screen,l:lighten,o:overlay,cd:color-dodge,cb:color-burn,hl:hard-light,sl:soft-light,hue:hue,str:saturation,clr:color,lmn:luminosity,df:difference,ex:exclusion);
+	
+	@each $key,$val in $bg{
+		@if $key == i{$val:img($val);}
+		@if $key == c{$val:clr($val);}
+		@if $key == r{$val:map-get($rvals,$val);}
+		@if $key == a{$val:map-get($avals,$val);}
+		@if $key == bm{$val:map-get($bmvals,$val);}
+		@if $key == s{
+			@if map-has-key($svals,$val){$val:map-get($svals,$val);}
+			@else {$val:szs($val);}
+		}
+		@if $key == l{
+			$mxn:$val;
+			$vol:1;
+			@if type-of($val) == 'list'{
+				$mxn:nth($val,1);
+				$vol:nth($val,2);
+			}
+			@if $mxn == s{
+				@include linear-gradient(
+					180deg,
+					clr((sh,false,0)),
+					clr((sh,false,$vol))
+				);
+			}
+			@if $mxn == g{
+				@include linear-gradient(
+					180deg,
+					clr((lt,false,$vol)),
+					clr((lt,false,$vol / 2)) 49%,
+					clr((lt,false,0)) 50%,
+					clr((lt,false,$vol / 2))
+				);
+			}
+			@if $mxn == m{
+				@include linear-gradient(
+					180deg,
+					clr((lt,false,0)),
+					clr((lt,false,$vol)) 50%,
+					clr((lt,false,0))
+				);
+			}
+		}
+		@if $key == g{
+			$mxn:nth($val,1);
+			@if $mxn == v or $mxn == h or $mxn == r{
+				@include gradient(clr(nth($val,2)),clr(nth($val,3)),$mxn);
+			}
+			@else if $mxn == l{
+				$colors:();
+				@each $color in slice($val,3){
+					$colors:append($colors,clr($color),comma);
+				}
+				@include linear-gradient(nth($val,2),$colors);
+			}
+			@else{
+				$clr:slice($val,2);
+				@if $mxn == s{@include shade($clr);}
+				@if $mxn == g{@include glass($clr);}
+				@if $mxn == m{@include mist($clr);}
+				@if $mxn == p{@include stripe($clr...);}
+			}
+		}
+		@if $key == p{$val:replace_values($val,$pvals);$val:szs($val);}
+		@if $key == 'cl'{
+			$val:map-get($clvals,$val);
+			-webkit-background-clip:$val;
+			-moz-background-clip:$val;
+			-ms-background-clip:$val;
+			background-clip:$val;
+		}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+	}
+}

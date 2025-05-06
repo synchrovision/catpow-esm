@@ -1,0 +1,12 @@
+@use "_basic.scss" as *;
+
+@mixin col($col){
+	$keys:(c:column-count,w:column-width,g:column-gap,rs:column-rule-style,rw:column-rule-width,rc:column-rule-color);
+	$rsvals:(n:none,h:hidden,s:solid,d:dotted,ds:dashed,w:double,r:ridge,g:groove,i:inset,o:outset);
+	@each $key,$val in $col{
+		@if $key == w or $key == g or $key == rw{$val:szs($val);}
+		@if $key == rc{$val:clr($val);}
+		@if $key == rs{$val:replace_values($val,$rsvals);}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+	}
+}

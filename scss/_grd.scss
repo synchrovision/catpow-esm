@@ -1,0 +1,93 @@
+@use "_basic.scss" as *;
+
+@mixin grd($grd){
+	$keys:(
+		t:grid-template,
+		rc:grid-template-columns,
+		rr:grid-template-rows,
+		tc:grid-template-columns,
+		tr:grid-template-rows,
+		ac:grid-auto-columns,
+		ar:grid-auto-rows,
+		f:grid-auto-flow,
+		j:justify-content,
+		a:align-content,
+		ji:justify-items,
+		ai:align-items,
+		g:grid-gap
+	);
+	$iekeys:(
+		tc:-ms-grid-columns,
+		tr:-ms-grid-rows,
+	);
+	$fvals:(c:column,r:row,d:dense);
+	$jvals:(s:start,e:end,c:center,b:space-between,a:space-around,v:space-evenly);
+	display:-webkit-grid;
+	display:-ms-grid;
+	display:grid;
+	@each $key,$val in $grd{
+		@if $key == rc or $key == rr{
+			@if(type-of($val) == 'list'){
+				$v:minmax(szs(nth($val,1)),1fr);
+				$vals:();
+				@for $i from 1 through nth($val,2){
+					$vals:append($vals,$v);
+				}
+				$val:repeat(auto-fill,$vals)
+			}
+			@else{
+				$val:repeat(auto-fill,minmax(szs($val),1fr));
+			}
+		}
+		@if $key == r{
+			$rc:nth($val,1);
+			@if(length($val)==2){
+				$w:auto;
+				$rr:nth($val,2);
+			}
+			@else{
+				$w:nth($val,2);
+				$rr:nth($val,3);
+			}
+			@if(length($val)==4){
+				$h:nth($val,4);
+			}
+			@else{
+				$h:auto;
+			}
+			-ms-grid-columns:unquote('(#{$w})[#{$rc}]');
+			grid-template-columns:repeat(#{$rc},#{$w});
+			-ms-grid-rows:unquote('(#{$h})[#{$rr}]');
+			grid-template-rows:repeat(#{$rr},#{$h});
+			@for $x from 1 through $rc - 1{
+				&>*:nth-child(#{$rr}n + #{$x}){
+					-ms-grid-column:#{$x};
+					grid-column:#{$x};
+				}
+			}
+			&>*:nth-child(#{$rr}n){
+				-ms-grid-column:#{$rc};
+				grid-column:#{$rc};
+			}
+			&>*:nth-child(-n + #{$rc}){
+				-ms-grid-row:1;
+				grid-row:1;
+			}
+			@for $y from 2 through $rr{
+				&>*:nth-child(n + #{$y * $rc - $rc + 1}){
+					-ms-grid-row:#{$y};
+					grid-row:#{$y};
+				}
+			}
+		}
+		@if $key == tc or $key == tr or
+			$key == ac or $key == ar or $key == g
+			{$val:szs($val);}
+		@if $key == j or $key == a or
+			$key == ji or $key == ai
+			{$val:map-get($jvals,$val);}
+		@if $key == f{$val:replace_values($val,$fvals);}
+		@if map-has-key($iekeys,$key){#{map-get($iekeys,$key)}:$val;}
+		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+	}
+}

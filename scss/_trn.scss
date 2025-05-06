@@ -1,0 +1,97 @@
+@use "_basic.scss" as *;
+
+@mixin trn($trn){
+	$tfncs:(
+		x:translateX,y:translateY,z:translateZ,
+		r:rotateZ,rx:rotateX,ry:rotateY,
+		s:scale,sx:scaleX,sy:scaleY,
+		k:skew,kx:skewX,ky:skewY
+	);
+	$trvals:(
+		tf:transform,o:opacity,v:visibility,
+		l:left,r:right,t:top,b:bottom,
+		pd:padding,pdl:padding-left,pdr:padding-right,pdt:padding-top,pdb:padding-bottom,
+		mg:margin,mgl:margin-left,mgr:margin-right,mgt:margin-top,mgb:margin-bottom,
+		w:width,mnw:min-width,mxw:max-width,
+		h:height,mnh:min-height,mxh:max-height,
+		bg:background,c:color
+	);
+	$ffncs:(hue:hue-rotate,str:saturate,brt:brightness,inv:invert,shd:drop-shadow,blr:blur,cnt:contrast,gry:grayscale);
+	$bfvals:(h:hidden,v:visible);
+	$avals:(i:infinite,r:reverse,a:alternate,e:ease,l:linear,fw:forwards,bw:backwards,b:both);
+	$bmvals:(n:normal,m:multiply,d:darken,s:screen,l:lighten,o:overlay,cd:color-dodge,cb:color-burn,hl:hard-light,sl:soft-light,hue:hue,str:saturation,clr:color,lmn:luminosity,df:difference,ex:exclusion);
+	$bmivals:(a:auto,i:isolate);
+	$tf:();
+	$fl:();
+	@each $key,$val in $trn{
+		@if $key == 'x' or $key == 'y' or $key == 'z' or $key == 'p'{$val:sz($val);}
+		@if map-has-key($tfncs,$key){
+			$tf:append($tf,(map-get($tfncs,$key) + '(' + $val + ')'));
+		}
+		@if map-has-key($ffncs,$key){
+			$fl:append($fl,(map-get($ffncs,$key) + '(' + $val + ')'));
+		}
+		@if $key == 'clr'{
+			@if function-exists('extract_color_tone') {
+				$tone:extract_color_tone($val);
+				@if $tone {
+					$fl:append($fl,invert(50%));
+					$fl:append($fl,sepia(100%));
+					$fl:append($fl,unquote('hue-rotate(calc('+map-get($tone,h)+' - 40deg))'));
+					$fl:append($fl,saturate(300%));
+					$fl:append($fl,unquote('saturate(calc('+map-get($tone,S)+' * 4))'));
+					$fl:append($fl,brightness(160%));
+					$fl:append($fl,unquote('brightness('+map-get($tone,B)+')'));
+				}
+			}
+			@else{
+				$clr:clr($val);
+				@if type-of($clr) == 'color'{
+					$fl:append($fl,invert(50%));
+					$fl:append($fl,brightness(lightness($clr)*1.7));
+					$fl:append($fl,sepia(100%));
+					$fl:append($fl,saturate(1000%));
+					$fl:append($fl,saturate(saturation($clr)*.7));
+					$fl:append($fl,hue-rotate(hue($clr) - 34deg));
+				}
+			}
+		}
+		@if $key == 'p'{perspective:$val;}
+		@if $key == 'd'{transition-delay:$val;}
+		@if $key == 'e'{transition-timing-function:ease($val);}
+		@if $key == 'a'{animation:replace_values($val,$avals);}
+		@if $key == 'o'{opacity:$val;}
+		@if $key == 'bm'{
+			@if type-of($val) == 'list'{
+				mix-blend-mode:replace_values(nth($val,1),$bmvals);
+				isolation:replace_values(nth($val,2),$bmivals);
+			}
+			@else{
+				mix-blend-mode:replace_values($val,$bmvals);
+			}
+		}
+		@if $key == 't'{
+			$val:replace_values($val,$trvals);
+			-webkit-transition:$val;
+					transition:$val;
+		}
+		@if $key == 'tb'{@include transition_by($val);}
+		@if $key == 'bf'{
+			$val:replace_values($val,$bfvals);
+			-webkit-backface-visibility:$val;
+					backface-visibility:$val;
+		}
+		@if $key == 'to'{
+			-webkit-transform-origin:$val;
+					transform-origin:$val;
+		}
+	}
+	@if length($fl) > 0{
+		-webkit-filter:$fl;
+				filter:$fl;
+	}
+	@if length($tf) > 0{
+		transform:-webkit-$tf;
+		transform:        $tf;
+	}
+}

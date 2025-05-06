@@ -1,0 +1,143 @@
+@use "_basic.scss" as *;
+
+@mixin clp($clp:false){
+	@each $key,$val in $clp{
+		@if $key=='c'{
+			$d:nth($val,1);
+			$w:nth($val,2);
+			@if unitless($w){
+				$w:1% * $w;
+			}
+			$s1:0%;
+			$s2:100%;
+			@if $w<0{
+				$w:-1 * $w;
+				$s1:calc(100% - #{$w});
+				$s2:$w;
+			}
+			@else{
+				$s1:$w;
+				$s2:calc(100% - #{$w});
+			}
+			@if $d=='l'{
+				clip-path:polygon(0% 50%,#{$s2} 0%, 100% 0%,#{$s1} 50%,100% 100%, #{$s2} 100%);
+			}
+			@else if $d=='r'{
+				clip-path:polygon(0% 0%,#{$s1} 0%, 100% 50%, #{$s1} 100%, 0% 100%,#{$s2} 50%);
+			}
+			@else if $d=='t'{
+				clip-path:polygon(50% 0%,100% #{$s2},100% 100%,50% #{$s1},0% 100%,0% #{$s2});
+			}
+			@else if $d=='b'{
+				clip-path:polygon(0% 0,50% #{$s2},100% 0%,100% #{$s1},50% 100%,0% #{$s1});
+			}
+		}
+		@else if $key=='t'{
+			@if type-of($val)=='list'{
+				$d:nth($val,1);
+				$l:sz(nth($val,2));
+				$s1:0%;
+				$s2:100%;
+				@if $l<0{
+					$l:-1 * $l;
+					$s1:calc(100% - #{$l});
+					$s2:$l;
+				}
+				@else{
+					$s1:$l;
+					$s2:calc(100% - #{$l});
+				}
+				@if length($val)>2{
+					$w:sz(nth($val,3));
+					@if $w<0{
+						$w:-1 * $w;
+						$t1:$w / 2;
+						$t2:calc(100% - #{$w / 2});
+						@if $d=='l'{
+							clip-path:polygon(0% 50%,#{$s1} 0%,#{$s1} #{$t1},100% #{$t1},100% #{$t2},#{$s1} #{$t2},#{$s1} 100%);
+						}
+						@else if $d=='r'{
+							clip-path:polygon(0% #{$t1},#{$s2} #{$t1},#{$s2} 0%,100% 50%,#{$s2} 100%,#{$s2} #{$t2},0% #{$t2});
+						}
+						@else if $d=='t'{
+							clip-path:polygon(50% 0%,100% #{$s1},#{$t2} #{$s1},#{$t2} 100%,#{$t1} 100%,#{$t1} #{$s1},0% #{$s1});
+						}
+						@else if $d=='b'{
+							clip-path:polygon(#{$t1} 0%,#{$t2} 0%,#{$t2} #{$s2},100% #{$s2},50% 100%,0% #{$s2},#{$t1} #{$s2});
+						}
+					}
+					@else{
+						$t1:calc(50% - #{$w / 2});
+						$t2:calc(50% + #{$w / 2});
+						@if $d=='l'{
+							clip-path:polygon(0% 50%,#{$s1} #{$t1},#{$s1} 0%,100% 0%,100% 100%,#{$s1} 100%,#{$s1} #{$t2});
+						}
+						@else if $d=='r'{
+							clip-path:polygon(0% 0%,#{$s2} 0%,#{$s2} #{$t1},100% 50%,#{$s2} #{$t2},#{$s2} 100%,0% 100%);
+						}
+						@else if $d=='t'{
+							clip-path:polygon(50% 0%,#{$t2} #{$s1},100% #{$s1},100% 100%,0% 100%,0% #{$s1},#{$t1} #{$s1});
+						}
+						@else if $d=='b'{
+							clip-path:polygon(0% 0%,100% 0%,100% #{$s2},#{$t2} #{$s2},50% 100%,#{$t1} #{$s2},0% #{$s2});
+						}
+					}
+				}
+				@else{
+					@if $d=='l'{
+						clip-path:polygon(0% 50%,#{$s1} 0%,100% 0%,100% 100%,#{$s1} 100%);
+					}
+					@else if $d=='r'{
+						clip-path:polygon(0% 0%,#{$s2} 0%,100% 50%,#{$s2} 100%,0% 100%);
+					}
+					@else if $d=='t'{
+						clip-path:polygon(50% 0%,100% #{$s1},100% 100%,0% 100%,0% #{$s1});
+					}
+					@else if $d=='b'{
+						clip-path:polygon(0% 0%,100% 0%,100% #{$s2},50% 100%,0% #{$s2});
+					}
+				}
+			}
+			@else{
+				$d:$val;
+				@if $d=='l'{
+					clip-path:polygon(0% 50%,100% 0%,100% 100%);
+				}
+				@else if $d=='r'{
+					clip-path:polygon(0% 0%,100% 50%,0% 100%);
+				}
+				@else if $d=='t'{
+					clip-path:polygon(50% 0%,100% 100%,0% 100%);
+				}
+				@else if $d=='b'{
+					clip-path:polygon(0% 0%,100% 0%,50% 100%);
+				}
+			}
+		}
+		@else if $key=='s'{
+			$tl:0%;$tr:0%;
+			$bl:100%;$br:100%;
+			@if type-of($val)=='list'{
+				$t:sz(nth($val,1));
+				$b:sz(nth($val,2));
+			}
+			@else{
+				$t:sz($val);
+				$b:sz($val);
+			}
+			@if $t<0{
+				$tr:$t * -1;
+			}
+			@else{
+				$tl:$t;
+			}
+			@if $b<0{
+				$bl:calc(100% - #{$b * -1});
+			}
+			@else{
+				$br:calc(100% - #{$b});
+			}
+			clip-path: polygon(0% #{$tl},100% #{$tr},100% #{$br},0% #{$bl});
+		}
+	}
+}

@@ -1,0 +1,156 @@
+@use "_basic.scss" as *;
+
+@mixin txt($txt){
+	$keys:(
+		i:text-indent,a:text-align,h:line-height,v:vertical-align,
+		f:font-family,p:font-size,
+		t:letter-spacing,ls:letter-spacing,c:color,
+		w:font-weight,fw:font-weight,fs:font-style,
+		tds:text-decoration-style,tdl:text-decoration-line,
+		tdc:text-decoration-color,tdt:text-decoration-thickness,
+		to:text-orientation,
+		ts:(-webkit-text-stroke,text-stroke),
+		o:text-overflow,
+		uo:text-underline-offset,
+		l:list-style,
+		whs:white-space,wds:word-spacing,
+		cmb:text-combine-upright,
+		wb:word-break,b:word-break,
+		ffs:font-feature-settings
+	);
+	$avals:(l:left,r:right,c:center,j:justify,n:nowrap,wc:-webkit-center);
+	$akeys:(l:a,r:a,c:a,j:a,n:whs,wc:a);
+	$bvals:(k:keep-all,b:break-all,n:normal);
+	$vvals:(t:top,m:middle,b:bottom,l:baseline);
+	$svals:(r:normal,b:bold,l:lighter,i:italic,n:none,u:underline,o:overline,s:line-through);
+	$skeys:(r:fw,b:fw,l:fw,i:fs,n:td,u:td,o:td,s:td);
+	$lvals:(n:none,ds:disc,cr:circle,sq:square,alp:upper-alpha,dec:decimal,rom:upper-roman,hira:hiragana);
+	$mvals:(h:horizontal-tb,vr:vertical-rl,vl:vertical-lr);
+	$tovals:(m:mixed,s:sideway,u:upright);
+	$ovals:(c:clip,e:ellipsis);
+	$whsvals:(n:normal,nw:nowrap,p:pre,pw:pre-wrap,pl:pre-line,bs:break-space);
+	$cmbvals:(n:none,a:all,d:digits);
+	$ffsvals:(p:"palt",t:"trad",n:"nalt");
+	@each $key,$val in $txt{
+		@if $key == p or $key == h or $key == uo{$val:sz($val);}
+		@if $key == c{$val:clr($val);}
+		@if $key == f{$val:fnt($val);}
+		@if $key == b{$val:replace_values($val,$bvals);}
+		@if $key == a{$key:replace_values($val,$akeys);$val:replace_values($val,$avals);}
+		@if $key == v{$val:replace_values($val,$vvals);}
+		@if $key == s{$key:replace_values($val,$skeys);$val:replace_values($val,$svals);}
+		@if $key == l{$val:replace_values($val,$lvals);}
+		@if $key == w{$val:wt($val);}
+		@if $key == m{
+			$val:replace_values($val,$mvals);
+			-webkit-writing-mode:$val;
+					writing-mode:$val;
+		}
+		@if $key == t{$val:sz($val);}
+		@if $key == to{$val:replace_values($val,$tovals);}
+		@if $key == td{@include text-decoration($val);}
+		@if $key == te{@include text-emphasis($val);}
+		@if $key == o{$val:replace_values($val,$ovals);}
+		@if $key == whs{$val:replace_values($val,$whsvals);}
+		@if $key == cmb{$val:replace_values($val,$cmbvals);}
+		@if $key == ffs{$val:replace_values($val,$ffsvals);}
+		@if map-has-key($keys,$key){
+			@if type-of(map-get($keys,$key)) == 'list'{
+				@each $sel in map-get($keys,$key){
+					#{$sel}:$val;
+				}
+			}
+			@else{
+				#{map-get($keys,$key)}:$val;
+			}
+		}
+	}
+}
+@mixin plh($txt){
+	&:placeholder{
+		@include txt($txt);
+	}
+	&::-webkit-input-placeholder{
+		@include txt($txt);
+	}
+	&:-ms-input-placeholder{
+		@include txt($txt);
+	}
+	&::-moz-placeholder{
+		@include txt($txt);
+	}
+}
+@mixin text-decoration($vals){
+	$tvals:(n:none);
+	$lvals:(u:underline,o:overline,t:line-through);
+	$svals:(s:solid,d:dotted,ds:dashed,w:double,r:ridge,g:groove,i:inset,o:outset);
+	$countNumberValue:0;
+	@each $val in $vals{
+		@if map-has-key($tvals,$val){
+			text-decoration:map-get($tvals,$val);
+		}
+		@else if index(map-values($tvals),$val) != null{
+			text-decoration:$val;
+		}
+		@else if map-has-key($lvals,$val){
+			text-decoration-line:map-get($lvals,$val);
+		}
+		@else if index(map-values($lvals),$val) != null{
+			text-decoration-line:$val;
+		}
+		@else if map-has-key($svals,$val){
+			text-decoration-style:map-get($svals,$val);
+		}
+		@else if index(map-values($svals),$val) != null{
+			text-decoration-style:$val;
+		}
+		@else if type-of($val) == 'number'{
+			@if $countNumberValue == 0{
+				text-decoration-thickness:sz($val);
+			}
+			@else if $countNumberValue == 1 {
+				text-underline-offset:sz($val);
+			}
+			$countNumberValue:$countNumberValue + 1;
+		}
+		@else{
+			text-decoration-color:clr($val);
+		}
+	}
+}
+
+@mixin text-emphasis($vals){
+	$tvals:(n:none);
+	$s1vals:(f:filled,o:open);
+	$s2vals:(d:dot,c:circle,dc:double-circle,t:triangle,s:sesami);
+	$s1:false;
+	$s2:false;
+	$s:();
+	@each $val in $vals{
+		@if(is_quoted($val)){
+			$s1:true;
+			$s2:true;
+			$s:append($s,$val);
+		}
+		@else if ($s1 == false and map-has-key($s1vals,$val)){
+			$s1:true;
+			$s:append($s,map-get($s1vals,$val));
+		}
+		@else if ($s1 == false and index(map-values($s1vals),$val) != null){
+			$s1:true;
+			$s:append($s,$val);
+		}
+		@else if ($s2 == false and map-has-key($s2vals,$val)){
+			$s2:true;
+			$s:append($s,map-get($s2vals,$val));
+		}
+		@else if ($s2 == false and index(map-values($s2vals),$val) != null){
+			$s2:true;
+			$s:append($s,$val);
+		}
+		@else{
+			text-emphasis-color:clr($val);
+		}
+	}
+	text-emphasis-style:$s;
+}
