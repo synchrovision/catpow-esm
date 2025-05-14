@@ -7,6 +7,10 @@ const applyBem = (component, { ...ctx }) => {
 		});
 		return;
 	}
+	if (component.type == React.Fragment) {
+		applyBem(component.props.children, ctx);
+		return;
+	}
 	if (component == null || component.props == null) {
 		return;
 	}
