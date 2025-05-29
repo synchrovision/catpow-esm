@@ -1,5 +1,5 @@
 import React from "react";
-import { appBase } from "catpow/app";
+import { eventMixin } from "catpow/app";
 import { useLazyProvider, useLazyComponent } from "catpow/hooks";
 import { deepMap } from "catpow/util";
 
@@ -11,7 +11,7 @@ export const useAgent = (settings, deps) => {
 	const agent = useMemo(() => {
 		const sharedPromises = deepMap();
 		const chainedPromises = deepMap();
-		const agent = Object.assign(appBase(), typeof settings === "function" ? settings(...deps) : settings, {
+		const agent = Object.assign(eventMixin(), typeof settings === "function" ? settings(...deps) : settings, {
 			AgentProvider: ({ children }) => <AgentContext.Provider value={agent}>{children}</AgentContext.Provider>,
 			sharePromise(asyncCallback, keys) {
 				if (!sharedPromises.has(keys)) {
