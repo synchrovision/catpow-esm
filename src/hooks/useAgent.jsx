@@ -3,7 +3,7 @@ import { eventMixin } from "catpow/app";
 import { useLazyProvider, useLazyComponent } from "catpow/hooks";
 import { deepMap } from "catpow/util";
 
-const { useMemo, useState, useCallback, useRef, useEffect, createContext, useContext } = React;
+const { useMemo, useState, useCallback, useRef, useEffect, createContext, useContext, lazy } = React;
 
 const AgentContext = createContext();
 
@@ -96,9 +96,6 @@ export const useAgent = (settings, deps) => {
 			},
 			stateSettings: {},
 		});
-		if (agent.init) {
-			agent.init(agent);
-		}
 		if (agent.states) {
 			agent.stateSettings = agent.states;
 		}
@@ -116,8 +113,18 @@ export const useAgent = (settings, deps) => {
 		});
 		return agent;
 	}, deps);
-
 	agent.useStates(agent.stateSettings);
+
+	agent.LazyAgentProvider = useMemo(
+		() =>
+			lazy(async () => {
+				if (agent.init) {
+					await agent.init(agent);
+				}
+				return { default: ({ children }) => <AgentContext.Provider value={agent}>{children}</AgentContext.Provider> };
+			}),
+		[agent]
+	);
 
 	return agent;
 };
