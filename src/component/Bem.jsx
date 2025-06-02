@@ -44,7 +44,9 @@ const applyBem = (component, { ...ctx }) => {
 			if (!matches) {
 				return;
 			}
-			ctx.prefix = matches[2];
+			if (!matches[1].startsWith(ctx.prefix)) {
+				ctx.prefix = matches[2];
+			}
 			ctx.block = matches[1];
 			ctx.element = matches[0];
 		}
