@@ -24,6 +24,14 @@ export const flagsToClassNames = (flags) =>
 		.filter((f) => flags[f])
 		.map(camelToKebab)
 		.join(" ");
+export const filterFlags = (flags, callback) => {
+	Object.keys(flags).forEach((key) => {
+		if (!callback(key)) {
+			delete flags[key];
+		}
+	});
+	return flags;
+};
 
 export const camelToKebab = (str) => str.replace(/(\w)([A-Z])/g, "$1-$2").toLowerCase();
 export const camelToSnake = (str) => str.replace(/(\w)([A-Z])/g, "$1_$2").toLowerCase();
