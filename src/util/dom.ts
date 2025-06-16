@@ -14,9 +14,11 @@ export const el: (tag: string, props: object, children?: children, namespace?: s
 			console.error("can not append child : ", child);
 		}
 	};
-	Object.keys(props).forEach((key) => {
-		el.setAttribute(key, props[key]);
-	});
+	if (props) {
+		Object.keys(props).forEach((key) => {
+			el.setAttribute(key, props[key]);
+		});
+	}
 	appendChild(children);
 	return el;
 };
