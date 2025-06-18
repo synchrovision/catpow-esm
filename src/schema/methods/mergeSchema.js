@@ -79,6 +79,18 @@ export const mergeSchema = (targetSchema, schema, rootSchema, params = {}) => {
 			targetSchema[key] = null;
 		}
 	}
+	//multipleOf
+	if (schema.multipleOf != null) {
+		if (targetSchema.multipleOf != null) {
+			targetSchema.multipleOf = Math.max(targetSchema.multipleOf, schema.multipleOf);
+		} else {
+			if (initialize) {
+				targetSchema.multipleOf = schema.multipleOf;
+			}
+		}
+	} else if (extend && targetSchema.multipleOf != null) {
+		targetSchema.multipleOf = null;
+	}
 
 	//object
 	if (schema.required != null) {
