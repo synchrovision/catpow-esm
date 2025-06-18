@@ -10,14 +10,15 @@ export const flagsToWords = (flags) =>
 		.filter((word) => flags[word])
 		.join(" ");
 export const classNamesToFlags = (classNames) =>
-	classNames &&
-	classNames
-		.split(" ")
-		.map(kebabToCamel)
-		.reduce((p, c) => {
-			p[c] = true;
-			return p;
-		}, {});
+	(classNames &&
+		classNames
+			.split(" ")
+			.map(kebabToCamel)
+			.reduce((p, c) => {
+				p[c] = true;
+				return p;
+			}, {})) ||
+	{};
 export const flagsToClassNames = (flags) =>
 	flags &&
 	Object.keys(flags)
