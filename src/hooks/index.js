@@ -7,3 +7,4 @@ export * from "./useLazyProvider.jsx";
 export * from "./useLazyComponent.jsx";
 export * from "./useThrottle.jsx";
 export * from "./useDebounce.jsx";
+export * from "./useChangeEffect.jsx";
