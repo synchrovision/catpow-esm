@@ -23,6 +23,9 @@
 		"./script": {
 			"import": "./src/script/index.js"
 		},
+		"./scssc": {
+			"import": "./src/scssc/index.js"
+		},
 		"./ui": {
 			"import": "./src/ui/index.js"
 		},
