@@ -4,6 +4,7 @@ export const translateColor = (color, tint, alpha) => {
 	const availableToneKeys = {};
 	for (const key of Object.keys(colorRoles)) {
 		availableToneKeys[key] = true;
+		if(colorRoles[key].invert){availableToneKeys[key+'x']=true;}
 	}
 	if (color === "wp") {
 		return "var(--wp-admin-theme-color)";
