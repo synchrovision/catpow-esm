@@ -85,7 +85,6 @@ export const applyBem = (el, { ...ctx }) => {
 		className = className.baseVal;
 	}
 	if (className) {
-		console.log({ className });
 		el.setAttribute(
 			"class",
 			className
