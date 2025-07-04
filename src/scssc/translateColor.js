@@ -4,7 +4,9 @@ export const translateColor = (color, tint, alpha) => {
 	const availableToneKeys = {};
 	for (const key of Object.keys(colorRoles)) {
 		availableToneKeys[key] = true;
-		if(colorRoles[key].invert){availableToneKeys[key+'x']=true;}
+		if (colorRoles[key].invert) {
+			availableToneKeys[key + "x"] = true;
+		}
 	}
 	if (color === "wp") {
 		return "var(--wp-admin-theme-color)";
@@ -23,7 +25,7 @@ export const translateColor = (color, tint, alpha) => {
 			const h = num ? (staticHue ? num : num === "0" || num === "6" ? f("h") : `calc(${relativeHue ? cf("h") : rf("h")} + var(--cp-tones-hr) * ${num - 6} + var(--cp-tones-hs))`) : f("h");
 			const s = f("s");
 			const l = tint ? `calc(100% - ${f("l")} * ${tint})` : `${f("l")}`;
-			const a = alpha ? `calc(${f("a")} * ${alpah}` : f("a");
+			const a = alpha ? `calc(${f("a")} * ${alpha})` : f("a");
 			return `hsla(${h}, ${s}, ${l}, ${a})`;
 		}
 	} else {
