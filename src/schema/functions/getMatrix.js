@@ -10,7 +10,7 @@ export const getMatrix = (originalSchemas) => {
 		if (schema.if != null) {
 			schemas.push(getUnlimietedSchema(schema.if));
 			updateHandlesList.push((agent) => {
-				const isValid = test(agent.getValue(), schema.if, rootSchema);
+				const isValid = test(agent.getValue(), schema.if, agent.rootSchema);
 				if (schema.then != null) {
 					agent.setConditionalSchemaStatus(schema.then, isValid ? 3 : 0);
 				}
@@ -31,7 +31,7 @@ export const getMatrix = (originalSchemas) => {
 						return;
 					}
 					const isValid = keyPropertyNames.every((keyPropertyName) => {
-						return subSchema.properties[keyPropertyName] == null || test(agent.properties[keyPropertyName].getValue(), subSchema.properties[keyPropertyName], rootSchema);
+						return subSchema.properties[keyPropertyName] == null || test(agent.properties[keyPropertyName].getValue(), subSchema.properties[keyPropertyName], agent.rootSchema);
 					});
 					agent.setConditionalSchemaStatus(subSchema, isValid ? 3 : 0);
 					keyPropertyNames.forEach((keyPropertyName) => {
@@ -52,7 +52,7 @@ export const getMatrix = (originalSchemas) => {
 						return;
 					}
 					const isValid = keyPropertyNames.every((keyPropertyName) => {
-						return subSchema.properties[keyPropertyName] == null || test(agent.properties[keyPropertyName].getValue(), subSchema.properties[keyPropertyName], rootSchema);
+						return subSchema.properties[keyPropertyName] == null || test(agent.properties[keyPropertyName].getValue(), subSchema.properties[keyPropertyName], agent.rootSchema);
 					});
 					agent.setConditionalSchemaStatus(subSchema, isValid ? 3 : 0);
 					keyPropertyNames.forEach((keyPropertyName) => {
