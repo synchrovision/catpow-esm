@@ -110,7 +110,7 @@ export const createMatrix = (schemas) => {
 				if (agent.debug) {
 					debugLog(`\u{1F511} conditionalSchemaStatus of '${agent.key}' was changed`, { schema, status });
 				}
-				agent.setSchemaStatus(schema, agent.parent == null ? 3 : agent.parent.getSchemaStatus(schema.parent) & status);
+				agent.setSchemaStatus(schema, (agent.parent == null ? 3 : agent.parent.getSchemaStatus(schema.parent)) & status);
 			};
 		},
 		getParentSchemaStatus: (agent) => {
