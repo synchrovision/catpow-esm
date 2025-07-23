@@ -23,3 +23,12 @@ export const divideText = function (target, param = {}) {
 		target.appendChild(line);
 	}
 };
+
+const getLettersNode = (text, start = 0) => {
+	const letters = document.createDocumentFragment();
+	text.split("").forEach((letter, index) => {
+		const letterNode = el("span", { class: "letter is-" + getCharCategory(letter), style: "--letter-index:" + (start + index) }, letter);
+		letters.appendChild(letterNode);
+	});
+	return letters;
+};
