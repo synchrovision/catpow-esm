@@ -34,8 +34,8 @@
 		}
 		@if $key == d{
 			@if meta.type-of($val) =='list' and meta.type-of(nth($val,1)) == 'list'{
-				stroke-dasharray:nth($val,1);
-				stroke-dashoffset:nth($val,2);
+				stroke-dasharray:list.nth($val,1);
+				stroke-dashoffset:list.nth($val,2);
 			}
 			@else{
 				stroke-dasharray:$val;

@@ -132,23 +132,23 @@
 		@if(is_quoted($val)){
 			$s1:true;
 			$s2:true;
-			$s:append($s,$val);
+			$s:list.append($s,$val);
 		}
 		@else if ($s1 == false and map.has-key($s1vals,$val)){
 			$s1:true;
-			$s:append($s,map.get($s1vals,$val));
+			$s:list.append($s,map.get($s1vals,$val));
 		}
 		@else if ($s1 == false and index(map.values($s1vals),$val) != null){
 			$s1:true;
-			$s:append($s,$val);
+			$s:list.append($s,$val);
 		}
 		@else if ($s2 == false and map.has-key($s2vals,$val)){
 			$s2:true;
-			$s:append($s,map.get($s2vals,$val));
+			$s:list.append($s,map.get($s2vals,$val));
 		}
 		@else if ($s2 == false and index(map.values($s2vals),$val) != null){
 			$s2:true;
-			$s:append($s,$val);
+			$s:list.append($s,$val);
 		}
 		@else{
 			text-emphasis-color:clr($val);

@@ -9,8 +9,8 @@
 		$clr:false;
 		$blur:false;
 		@if meta.type-of($val) == 'list' and list.length($val) == 2{
-			$clr:nth($val,2);
-			$val:nth($val,1);
+			$clr:list.nth($val,2);
+			$val:list.nth($val,1);
 		}
 		@else{
 			$clr:shd;

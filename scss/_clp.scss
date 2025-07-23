@@ -7,8 +7,8 @@
 @mixin clp($clp:false){
 	@each $key,$val in $clp{
 		@if $key=='c'{
-			$d:nth($val,1);
-			$w:nth($val,2);
+			$d:list.nth($val,1);
+			$w:list.nth($val,2);
 			@if math.is-unitless($w){
 				$w:1% * $w;
 			}
@@ -38,8 +38,8 @@
 		}
 		@else if $key=='t'{
 			@if meta.type-of($val)=='list'{
-				$d:nth($val,1);
-				$l:sz(nth($val,2));
+				$d:list.nth($val,1);
+				$l:sz(list.nth($val,2));
 				$s1:0%;
 				$s2:100%;
 				@if $l<0{
@@ -52,7 +52,7 @@
 					$s2:calc(100% - #{$l});
 				}
 				@if list.length($val)>2{
-					$w:sz(nth($val,3));
+					$w:sz(list.nth($val,3));
 					@if $w<0{
 						$w:-1 * $w;
 						$t1:$w / 2;
@@ -122,8 +122,8 @@
 			$tl:0%;$tr:0%;
 			$bl:100%;$br:100%;
 			@if meta.type-of($val)=='list'{
-				$t:sz(nth($val,1));
-				$b:sz(nth($val,2));
+				$t:sz(list.nth($val,1));
+				$b:sz(list.nth($val,2));
 			}
 			@else{
 				$t:sz($val);

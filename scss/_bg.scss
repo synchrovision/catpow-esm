@@ -1,5 +1,6 @@
 @use "sass:meta";
 @use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 @use "_gradient.scss" as *;
 
@@ -31,8 +32,8 @@
 			$mxn:$val;
 			$vol:1;
 			@if type-of($val) == 'list'{
-				$mxn:nth($val,1);
-				$vol:nth($val,2);
+				$mxn:list.nth($val,1);
+				$vol:list.nth($val,2);
 			}
 			@if $mxn == s{
 				@include linear-gradient(
@@ -60,16 +61,16 @@
 			}
 		}
 		@if $key == g{
-			$mxn:nth($val,1);
+			$mxn:list.nth($val,1);
 			@if $mxn == v or $mxn == h or $mxn == r{
-				@include gradient(clr(nth($val,2)),clr(nth($val,3)),$mxn);
+				@include gradient(clr(list.nth($val,2)),clr(list.nth($val,3)),$mxn);
 			}
 			@else if $mxn == l{
 				$colors:();
 				@each $color in slice($val,3){
-					$colors:append($colors,clr($color),comma);
+					$colors:list.append($colors,clr($color),comma);
 				}
-				@include linear-gradient(nth($val,2),$colors);
+				@include linear-gradient(list.nth($val,2),$colors);
 			}
 			@else{
 				$clr:slice($val,2);

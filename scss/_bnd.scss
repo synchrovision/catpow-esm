@@ -1,5 +1,6 @@
 @use "sass:meta";
 @use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 
 @mixin bnd($bnd){
@@ -99,34 +100,34 @@
 			{$val:szs($val);}
 		@if $key == i{
 			$vals:fill_4_values($val);
-			top:nth($vals,1);
-			right:nth($vals,2);
-			bottom:nth($vals,3);
-			left:nth($vals,4);
+			top:list.nth($vals,1);
+			right:list.nth($vals,2);
+			bottom:list.nth($vals,3);
+			left:list.nth($vals,4);
 		}
 		@if $key == w or $key == h{
 			@if meta.type-of($val) == 'list'{
-				@if length($val) == 2{
+				@if list.length($val) == 2{
 					@if (
-						meta.type-of(nth($val,1)) != 'number' or
+						meta.type-of(list.nth($val,1)) != 'number' or
 						(
-							meta.type-of(nth($val,1)) == 'number' and
-							index(('%','vw','vh','vmax','vmin'),unit(nth($val,1))) != null and
-							meta.type-of(nth($val,2)) == 'number'
+							meta.type-of(list.nth($val,1)) == 'number' and
+							index(('%','vw','vh','vmax','vmin'),unit(list.nth($val,1))) != null and
+							meta.type-of(list.nth($val,2)) == 'number'
 						)
 					){
-						max-#{map.get($keys,$key)}:nth($val,2);
-						$val:nth($val,1);
+						max-#{map.get($keys,$key)}:list.nth($val,2);
+						$val:list.nth($val,1);
 					}
 					@else{
-						min-#{map.get($keys,$key)}:nth($val,1);
-						$val:nth($val,2);
+						min-#{map.get($keys,$key)}:list.nth($val,1);
+						$val:list.nth($val,2);
 					}
 				}
 				@else{
-					min-#{map.get($keys,$key)}:nth($val,1);
-					max-#{map.get($keys,$key)}:nth($val,3);
-					$val:nth($val,2);
+					min-#{map.get($keys,$key)}:list.nth($val,1);
+					max-#{map.get($keys,$key)}:list.nth($val,3);
+					$val:list.nth($val,2);
 				}
 			}
 		}
@@ -135,15 +136,15 @@
 		@if $key == op{$val:replace_values($val,$opvals);}
 		@if $key == f{
 			@if meta.type-of($val) == 'list'{
-				-webkit-box-flex:nth($val,1);
-				flex-grow:nth($val,1);
-				flex-shrink: nth($val,2);
-				@if length($val) > 2{
-					flex-basis:sz(nth($val,3));
+				-webkit-box-flex:list.nth($val,1);
+				flex-grow:list.nth($val,1);
+				flex-shrink: list.nth($val,2);
+				@if list.length($val) > 2{
+					flex-basis:sz(list.nth($val,3));
 				}
-				@if length($val) > 3{
-					-webkit-order:nth($val,4);
-					order:nth($val,4);
+				@if list.length($val) > 3{
+					-webkit-order:list.nth($val,4);
+					order:list.nth($val,4);
 				}
 			}
 			@else{

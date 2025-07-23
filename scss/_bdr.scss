@@ -1,5 +1,6 @@
 @use "sass:meta";
 @use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 
 @mixin bdr($bdr){
@@ -14,7 +15,7 @@
 		@if $key == c{$val:clr($val);}
 		@if $key == s{$val:replace_values($val,$svals);}
 		@if $key == r{border-radius:szs($val);}
-		@if $key == i{border-image:img(nth($val,1)) nth($val,2) map.get($ivals,nth($val,3));}
+		@if $key == i{border-image:img(list.nth($val,1)) list.nth($val,2) map.get($ivals,list.nth($val,3));}
 		@if map.has-key($keys,$key){
 			@if $ps == false{border-#{map.get($keys,$key)}:$val;}
 			@else if type-of($ps) == 'list'{

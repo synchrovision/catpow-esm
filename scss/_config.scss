@@ -9,6 +9,12 @@ $colors:(
 	shd:rgba(0,0,0,.2),
 	sh:rgba(0,0,0,.1),
 ) !default;
+$fonts:(
+	g:('Helvetica Neue',"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif),
+	m:(Georgiam,'Hiragino Mincho ProN','Yu Mincho', serif),
+	e:'times',
+	i:'Material Icons'
+) !default;
 $breakpoints:(
 	pc:'min-width:960px',
 	-pc:'max-width:959px',

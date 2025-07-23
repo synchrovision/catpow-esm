@@ -6,7 +6,7 @@
 @mixin ctn($cnd){
 	@if meta.type-of($cnd) == 'list'{
 		@for $i from 1 through list.length($cnd) {
-			$c:nth($cnd,$i);
+			$c:list.nth($cnd,$i);
 			@if meta.type-of($c) == 'number'{
 				$c:sz($c);
 				@if $c < 0{

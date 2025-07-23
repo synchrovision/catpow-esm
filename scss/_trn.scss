@@ -29,33 +29,33 @@
 	@each $key,$val in $trn{
 		@if $key == 'x' or $key == 'y' or $key == 'z' or $key == 'p'{$val:sz($val);}
 		@if map.has-key($tfncs,$key){
-			$tf:append($tf,(map.get($tfncs,$key) + '(' + $val + ')'));
+			$tf:list.append($tf,(map.get($tfncs,$key) + '(' + $val + ')'));
 		}
 		@if map.has-key($ffncs,$key){
-			$fl:append($fl,(map.get($ffncs,$key) + '(' + $val + ')'));
+			$fl:list.append($fl,(map.get($ffncs,$key) + '(' + $val + ')'));
 		}
 		@if $key == 'clr'{
 			@if function-exists('extract_color_tone') {
 				$tone:extract_color_tone($val);
 				@if $tone {
-					$fl:append($fl,invert(50%));
-					$fl:append($fl,sepia(100%));
-					$fl:append($fl,unquote('hue-rotate(calc('+map.get($tone,h)+' - 40deg))'));
-					$fl:append($fl,saturate(300%));
-					$fl:append($fl,unquote('saturate(calc('+map.get($tone,S)+' * 4))'));
-					$fl:append($fl,brightness(160%));
-					$fl:append($fl,unquote('brightness('+map.get($tone,B)+')'));
+					$fl:list.append($fl,invert(50%));
+					$fl:list.append($fl,sepia(100%));
+					$fl:list.append($fl,unquote('hue-rotate(calc('+map.get($tone,h)+' - 40deg))'));
+					$fl:list.append($fl,saturate(300%));
+					$fl:list.append($fl,unquote('saturate(calc('+map.get($tone,S)+' * 4))'));
+					$fl:list.append($fl,brightness(160%));
+					$fl:list.append($fl,unquote('brightness('+map.get($tone,B)+')'));
 				}
 			}
 			@else{
 				$clr:clr($val);
 				@if meta.type-of($clr) == 'color'{
-					$fl:append($fl,invert(50%));
-					$fl:append($fl,brightness(lightness($clr)*1.7));
-					$fl:append($fl,sepia(100%));
-					$fl:append($fl,saturate(1000%));
-					$fl:append($fl,saturate(saturation($clr)*.7));
-					$fl:append($fl,hue-rotate(hue($clr) - 34deg));
+					$fl:list.append($fl,invert(50%));
+					$fl:list.append($fl,brightness(lightness($clr)*1.7));
+					$fl:list.append($fl,sepia(100%));
+					$fl:list.append($fl,saturate(1000%));
+					$fl:list.append($fl,saturate(saturation($clr)*.7));
+					$fl:list.append($fl,hue-rotate(hue($clr) - 34deg));
 				}
 			}
 		}
@@ -66,8 +66,8 @@
 		@if $key == 'o'{opacity:$val;}
 		@if $key == 'bm'{
 			@if meta.type-of($val) == 'list'{
-				mix-blend-mode:replace_values(nth($val,1),$bmvals);
-				isolation:replace_values(nth($val,2),$bmivals);
+				mix-blend-mode:replace_values(list.nth($val,1),$bmvals);
+				isolation:replace_values(list.nth($val,2),$bmivals);
 			}
 			@else{
 				mix-blend-mode:replace_values($val,$bmvals);

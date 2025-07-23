@@ -46,7 +46,7 @@
 		}
 		@if $key == c{
 			@if meta.type-of($val) == 'list'{
-				@include flex_equalize(nth($val,1),nth($val,2));
+				@include flex_equalize(list.nth($val,1),list.nth($val,2));
 			}
 			@else{@include flex_equalize($val);}
 		}
@@ -69,13 +69,13 @@
 		&>*{
 			@extend %c#{$cols - 1}c#{$id};
 		}
-		&>*:first-child:nth-last-child(#{$cols}n) {
+		&>*:first-child:list.nth-last-child(#{$cols}n) {
 			&,&~*{
 				@extend %c#{$cols}c#{$id};
 			}
 		}
 		@if $cols > 2{
-			&>*:nth-child(#{$cols - 1}n):nth-last-child(#{$cols}n + 1)~*{
+			&>*:list.nth-child(#{$cols - 1}n):list.nth-last-child(#{$cols}n + 1)~*{
 				@extend %c#{$cols}c#{$id};
 			}
 			$max_len: ($cols - 1) * ($cols - 2) - 1;
@@ -88,7 +88,7 @@
 				}
 				$l: ceil($len / $r);
 				@if $l!=$cols {
-					&>*:first-child:nth-last-child(#{$len}) {
+					&>*:first-child:list.nth-last-child(#{$len}) {
 						@if $len % $l == 0{
 							&,&~*{
 								@extend %c#{$l}c#{$id};
@@ -98,7 +98,7 @@
 							&,&~*{
 								@extend %c#{$l - 1}c#{$id};
 							}
-							&~*:nth-child(#{$l - 1}n):nth-last-child(#{$l}n + 1)~*{
+							&~*:list.nth-child(#{$l - 1}n):list.nth-last-child(#{$l}n + 1)~*{
 								@extend %c#{$l}c#{$id};
 							}
 						}

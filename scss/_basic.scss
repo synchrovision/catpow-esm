@@ -3,6 +3,7 @@
 @use 'sass:color';
 @use 'sass:string';
 @use "sass:math";
+@use "sass:list";
 @use 'config' as *;
 
 @mixin default_break(){
@@ -21,10 +22,10 @@
 	@if meta.type-of($color) =='list'{
 		$a:false;
 		$t:100;
-		@if length($color) >2{$a:nth($color,3);}
-		@if length($color) >1{$t:nth($color,2);@if $t <= 1{$t:$t*100};}
+		@if list.length($color) >2{$a:list.nth($color,3);}
+		@if list.length($color) >1{$t:list.nth($color,2);@if $t <= 1{$t:$t*100};}
 		$t:$t * $tint / 100;
-		$c:nth($color,1);
+		$c:list.nth($color,1);
 		@if meta.type-of($alpha) == 'number'{
 			@if meta.type-of($a) == 'number'{
 				$a:$a * $alpha;
@@ -36,9 +37,9 @@
 		@return clr(($c,$t,$a));
 	}
 	$tint:$tint*0.01;$ff:255;
-	$r:$ff+$tint*(red($color)-$ff);
-	$g:$ff+$tint*(green($color)-$ff);
-	$b:$ff+$tint*(blue($color)-$ff);
+	$r:$ff+$tint*(color.channel($color, "red", $space: rgb)-$ff);
+	$g:$ff+$tint*(color.channel($color, "green", $space: rgb)-$ff);
+	$b:$ff+$tint*(color.channel($color, "blue", $space: rgb)-$ff);
 	@if $r<0{$r:0}
 	@if $g<0{$g:0}
 	@if $b<0{$b:0}
@@ -67,8 +68,8 @@
 
 @function replace_values($vals,$dct){
 	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
-		@for $i from 1 through length($vals){
-			$v:nth($vals,$i);
+		@for $i from 1 through list.length($vals){
+			$v:list.nth($vals,$i);
 			@if meta.type-of($v) == 'list'{$vals:set-nth($vals,$i,replace_values($v,$dct));}
 			@else if map.has-key($dct,$v){$vals:set-nth($vals,$i,map.get($dct,$v));}
 		}
@@ -82,19 +83,19 @@
 
 @function fill_4_values($vals){
 	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
-		@if length($vals) == 1{
-			$v:nth($vals,1);
+		@if list.length($vals) == 1{
+			$v:list.nth($vals,1);
 			@return ($v,$v,$v,$v);
 		}
-		@if length($vals) == 2{
-			$v1:nth($vals,1);
-			$v2:nth($vals,2);
+		@if list.length($vals) == 2{
+			$v1:list.nth($vals,1);
+			$v2:list.nth($vals,2);
 			@return ($v1,$v2,$v1,$v2);
 		}
-		@if length($vals) == 3{
-			$v1:nth($vals,1);
-			$v2:nth($vals,2);
-			$v3:nth($vals,3);
+		@if list.length($vals) == 3{
+			$v1:list.nth($vals,1);
+			$v2:list.nth($vals,2);
+			$v3:list.nth($vals,3);
 			@return ($v1,$v2,$v3,$v2);
 		}
 		@return $vals;
@@ -105,16 +106,16 @@
 }
 @function img($img){
 	@if $img == n{@return none;}
-	@if meta.type-of($img) == 'string' and str-index($img,'var(') == 1{
+	@if meta.type-of($img) == 'string' and string.index($img,'var(') == 1{
 		@return $img;
 	}
 	$clr:false;
 	@if meta.type-of($img) == 'list' {
-		$clr:clr(nth($img,2));
+		$clr:clr(list.nth($img,2));
 		@if(str-slice($clr,0,1) == '#'){
 			$clr:'%23' + str-slice($clr,1);
 		}
-		$img:nth($img,1);
+		$img:list.nth($img,1);
 	}
 	@if meta.global-variable-exists("images") and meta.type-of($images) == 'map' {
 		@if map.has-key($images,$img){$img:map.get($images,$img);}
@@ -146,14 +147,15 @@
 	$alpha:false;
 	$tint:false;
 	@if meta.type-of($clr) =='list'{
-		@if length($clr) >2{$alpha:nth($clr,3);}
-		@if length($clr) >1{$tint:nth($clr,2);@if meta.type-of($tint) == 'number' and $tint <= 1{$tint:$tint*100};}
-		$clr:nth($clr,1);
+		@if list.length($clr) >2{$alpha:list.nth($clr,3);}
+		@if list.length($clr) >1{$tint:list.nth($clr,2);@if meta.type-of($tint) == 'number' and $tint <= 1{$tint:$tint*100};}
+		$clr:list.nth($clr,1);
 	}
+	@if string.index($clr,'var(') != null{@return $clr;}
 	@if string.index($clr,'-') != null{
 		$list:string.split($clr,'-');
-		$c1:nth($list,1);
-		$c2:nth($list,2) + 0;
+		$c1:list.nth($list,1);
+		$c2:list.nth($list,2) + 0;
 		@if meta.type-of($tint) != 'number'{$tint:50%;}
 		@if meta.global-variable-exists("colors") and meta.type-of($colors) == 'map'{
 			@if map.has-key($colors, $c1){$c1:map.get($colors,$c1);}
@@ -195,7 +197,7 @@
 	@if meta.type-of($vals) == 'list'{
 		$rtn:false;
 		@each $v in $vals{
-			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
+			@if meta.type-of($rtn) == 'list'{$rtn:list.append($rtn,sz($v));}
 			@else if $rtn == false{$rtn:sz($v);}
 			@else {$rtn:$rtn sz($v);}
 		}
@@ -227,16 +229,16 @@
 	}
 	@return $fnt;
 }
-@function slice($list,$start:1,$end:length($list)){
+@function slice($list,$start:1,$end:list.length($list)){
 	$rtn:();
 	@if $start < 0 {
-		$start: length($list) + $start;
+		$start: list.length($list) + $start;
 	}
 	@if $end < 1 {
-		$end: length($list) + $end;
+		$end: list.length($list) + $end;
 	}
 	@for $i from $start through $end {
-		$rtn:append($rtn,nth($list,$i));
+		$rtn:list.append($rtn,list.nth($list,$i));
 	}
 	@return $rtn;
 }

@@ -34,7 +34,7 @@
 			@each $fi in $c{
 				@if $fi == n {$fi:counter(#{$id});}
 				@if map.has-key($fvals,$fi){$fi:counter(#{$id},#{map.get($fvals,$fi)});}
-				@if meta.type-of($fmt) == 'list'{$fmt:append($fmt,$fi);}
+				@if meta.type-of($fmt) == 'list'{$fmt:list.append($fmt,$fi);}
 				@else if $fmt == false{$fmt:$fi;}
 				@else {$fmt:$fmt $fi;}
 			}
