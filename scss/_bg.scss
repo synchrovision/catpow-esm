@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 @use "_gradient.scss" as *;
 
@@ -18,11 +20,11 @@
 	@each $key,$val in $bg{
 		@if $key == i{$val:img($val);}
 		@if $key == c{$val:clr($val);}
-		@if $key == r{$val:map-get($rvals,$val);}
-		@if $key == a{$val:map-get($avals,$val);}
-		@if $key == bm{$val:map-get($bmvals,$val);}
+		@if $key == r{$val:map.get($rvals,$val);}
+		@if $key == a{$val:map.get($avals,$val);}
+		@if $key == bm{$val:map.get($bmvals,$val);}
 		@if $key == s{
-			@if map-has-key($svals,$val){$val:map-get($svals,$val);}
+			@if map.has-key($svals,$val){$val:map.get($svals,$val);}
 			@else {$val:szs($val);}
 		}
 		@if $key == l{
@@ -79,12 +81,12 @@
 		}
 		@if $key == p{$val:replace_values($val,$pvals);$val:szs($val);}
 		@if $key == 'cl'{
-			$val:map-get($clvals,$val);
+			$val:map.get($clvals,$val);
 			-webkit-background-clip:$val;
 			-moz-background-clip:$val;
 			-ms-background-clip:$val;
 			background-clip:$val;
 		}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }

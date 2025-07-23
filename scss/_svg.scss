@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin svg($svg){
@@ -31,7 +33,7 @@
 			stroke-linejoin:replace_values($val,$jvals);
 		}
 		@if $key == d{
-			@if type-of($val) =='list' and type-of(nth($val,1)) == 'list'{
+			@if meta.type-of($val) =='list' and meta.type-of(nth($val,1)) == 'list'{
 				stroke-dasharray:nth($val,1);
 				stroke-dashoffset:nth($val,2);
 			}
@@ -39,6 +41,6 @@
 				stroke-dasharray:$val;
 			}
 		}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }

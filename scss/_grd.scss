@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin grd($grd){
@@ -27,7 +29,7 @@
 	display:grid;
 	@each $key,$val in $grd{
 		@if $key == rc or $key == rr{
-			@if(type-of($val) == 'list'){
+			@if(meta.type-of($val) == 'list'){
 				$v:minmax(szs(nth($val,1)),1fr);
 				$vals:();
 				@for $i from 1 through nth($val,2){
@@ -85,9 +87,9 @@
 			{$val:szs($val);}
 		@if $key == j or $key == a or
 			$key == ji or $key == ai
-			{$val:map-get($jvals,$val);}
+			{$val:map.get($jvals,$val);}
 		@if $key == f{$val:replace_values($val,$fvals);}
-		@if map-has-key($iekeys,$key){#{map-get($iekeys,$key)}:$val;}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+		@if map.has-key($iekeys,$key){#{map.get($iekeys,$key)}:$val;}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }

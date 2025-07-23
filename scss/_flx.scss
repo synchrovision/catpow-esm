@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin flx($flx){
@@ -13,37 +15,37 @@
 	display:flex;
 	@each $key,$val in $flx{
 		@if $key == w{
-			-webkit-box-lines:map-get($wwvals,$val);
-			-webkit-flex-wrap:map-get($wvals,$val);
-			flex-wrap:map-get($wvals,$val);
+			-webkit-box-lines:map.get($wwvals,$val);
+			-webkit-flex-wrap:map.get($wvals,$val);
+			flex-wrap:map.get($wvals,$val);
 		}
 		@if $key == j or $key == jc{
-			-webkit-justify-content:map-get($jvals,$val);
-			justify-content:map-get($jvals,$val);
+			-webkit-justify-content:map.get($jvals,$val);
+			justify-content:map.get($jvals,$val);
 		}
 		@if $key == v or $key == ac{
-			-webkit-align-content:map-get($jvals,$val);
-			align-content:map-get($jvals,$val);
+			-webkit-align-content:map.get($jvals,$val);
+			align-content:map.get($jvals,$val);
 		}
 		@if $key == ji{
-			-webkit-justify-items:map-get($jvals,$val);
-			justify-items:map-get($jvals,$val);
+			-webkit-justify-items:map.get($jvals,$val);
+			justify-items:map.get($jvals,$val);
 		}
 		@if $key == a or $key == ai{
-			-webkit-align-items:map-get($avals,$val);
-			align-items:map-get($avals,$val);
+			-webkit-align-items:map.get($avals,$val);
+			align-items:map.get($avals,$val);
 		}
 		@if $key == d{
-			-webkit-box-direction:map-get($wddvals,$val);
-			-webkit-box-orient:map-get($wdovals,$val);
-			-webkit-flex-direction:map-get($dvals,$val);
-			flex-direction:map-get($dvals,$val);
+			-webkit-box-direction:map.get($wddvals,$val);
+			-webkit-box-orient:map.get($wdovals,$val);
+			-webkit-flex-direction:map.get($dvals,$val);
+			flex-direction:map.get($dvals,$val);
 		}
 		@if $key == g{
 			gap:szs($val);
 		}
 		@if $key == c{
-			@if type-of($val) == 'list'{
+			@if meta.type-of($val) == 'list'{
 				@include flex_equalize(nth($val,1),nth($val,2));
 			}
 			@else{@include flex_equalize($val);}

@@ -1,10 +1,13 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 
 @mixin ctn($cnd){
-	@if type-of($cnd) == 'list'{
-		@for $i from 1 through length($cnd) {
+	@if meta.type-of($cnd) == 'list'{
+		@for $i from 1 through list.length($cnd) {
 			$c:nth($cnd,$i);
-			@if type-of($c) == 'number'{
+			@if meta.type-of($c) == 'number'{
 				$c:sz($c);
 				@if $c < 0{
 					$c:'(width < ' + abs($c) + ')';
@@ -16,7 +19,7 @@
 			$cnd:set-nth($cnd,$i,$c);
 		}
 	}
-	@else if type-of($cnd) == 'map'{
+	@else if meta.type-of($cnd) == 'map'{
 		$keys:(w:width,h:height,a:aspect-ratio,o:orientation);
 		$ovals:(l:landscape,p:portrait);
 		$map:$cnd;
@@ -29,7 +32,7 @@
 				@if $key == o{
 					$val:replace_values($val,$ovals);
 				}
-				@else if type-of($val) == 'number'{
+				@else if meta.type-of($val) == 'number'{
 					@if($key == h or $key == w){
 						$val:sz($val);
 					}
@@ -42,16 +45,16 @@
 					}
 				}
 				@if $cnd == ''{
-					$cnd:'(' + map-get($keys,$key) + $op + $val + ')';
+					$cnd:'(' + map.get($keys,$key) + $op + $val + ')';
 				}
 				@else{
-					$cnd:$cnd + ' and (' + map-get($keys,$key) + $op + $val + ')';
+					$cnd:$cnd + ' and (' + map.get($keys,$key) + $op + $val + ')';
 				}
 			}
 		}
 		$cnd:$ctn + $cnd;
 	}
-	@else if type-of($cnd) == 'number'{
+	@else if meta.type-of($cnd) == 'number'{
 		$cnd:sz($cnd);
 		@if $cnd < 0{
 			$cnd:'(width < ' + abs($cnd) + ')';

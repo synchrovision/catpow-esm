@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin txt($txt){
@@ -54,14 +56,14 @@
 		@if $key == whs{$val:replace_values($val,$whsvals);}
 		@if $key == cmb{$val:replace_values($val,$cmbvals);}
 		@if $key == ffs{$val:replace_values($val,$ffsvals);}
-		@if map-has-key($keys,$key){
-			@if type-of(map-get($keys,$key)) == 'list'{
-				@each $sel in map-get($keys,$key){
+		@if map.has-key($keys,$key){
+			@if meta.type-of(map.get($keys,$key)) == 'list'{
+				@each $sel in map.get($keys,$key){
 					#{$sel}:$val;
 				}
 			}
 			@else{
-				#{map-get($keys,$key)}:$val;
+				#{map.get($keys,$key)}:$val;
 			}
 		}
 	}
@@ -86,25 +88,25 @@
 	$svals:(s:solid,d:dotted,ds:dashed,w:double,r:ridge,g:groove,i:inset,o:outset);
 	$countNumberValue:0;
 	@each $val in $vals{
-		@if map-has-key($tvals,$val){
-			text-decoration:map-get($tvals,$val);
+		@if map.has-key($tvals,$val){
+			text-decoration:map.get($tvals,$val);
 		}
-		@else if index(map-values($tvals),$val) != null{
+		@else if index(map.values($tvals),$val) != null{
 			text-decoration:$val;
 		}
-		@else if map-has-key($lvals,$val){
-			text-decoration-line:map-get($lvals,$val);
+		@else if map.has-key($lvals,$val){
+			text-decoration-line:map.get($lvals,$val);
 		}
-		@else if index(map-values($lvals),$val) != null{
+		@else if index(map.values($lvals),$val) != null{
 			text-decoration-line:$val;
 		}
-		@else if map-has-key($svals,$val){
-			text-decoration-style:map-get($svals,$val);
+		@else if map.has-key($svals,$val){
+			text-decoration-style:map.get($svals,$val);
 		}
-		@else if index(map-values($svals),$val) != null{
+		@else if index(map.values($svals),$val) != null{
 			text-decoration-style:$val;
 		}
-		@else if type-of($val) == 'number'{
+		@else if meta.type-of($val) == 'number'{
 			@if $countNumberValue == 0{
 				text-decoration-thickness:sz($val);
 			}
@@ -132,19 +134,19 @@
 			$s2:true;
 			$s:append($s,$val);
 		}
-		@else if ($s1 == false and map-has-key($s1vals,$val)){
+		@else if ($s1 == false and map.has-key($s1vals,$val)){
 			$s1:true;
-			$s:append($s,map-get($s1vals,$val));
+			$s:append($s,map.get($s1vals,$val));
 		}
-		@else if ($s1 == false and index(map-values($s1vals),$val) != null){
+		@else if ($s1 == false and index(map.values($s1vals),$val) != null){
 			$s1:true;
 			$s:append($s,$val);
 		}
-		@else if ($s2 == false and map-has-key($s2vals,$val)){
+		@else if ($s2 == false and map.has-key($s2vals,$val)){
 			$s2:true;
-			$s:append($s,map-get($s2vals,$val));
+			$s:append($s,map.get($s2vals,$val));
 		}
-		@else if ($s2 == false and index(map-values($s2vals),$val) != null){
+		@else if ($s2 == false and index(map.values($s2vals),$val) != null){
 			$s2:true;
 			$s:append($s,$val);
 		}

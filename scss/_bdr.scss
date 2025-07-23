@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin bdr($bdr){
@@ -6,21 +8,21 @@
 	$svals:(n:none,h:hidden,s:solid,d:dotted,ds:dashed,w:double,r:ridge,g:groove,i:inset,o:outset);
 	$ivals:(s:stretch,r:round,f:fill);
 	$ps:false;
-	@if map-has-key($bdr,p){$ps:replace_values(map-get($bdr,p),$pvals);}
+	@if map.has-key($bdr,p){$ps:replace_values(map.get($bdr,p),$pvals);}
 	@each $key,$val in $bdr{
 		@if $key == w{$val:szs($val);}
 		@if $key == c{$val:clr($val);}
 		@if $key == s{$val:replace_values($val,$svals);}
 		@if $key == r{border-radius:szs($val);}
-		@if $key == i{border-image:img(nth($val,1)) nth($val,2) map-get($ivals,nth($val,3));}
-		@if map-has-key($keys,$key){
-			@if $ps == false{border-#{map-get($keys,$key)}:$val;}
+		@if $key == i{border-image:img(nth($val,1)) nth($val,2) map.get($ivals,nth($val,3));}
+		@if map.has-key($keys,$key){
+			@if $ps == false{border-#{map.get($keys,$key)}:$val;}
 			@else if type-of($ps) == 'list'{
 				@each $p in $ps{
-					border-#{$p}-#{map-get($keys,$key)}:$val;
+					border-#{$p}-#{map.get($keys,$key)}:$val;
 				}
 			}
-			@else {border-#{$ps}-#{map-get($keys,$key)}:$val;}
+			@else {border-#{$ps}-#{map.get($keys,$key)}:$val;}
 		}
 	}
 }

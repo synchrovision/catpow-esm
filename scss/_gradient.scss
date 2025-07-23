@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin gradient($colorA:#666,$colorB:#888,$orientation:vertical){
@@ -12,7 +14,7 @@
 @mixin linear-gradient($deg,$colors...){
 	$drc:false;
 	$drcs:(0deg:top,90deg:left,180deg:bottom,270deg:right);
-	@if(map-has-key($drcs,$deg)){$drc:map-get($drcs,$deg);}
+	@if(map.has-key($drcs,$deg)){$drc:map.get($drcs,$deg);}
 	@else{$drc:top;}
 	background-image: -webkit-linear-gradient($drc,$colors);
 	background-image:    -moz-linear-gradient($drc,$colors);

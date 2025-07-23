@@ -1,11 +1,14 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:math";
 @use "_basic.scss" as *;
 
 @mixin bp($bp){
-	@if global-variable-exists("breakpoints") and type-of($breakpoints) == 'map' {
-		@if map-has-key($breakpoints,$bp){$bp:map-get($breakpoints,$bp);}
+	@if meta.global-variable-exists("breakpoints") and type-of($breakpoints) == 'map' {
+		@if map.has-key($breakpoints,$bp){$bp:map.get($breakpoints,$bp);}
 	}
-	@if type-of($bp) == 'number'{
-		@if unitless($bp){
+	@if meta.type-of($bp) == 'number'{
+		@if math.is-unitless($bp){
 			$bp:$bp * 1px;
 		}
 		@if $bp < 0{

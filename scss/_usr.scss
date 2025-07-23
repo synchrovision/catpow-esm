@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin usr($usr){
@@ -23,6 +25,6 @@
 				-ms-user-select:$val;
 					user-select:$val;
 		}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }

@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin bnd($bnd){
@@ -73,14 +75,14 @@
 	
 	$abstractSize:(auto,min-content,max-content,fit-content);
 	@each $key,$val in $bnd{
-		@if $key == p{$val:map-get($pvals,$val);}
-		@if $key == d{$val:map-get($dvals,$val);}
-		@if $key == v{$val:map-get($vvals,$val);}
-		@if $key == fl{$val:map-get($flvals,$val);}
-		@if $key == cl{$val:map-get($clvals,$val);}
-		@if $key == bs{$val:map-get($bsvals,$val);}
+		@if $key == p{$val:map.get($pvals,$val);}
+		@if $key == d{$val:map.get($dvals,$val);}
+		@if $key == v{$val:map.get($vvals,$val);}
+		@if $key == fl{$val:map.get($flvals,$val);}
+		@if $key == cl{$val:map.get($clvals,$val);}
+		@if $key == bs{$val:map.get($bsvals,$val);}
 		@if $key == bi or $key == pbb or $key == pbi or $key == pba
-			{$val:map-get($bivals,$val);}
+			{$val:map.get($bivals,$val);}
 		@if $key == w or $key == h or $key == x or $key == y or $key == g or 
 			$key == l or $key == r or $key == t or $key == b or $key == i or 
 			$key == pd or $key == mg or
@@ -103,36 +105,36 @@
 			left:nth($vals,4);
 		}
 		@if $key == w or $key == h{
-			@if type-of($val) == 'list'{
+			@if meta.type-of($val) == 'list'{
 				@if length($val) == 2{
 					@if (
-						type-of(nth($val,1)) != 'number' or
+						meta.type-of(nth($val,1)) != 'number' or
 						(
-							type-of(nth($val,1)) == 'number' and
+							meta.type-of(nth($val,1)) == 'number' and
 							index(('%','vw','vh','vmax','vmin'),unit(nth($val,1))) != null and
-							type-of(nth($val,2)) == 'number'
+							meta.type-of(nth($val,2)) == 'number'
 						)
 					){
-						max-#{map-get($keys,$key)}:nth($val,2);
+						max-#{map.get($keys,$key)}:nth($val,2);
 						$val:nth($val,1);
 					}
 					@else{
-						min-#{map-get($keys,$key)}:nth($val,1);
+						min-#{map.get($keys,$key)}:nth($val,1);
 						$val:nth($val,2);
 					}
 				}
 				@else{
-					min-#{map-get($keys,$key)}:nth($val,1);
-					max-#{map-get($keys,$key)}:nth($val,3);
+					min-#{map.get($keys,$key)}:nth($val,1);
+					max-#{map.get($keys,$key)}:nth($val,3);
 					$val:nth($val,2);
 				}
 			}
 		}
-		@if $key == o or $key == ox or $key == oy{$val:map-get($ovals,$val);}
-		@if $key == of{$val:map-get($ofvals,$val);}
+		@if $key == o or $key == ox or $key == oy{$val:map.get($ovals,$val);}
+		@if $key == of{$val:map.get($ofvals,$val);}
 		@if $key == op{$val:replace_values($val,$opvals);}
 		@if $key == f{
-			@if type-of($val) == 'list'{
+			@if meta.type-of($val) == 'list'{
 				-webkit-box-flex:nth($val,1);
 				flex-grow:nth($val,1);
 				flex-shrink: nth($val,2);
@@ -168,17 +170,17 @@
 			   -moz-appearance:$val;
 					appearance:$val;
 		}
-		@if $key == as{$val:map-get($asvals,$val);}
-		@if $key == ac{$val:map-get($acvals,$val);}
+		@if $key == as{$val:map.get($asvals,$val);}
+		@if $key == ac{$val:map.get($acvals,$val);}
 		@if $key == sss{$val:replace_values($val,$sssvals);}
 		@if $key == ssa{$val:replace_values($val,$ssavals);}
 		@if $key == sst{$val:replace_values($val,$sstvals);}
 		@if $key == sb{$val:replace_values($val,$sbvals);}
 		@if $key == ctn{
-			@if type-of($val) == 'list' {
+			@if meta.type-of($val) == 'list' {
 				@each $v in $val{
-					@if map-has-key($ctnvals,$v){
-						container-type:map-get($ctnvals,$v);
+					@if map.has-key($ctnvals,$v){
+						container-type:map.get($ctnvals,$v);
 					}
 					@else{
 						container-name:$v;
@@ -186,14 +188,14 @@
 				}
 			}
 			@else{
-				@if map-has-key($ctnvals,$val){
-					container-type:map-get($ctnvals,$val);
+				@if map.has-key($ctnvals,$val){
+					container-type:map.get($ctnvals,$val);
 				}
 				@else{
 					container-name:$val;
 				}
 			}
 		}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:#{$val};}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:#{$val};}
 	}
 }

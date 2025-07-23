@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 
 @mixin trn($trn){
@@ -25,11 +28,11 @@
 	$fl:();
 	@each $key,$val in $trn{
 		@if $key == 'x' or $key == 'y' or $key == 'z' or $key == 'p'{$val:sz($val);}
-		@if map-has-key($tfncs,$key){
-			$tf:append($tf,(map-get($tfncs,$key) + '(' + $val + ')'));
+		@if map.has-key($tfncs,$key){
+			$tf:append($tf,(map.get($tfncs,$key) + '(' + $val + ')'));
 		}
-		@if map-has-key($ffncs,$key){
-			$fl:append($fl,(map-get($ffncs,$key) + '(' + $val + ')'));
+		@if map.has-key($ffncs,$key){
+			$fl:append($fl,(map.get($ffncs,$key) + '(' + $val + ')'));
 		}
 		@if $key == 'clr'{
 			@if function-exists('extract_color_tone') {
@@ -37,16 +40,16 @@
 				@if $tone {
 					$fl:append($fl,invert(50%));
 					$fl:append($fl,sepia(100%));
-					$fl:append($fl,unquote('hue-rotate(calc('+map-get($tone,h)+' - 40deg))'));
+					$fl:append($fl,unquote('hue-rotate(calc('+map.get($tone,h)+' - 40deg))'));
 					$fl:append($fl,saturate(300%));
-					$fl:append($fl,unquote('saturate(calc('+map-get($tone,S)+' * 4))'));
+					$fl:append($fl,unquote('saturate(calc('+map.get($tone,S)+' * 4))'));
 					$fl:append($fl,brightness(160%));
-					$fl:append($fl,unquote('brightness('+map-get($tone,B)+')'));
+					$fl:append($fl,unquote('brightness('+map.get($tone,B)+')'));
 				}
 			}
 			@else{
 				$clr:clr($val);
-				@if type-of($clr) == 'color'{
+				@if meta.type-of($clr) == 'color'{
 					$fl:append($fl,invert(50%));
 					$fl:append($fl,brightness(lightness($clr)*1.7));
 					$fl:append($fl,sepia(100%));
@@ -62,7 +65,7 @@
 		@if $key == 'a'{animation:replace_values($val,$avals);}
 		@if $key == 'o'{opacity:$val;}
 		@if $key == 'bm'{
-			@if type-of($val) == 'list'{
+			@if meta.type-of($val) == 'list'{
 				mix-blend-mode:replace_values(nth($val,1),$bmvals);
 				isolation:replace_values(nth($val,2),$bmivals);
 			}
@@ -86,11 +89,11 @@
 					transform-origin:$val;
 		}
 	}
-	@if length($fl) > 0{
+	@if list.length($fl) > 0{
 		-webkit-filter:$fl;
 				filter:$fl;
 	}
-	@if length($tf) > 0{
+	@if list.length($tf) > 0{
 		transform:-webkit-$tf;
 		transform:        $tf;
 	}

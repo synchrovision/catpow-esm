@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
 @use "_basic.scss" as *;
 
 @mixin shd($shd){
@@ -5,14 +8,14 @@
 	@each $key,$val in $shd{
 		$clr:false;
 		$blur:false;
-		@if type-of($val) == 'list' and length($val) == 2{
+		@if meta.type-of($val) == 'list' and list.length($val) == 2{
 			$clr:nth($val,2);
 			$val:nth($val,1);
 		}
 		@else{
 			$clr:shd;
 		}
-		@if type-of($val) == 'number'{
+		@if meta.type-of($val) == 'number'{
 			$inset:($val < 0);
 			@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
 				$blur:abs($val) * 2 + 1;
@@ -124,7 +127,7 @@
 					#{$bo}px #{$bo}px #{$bo}px #{$co2};
 			}
 		}
-		@if map-has-key($btvals,$val){$val:map-get($btvals,$val);}
+		@if map.has-key($btvals,$val){$val:map.get($btvals,$val);}
 		@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br' or $key == 'bc' or $key == 'bv' or $key == 'bvi' or $key == 'bvo' or $key == 'bve'
 		{box-shadow:$val;}
 		@if $key == 't' or $key == 'tc' or $key == 'ts' or $key == 'tg' or $key == 'tbv'{text-shadow:$val;}

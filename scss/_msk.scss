@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin msk($msk){
@@ -14,9 +16,9 @@
 		@if $key == p{$val:replace_values($val,$pvals);}
 		@if $key == r{$val:replace_values($val,$rvals);}
 		@if $key == s{$val:replace_values($val,$svals);}
-		@if map-has-key($keys,$key){
-			-webkit-#{map-get($keys,$key)}:#{$val};
-			#{map-get($keys,$key)}:#{$val};
+		@if map.has-key($keys,$key){
+			-webkit-#{map.get($keys,$key)}:#{$val};
+			#{map.get($keys,$key)}:#{$val};
 		}
 	}
 }

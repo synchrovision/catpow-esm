@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin cnt($cnt:false){
@@ -13,7 +15,7 @@
 		h:hiragana,hi:hiragana-iroha,
 		k:katakana,ki:katakana-iroha
 	);
-	@if type-of($cnt) == 'map'{
+	@if meta.type-of($cnt) == 'map'{
 		@each $key,$val in $cnt{
 			@if $key == s{$sel:$val;}
 			@if $key == r{
@@ -28,11 +30,11 @@
 		}
 	}
 	@if $c != false{
-		@if type-of($c) == 'list'{
+		@if meta.type-of($c) == 'list'{
 			@each $fi in $c{
 				@if $fi == n {$fi:counter(#{$id});}
-				@if map-has-key($fvals,$fi){$fi:counter(#{$id},#{map-get($fvals,$fi)});}
-				@if type-of($fmt) == 'list'{$fmt:append($fmt,$fi);}
+				@if map.has-key($fvals,$fi){$fi:counter(#{$id},#{map.get($fvals,$fi)});}
+				@if meta.type-of($fmt) == 'list'{$fmt:append($fmt,$fi);}
 				@else if $fmt == false{$fmt:$fi;}
 				@else {$fmt:$fmt $fi;}
 			}
@@ -40,7 +42,7 @@
 		@else {
 			$fmt:$c;
 			@if $fmt == n {$fmt:counter(#{$id});}
-			@if map-has-key($fvals,$fmt){$fmt:counter(#{$id},#{map-get($fvals,$fmt)});}
+			@if map.has-key($fvals,$fmt){$fmt:counter(#{$id},#{map.get($fvals,$fmt)});}
 		}
 		@if $fmt != false{
 			@if $sel !=false{

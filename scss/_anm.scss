@@ -1,3 +1,5 @@
+@use "sass:meta";
+@use "sass:map";
 @use "_basic.scss" as *;
 
 @mixin anm($trn){
@@ -20,7 +22,7 @@
 		@if $key == 'e'{$val:ease($val);}
 		@if $key == 'i'{$val:replace_values($val,$ivals);}
 		@if $key == 'f'{$val:replace_values($val,$fvals);}
-		@if map-has-key($keys,$key){#{map-get($keys,$key)}:$val;}
+		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }
 

@@ -1,5 +1,8 @@
+@use "sass:meta";
+@use "sass:map";
 @use 'sass:color';
 @use 'sass:string';
+@use "sass:math";
 @use 'config' as *;
 
 @mixin default_break(){
@@ -15,15 +18,15 @@
 	}
 }
 @function tint($color,$tint,$alpha:false){
-	@if type-of($color) =='list'{
+	@if meta.type-of($color) =='list'{
 		$a:false;
 		$t:100;
 		@if length($color) >2{$a:nth($color,3);}
 		@if length($color) >1{$t:nth($color,2);@if $t <= 1{$t:$t*100};}
 		$t:$t * $tint / 100;
 		$c:nth($color,1);
-		@if type-of($alpha) == 'number'{
-			@if type-of($a) == 'number'{
+		@if meta.type-of($alpha) == 'number'{
+			@if meta.type-of($a) == 'number'{
 				$a:$a * $alpha;
 			}
 			@else{
@@ -63,22 +66,22 @@
 }
 
 @function replace_values($vals,$dct){
-	@if type-of($vals) == 'list' or type-of($vals) == 'arglist'{
+	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
 		@for $i from 1 through length($vals){
 			$v:nth($vals,$i);
-			@if type-of($v) == 'list'{$vals:set-nth($vals,$i,replace_values($v,$dct));}
-			@else if map-has-key($dct,$v){$vals:set-nth($vals,$i,map-get($dct,$v));}
+			@if meta.type-of($v) == 'list'{$vals:set-nth($vals,$i,replace_values($v,$dct));}
+			@else if map.has-key($dct,$v){$vals:set-nth($vals,$i,map.get($dct,$v));}
 		}
 		@return $vals;
 	}
 	@else{
-		@if map-has-key($dct,$vals){@return map-get($dct,$vals);}
+		@if map.has-key($dct,$vals){@return map.get($dct,$vals);}
 		@else{@return $vals;}
 	}
 }
 
 @function fill_4_values($vals){
-	@if type-of($vals) == 'list' or type-of($vals) == 'arglist'{
+	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
 		@if length($vals) == 1{
 			$v:nth($vals,1);
 			@return ($v,$v,$v,$v);
@@ -102,19 +105,19 @@
 }
 @function img($img){
 	@if $img == n{@return none;}
-	@if type-of($img) == 'string' and str-index($img,'var(') == 1{
+	@if meta.type-of($img) == 'string' and str-index($img,'var(') == 1{
 		@return $img;
 	}
 	$clr:false;
-	@if type-of($img) == 'list' {
+	@if meta.type-of($img) == 'list' {
 		$clr:clr(nth($img,2));
 		@if(str-slice($clr,0,1) == '#'){
 			$clr:'%23' + str-slice($clr,1);
 		}
 		$img:nth($img,1);
 	}
-	@if global-variable-exists("images") and type-of($images) == 'map' {
-		@if map-has-key($images,$img){$img:map-get($images,$img);}
+	@if meta.global-variable-exists("images") and meta.type-of($images) == 'map' {
+		@if map.has-key($images,$img){$img:map.get($images,$img);}
 	}
 	@if $clr{
 		$img:$img + '?color=' + $clr;
@@ -124,53 +127,53 @@
 
 
 @function sel($sels){
-	@if global-variable-exists("selectors") and type-of($selectors) == 'map' {
-		@if type-of($sels) == 'list' {
+	@if meta.global-variable-exists("selectors") and meta.type-of($selectors) == 'map' {
+		@if meta.type-of($sels) == 'list' {
 			$rtn:false;
 			@each $sel in $sels{
-				@if $rtn == false{$rtn:map-get($selectors,$sel);}
-				@else {$rtn:$rtn + ',' + map-get($selectors,$sel);}
+				@if $rtn == false{$rtn:map.get($selectors,$sel);}
+				@else {$rtn:$rtn + ',' + map.get($selectors,$sel);}
 			}
 			@return $rtn;
 		}
-		@if map-has-key($selectors,$sels){@return map-get($selectors,$sels);}
+		@if map.has-key($selectors,$sels){@return map.get($selectors,$sels);}
 	}
 	@return $sels;
 }
 @function clr($clr){
-	@if type-of($clr) == 'color'{@return $clr;}
+	@if meta.type-of($clr) == 'color'{@return $clr;}
 	@if $clr == n{@return transparent;}
 	$alpha:false;
 	$tint:false;
-	@if type-of($clr) =='list'{
+	@if meta.type-of($clr) =='list'{
 		@if length($clr) >2{$alpha:nth($clr,3);}
-		@if length($clr) >1{$tint:nth($clr,2);@if type-of($tint) == 'number' and $tint <= 1{$tint:$tint*100};}
+		@if length($clr) >1{$tint:nth($clr,2);@if meta.type-of($tint) == 'number' and $tint <= 1{$tint:$tint*100};}
 		$clr:nth($clr,1);
 	}
 	@if string.index($clr,'-') != null{
 		$list:string.split($clr,'-');
 		$c1:nth($list,1);
 		$c2:nth($list,2) + 0;
-		@if type-of($tint) != 'number'{$tint:50%;}
-		@if global-variable-exists("colors") and type-of($colors) == 'map'{
-			@if map-has-key($colors, $c1){$c1:map-get($colors,$c1);}
-			@if map-has-key($colors, $c2){$c2:map-get($colors,$c2);}
+		@if meta.type-of($tint) != 'number'{$tint:50%;}
+		@if meta.global-variable-exists("colors") and meta.type-of($colors) == 'map'{
+			@if map.has-key($colors, $c1){$c1:map.get($colors,$c1);}
+			@if map.has-key($colors, $c2){$c2:map.get($colors,$c2);}
 		}
 		$clr:color.mix($c1,$c2,$weight:$tint);
 		$tint:false;
 	}
-	@if global-variable-exists("colors") and type-of($colors) == 'map' and map-has-key($colors,$clr){
-		$clr:map-get($colors,$clr);
+	@if meta.global-variable-exists("colors") and meta.type-of($colors) == 'map' and map.has-key($colors,$clr){
+		$clr:map.get($colors,$clr);
 	}
-	@if type-of($tint) == 'number'{$clr:tint($clr,$tint);}
-	@if type-of($alpha) == 'number'{$clr:color.scale($clr,$alpha:$alpha);}
+	@if meta.type-of($tint) == 'number'{$clr:tint($clr,$tint);}
+	@if meta.type-of($alpha) == 'number'{$clr:color.scale($clr,$alpha:$alpha);}
 	@return $clr;
 }
 @function sz($val){
-	@if global-variable-exists("sizes") and type-of($sizes) == 'map' {
-		@if map-has-key($sizes,$val){$val:map-get($sizes,$val);}
+	@if meta.global-variable-exists("sizes") and meta.type-of($sizes) == 'map' {
+		@if map.has-key($sizes,$val){$val:map.get($sizes,$val);}
 	}
-	@else if function-exists('translate_size') {
+	@else if meta.function-exists('translate_size') {
 		$size:translate_size($val);
 		@if($size != false){$val:$size;}
 	}
@@ -181,18 +184,18 @@
 		siat:env(safe-area-inset-top),
 		saib:env(safe-area-inset-bottom)
 	);
-	@if map-has-key($svals,$val){@return map-get($svals,$val);}
-	@if type-of($val) == 'number' and unitless($val){
-		@if global-variable-exists("size-unit"){@return $val*$size-unit;}
+	@if map.has-key($svals,$val){@return map.get($svals,$val);}
+	@if meta.type-of($val) == 'number' and math.is-unitless($val){
+		@if meta.global-variable-exists("size-unit"){@return $val*$size-unit;}
 		@return $val * 1px;
 	}
 	@return $val;
 }
 @function szs($vals){
-	@if type-of($vals) == 'list'{
+	@if meta.type-of($vals) == 'list'{
 		$rtn:false;
 		@each $v in $vals{
-			@if type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
+			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
 			@else if $rtn == false{$rtn:sz($v);}
 			@else {$rtn:$rtn sz($v);}
 		}
@@ -203,22 +206,22 @@
 	}
 }
 @function wt($val){
-	@if global-variable-exists("weights") and type-of($weights) == 'map' {
-		@if map-has-key($weights,$val){$val:map-get($weights,$val);}
+	@if meta.global-variable-exists("weights") and meta.type-of($weights) == 'map' {
+		@if map.has-key($weights,$val){$val:map.get($weights,$val);}
 	}
-	@else if function-exists('translate_weight') {
+	@else if meta.function-exists('translate_weight') {
 		$weight:translate_weight($val);
 		@if($weight != false){$val:$weight;}
 	}
 	$wvals:(t:100,e:200,l:300,r:400,m:500,d:600,b:700,u:800,h:900);
-	@if map-has-key($wvals,$val){@return map-get($wvals,$val);}
+	@if map.has-key($wvals,$val){@return map.get($wvals,$val);}
 	@return $val;
 }
 @function fnt($fnt){
-	@if global-variable-exists("fonts") and type-of($fonts) == 'map' and map-has-key($fonts,$fnt){
-		$fnt:map-get($fonts,$fnt);
+	@if meta.global-variable-exists("fonts") and meta.type-of($fonts) == 'map' and map.has-key($fonts,$fnt){
+		$fnt:map.get($fonts,$fnt);
 	}
-	@else if function-exists('translate_font') {
+	@else if meta.function-exists('translate_font') {
 		$font:translate_font($fnt);
 		@if $font{@return $font;}
 	}
@@ -236,33 +239,4 @@
 		$rtn:append($rtn,nth($list,$i));
 	}
 	@return $rtn;
-}
-@function to-number($value) {
-	@if type-of($value) == 'number' {
-	  @return $value;
-	} @else if type-of($value) != 'string' {
-	  @error 'Value for `to-number` should be a number or a string.';
-	}
-	
-	$result: 0;
-	$digits: 0;
-	$minus: str-slice($value, 1, 1) == '-';
-	$numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-	
-	@for $i from if($minus, 2, 1) through str-length($value) {
-	  $character: str-slice($value, $i, $i);
-	  
-	  @if (index(map-keys($numbers), $character) or $character == '.') {
-		@if $character == '.' {
-		  $digits: 1; 
-		} @else if $digits == 0 {
-		  $result: $result * 10 + map-get($numbers, $character);  
-		} @else {
-		  $digits: $digits * 10;
-		  $result: $result + map-get($numbers, $character) / $digits;
-		}
-	  }
-	}
-	
-	@return if($minus, -$result, $result);
 }

@@ -1,3 +1,7 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
 @use "_basic.scss" as *;
 
 @mixin clp($clp:false){
@@ -5,7 +9,7 @@
 		@if $key=='c'{
 			$d:nth($val,1);
 			$w:nth($val,2);
-			@if unitless($w){
+			@if math.is-unitless($w){
 				$w:1% * $w;
 			}
 			$s1:0%;
@@ -33,7 +37,7 @@
 			}
 		}
 		@else if $key=='t'{
-			@if type-of($val)=='list'{
+			@if meta.type-of($val)=='list'{
 				$d:nth($val,1);
 				$l:sz(nth($val,2));
 				$s1:0%;
@@ -47,7 +51,7 @@
 					$s1:$l;
 					$s2:calc(100% - #{$l});
 				}
-				@if length($val)>2{
+				@if list.length($val)>2{
 					$w:sz(nth($val,3));
 					@if $w<0{
 						$w:-1 * $w;
@@ -117,7 +121,7 @@
 		@else if $key=='s'{
 			$tl:0%;$tr:0%;
 			$bl:100%;$br:100%;
-			@if type-of($val)=='list'{
+			@if meta.type-of($val)=='list'{
 				$t:sz(nth($val,1));
 				$b:sz(nth($val,2));
 			}
