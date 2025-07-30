@@ -18,7 +18,7 @@
 		@if $key == i{border-image:img(list.nth($val,1)) list.nth($val,2) map.get($ivals,list.nth($val,3));}
 		@if map.has-key($keys,$key){
 			@if $ps == false{border-#{map.get($keys,$key)}:$val;}
-			@else if type-of($ps) == 'list'{
+			@else if meta.type-of($ps) == 'list'{
 				@each $p in $ps{
 					border-#{$p}-#{map.get($keys,$key)}:$val;
 				}

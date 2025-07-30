@@ -4,7 +4,7 @@
 @use "_basic.scss" as *;
 
 @mixin bp($bp){
-	@if meta.global-variable-exists("breakpoints") and type-of($breakpoints) == 'map' {
+	@if meta.global-variable-exists("breakpoints") and meta.type-of($breakpoints) == 'map' {
 		@if map.has-key($breakpoints,$bp){$bp:map.get($breakpoints,$bp);}
 	}
 	@if meta.type-of($bp) == 'number'{
