@@ -4,6 +4,7 @@
 	"type": "module",
 	"description": "Various mudule package.",
 	"main": "src/index.js",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"import": "./src/index.js"
