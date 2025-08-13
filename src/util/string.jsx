@@ -34,8 +34,8 @@ export const filterFlags = (flags, callback) => {
 	return flags;
 };
 
-export const camelToKebab = (str) => str.replace(/(\w)([A-Z])/g, "$1-$2").toLowerCase();
-export const camelToSnake = (str) => str.replace(/(\w)([A-Z])/g, "$1_$2").toLowerCase();
+export const camelToKebab = (str) => str.replace(/(?=\w)([A-Z])/g, "-$1").toLowerCase();
+export const camelToSnake = (str) => str.replace(/(?=\w)([A-Z])/g, "_$1").toLowerCase();
 export const kebabToCamel = (str) => str.replace(/\-([a-z])/g, (m) => m[1].toUpperCase());
 export const snakeToCamel = (str) => str.replace(/_([a-z])/g, (m) => m[1].toUpperCase());
 
