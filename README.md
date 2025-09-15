@@ -5,125 +5,147 @@ Index
 --
 
 ### app
-[appBase](#appbase)
+[appBase](#appbase)<wbr/>
+[eventMixin](#eventmixin)<wbr/>
 ### component
-[renderComponents](#rendercomponents)
-[nl2br](#nl2br)
-[Animation](#animation)
-[MosaicWave](#mosaicwave)
-[Nav](#nav)
-[Menu](#menu)
-[MenuItem](#menuitem)
-[MainMenu](#mainmenu)
-[SubMenu](#submenu)
-[SubMenuContents](#submenucontents)
-[ComputeLine](#computeline)
-[Honycomb](#honycomb)
-[Flux](#flux)
-[Star](#star)
-[SVG](#svg)
-[Bem](#bem)
-[Cloak](#cloak)
-[ElasticBox](#elasticbox)
-[Parallax](#parallax)
-[Portal](#portal)
-[RawNode](#rawnode)
-[ScrollSpy](#scrollspy)
-[Slider](#slider)
-[TabPanel](#tabpanel)
-[TextBuild](#textbuild)
-[Transition](#transition)
-[Loop](#loop)
+[renderComponents](#rendercomponents)<wbr/>
+[nl2br](#nl2br)<wbr/>
+[Animation](#animation)<wbr/>
+[MosaicWave](#mosaicwave)<wbr/>
+[PositionInput](#positioninput)<wbr/>
+[Nav](#nav)<wbr/>
+[Menu](#menu)<wbr/>
+[MenuItem](#menuitem)<wbr/>
+[MainMenu](#mainmenu)<wbr/>
+[SubMenu](#submenu)<wbr/>
+[SubMenuContents](#submenucontents)<wbr/>
+[ComputeLine](#computeline)<wbr/>
+[Honycomb](#honycomb)<wbr/>
+[Flux](#flux)<wbr/>
+[Star](#star)<wbr/>
+[SVG](#svg)<wbr/>
+[Bem](#bem)<wbr/>
+[Cloak](#cloak)<wbr/>
+[ElasticBox](#elasticbox)<wbr/>
+[Parallax](#parallax)<wbr/>
+[Portal](#portal)<wbr/>
+[PortalWindow](#portalwindow)<wbr/>
+[RawNode](#rawnode)<wbr/>
+[ScrollSpy](#scrollspy)<wbr/>
+[Slider](#slider)<wbr/>
+[TabPanel](#tabpanel)<wbr/>
+[TextBuild](#textbuild)<wbr/>
+[Transition](#transition)<wbr/>
+[Loop](#loop)<wbr/>
 ### dom
-[divideText](#dividetext)
+[divideText](#dividetext)<wbr/>
 ### graphic
-[honeycomb](#honeycomb)
+[honeycomb](#honeycomb)<wbr/>
 ### hooks
-[useAgent](#useagent)
-[useAgentContext](#useagentcontext)
-[useBem](#usebem)
-[useCache](#usecache)
-[useQuery](#usequery)
-[useTransition](#usetransition)
-[useLazyProvider](#uselazyprovider)
-[useLazyComponent](#uselazycomponent)
+[useAgent](#useagent)<wbr/>
+[useAgentContext](#useagentcontext)<wbr/>
+[useBem](#usebem)<wbr/>
+[useCache](#usecache)<wbr/>
+[useQuery](#usequery)<wbr/>
+[useTransition](#usetransition)<wbr/>
+[useLazyProvider](#uselazyprovider)<wbr/>
+[useLazyComponent](#uselazycomponent)<wbr/>
+[useThrottle](#usethrottle)<wbr/>
+[useDebounce](#usedebounce)<wbr/>
+[useChangeEffect](#usechangeeffect)<wbr/>
+### schema
+### scssc
+[translateColor](#translatecolor)<wbr/>
 ### ui
-[slider](#slider)
-[scrollsync](#scrollsync)
+[slider](#slider)<wbr/>
+[scrollsync](#scrollsync)<wbr/>
 ### util
-[scrollTo](#scrollto)
-[animate](#animate)
-[preserveAnimationValues](#preserveanimationvalues)
-[sequence](#sequence)
-[parallax](#parallax)
-[simpleParallax](#simpleparallax)
-[dimensionBox](#dimensionbox)
-[easeLinear](#easelinear)
-[easeInQuad](#easeinquad)
-[easeOutQuad](#easeoutquad)
-[easeInOutQuad](#easeinoutquad)
-[easeInCubic](#easeincubic)
-[easeOutCubic](#easeoutcubic)
-[easeInOutCubic](#easeinoutcubic)
-[perspective](#perspective)
-[preserveDistances](#preservedistances)
-[preserveDerections](#preservederections)
-[debounce](#debounce)
-[throttle](#throttle)
-[wordsToFlags](#wordstoflags)
-[flagsToWords](#flagstowords)
-[classNamesToFlags](#classnamestoflags)
-[flagsToClassNames](#flagstoclassnames)
-[camelToKebab](#cameltokebab)
-[camelToSnake](#cameltosnake)
-[kebabToCamel](#kebabtocamel)
-[snakeToCamel](#snaketocamel)
-[ucFirst](#ucfirst)
-[ucWords](#ucwords)
-[getCharCategory](#getcharcategory)
-[rtf](#rtf)
-[el](#el)
-[xhtmlEl](#xhtmlel)
-[svgEl](#svgel)
-[mathEl](#mathel)
-[getTreeData](#gettreedata)
-[getChildrensOfLevel](#getchildrensoflevel)
-[getItemsOfLevel](#getitemsoflevel)
-[deepMap](#deepmap)
-[bem](#bem)
-[bemSelector](#bemselector)
-[dataSizeStringToInt](#datasizestringtoint)
-[intToDataSizeString](#inttodatasizestring)
-[pfloor](#pfloor)
-[pround](#pround)
-[pceil](#pceil)
-[hfloor](#hfloor)
-[hround](#hround)
-[hceil](#hceil)
-[hunit](#hunit)
-[srand](#srand)
-[fib](#fib)
-[bez](#bez)
-[ready](#ready)
-[scrollspy](#scrollspy)
-[observeIntersection](#observeintersection)
-[observeSelector](#observeselector)
-[hexToRgb](#hextorgb)
-[rgbToHex](#rgbtohex)
-[hexToHsl](#hextohsl)
-[hslToHex](#hsltohex)
-[hexToHsb](#hextohsb)
-[hsbToHex](#hsbtohex)
-[colorToHsla](#colortohsla)
-[bsearch](#bsearch)
-[range](#range)
-[waveFromBase36](#wavefrombase36)
-[sinWave](#sinwave)
+[scrollTo](#scrollto)<wbr/>
+[animate](#animate)<wbr/>
+[preserveAnimationValues](#preserveanimationvalues)<wbr/>
+[sequence](#sequence)<wbr/>
+[parallax](#parallax)<wbr/>
+[simpleParallax](#simpleparallax)<wbr/>
+[dimensionBox](#dimensionbox)<wbr/>
+[watchScrollProgress](#watchscrollprogress)<wbr/>
+[easeLinear](#easelinear)<wbr/>
+[easeInQuad](#easeinquad)<wbr/>
+[easeOutQuad](#easeoutquad)<wbr/>
+[easeInOutQuad](#easeinoutquad)<wbr/>
+[easeInCubic](#easeincubic)<wbr/>
+[easeOutCubic](#easeoutcubic)<wbr/>
+[easeInOutCubic](#easeinoutcubic)<wbr/>
+[perspective](#perspective)<wbr/>
+[preserveDistances](#preservedistances)<wbr/>
+[preserveDerections](#preservederections)<wbr/>
+[debounce](#debounce)<wbr/>
+[throttle](#throttle)<wbr/>
+[wordsToFlags](#wordstoflags)<wbr/>
+[flagsToWords](#flagstowords)<wbr/>
+[classNamesToFlags](#classnamestoflags)<wbr/>
+[flagsToClassNames](#flagstoclassnames)<wbr/>
+[filterFlags](#filterflags)<wbr/>
+[camelToKebab](#cameltokebab)<wbr/>
+[camelToSnake](#cameltosnake)<wbr/>
+[kebabToCamel](#kebabtocamel)<wbr/>
+[snakeToCamel](#snaketocamel)<wbr/>
+[ucFirst](#ucfirst)<wbr/>
+[ucWords](#ucwords)<wbr/>
+[getCharCategory](#getcharcategory)<wbr/>
+[rtf](#rtf)<wbr/>
+[el](#el)<wbr/>
+[xhtmlEl](#xhtmlel)<wbr/>
+[svgEl](#svgel)<wbr/>
+[mathEl](#mathel)<wbr/>
+[getTreeData](#gettreedata)<wbr/>
+[getChildrensOfLevel](#getchildrensoflevel)<wbr/>
+[getItemsOfLevel](#getitemsoflevel)<wbr/>
+[deepMap](#deepmap)<wbr/>
+[bem](#bem)<wbr/>
+[bemSelector](#bemselector)<wbr/>
+[applyBem](#applybem)<wbr/>
+[dataSizeStringToInt](#datasizestringtoint)<wbr/>
+[intToDataSizeString](#inttodatasizestring)<wbr/>
+[pfloor](#pfloor)<wbr/>
+[pround](#pround)<wbr/>
+[pceil](#pceil)<wbr/>
+[hfloor](#hfloor)<wbr/>
+[hround](#hround)<wbr/>
+[hceil](#hceil)<wbr/>
+[hunit](#hunit)<wbr/>
+[srand](#srand)<wbr/>
+[fib](#fib)<wbr/>
+[bez](#bez)<wbr/>
+[ready](#ready)<wbr/>
+[scrollspy](#scrollspy)<wbr/>
+[observeIntersection](#observeintersection)<wbr/>
+[observeSelector](#observeselector)<wbr/>
+[hexToRgb](#hextorgb)<wbr/>
+[rgbToHex](#rgbtohex)<wbr/>
+[hexToHsl](#hextohsl)<wbr/>
+[hslToHex](#hsltohex)<wbr/>
+[hexToHsb](#hextohsb)<wbr/>
+[hsbToHex](#hsbtohex)<wbr/>
+[colorToHsla](#colortohsla)<wbr/>
+[bsearch](#bsearch)<wbr/>
+[range](#range)<wbr/>
+[combine](#combine)<wbr/>
+[waveFromBase36](#wavefrombase36)<wbr/>
+[sinWave](#sinwave)<wbr/>
+[getExpectedCtr](#getexpectedctr)<wbr/>
+[getCtrScore](#getctrscore)<wbr/>
+[getWilsonScoreInterval](#getwilsonscoreinterval)<wbr/>
 
 
 ## app
 ### appBase
 <small>app/appBase.jsx</small>
+
+
+
+
+### eventMixin
+<small>app/eventMixin.jsx</small>
 
 
 
@@ -153,6 +175,14 @@ props
 
 ### MosaicWave
 <small>component/Animation/MosaicWave.jsx</small>
+#### Params
+props
+
+
+
+
+### PositionInput
+<small>component/Input/PositionInput.jsx</small>
 #### Params
 props
 
@@ -280,6 +310,14 @@ props
 
 ### Portal
 <small>component/Portal.jsx</small>
+#### Params
+props
+
+
+
+
+### PortalWindow
+<small>component/PortalWindow.jsx</small>
 #### Params
 props
 
@@ -430,6 +468,47 @@ args
 
 
 
+### useThrottle
+<small>hooks/useThrottle.jsx</small>
+#### Params
+callback
+interval
+deps
+
+
+
+
+### useDebounce
+<small>hooks/useDebounce.jsx</small>
+#### Params
+callback
+interval
+deps
+
+
+
+
+### useChangeEffect
+<small>hooks/useChangeEffect.jsx</small>
+#### Params
+callback
+deps
+
+
+
+
+## schema
+## scssc
+### translateColor
+<small>scssc/translateColor.js</small>
+#### Params
+color
+tint
+alpha
+
+
+
+
 ## ui
 ### slider
 <small>ui/slider.jsx</small>
@@ -510,6 +589,15 @@ target
 <small>util/dimension.jsx</small>
 #### Params
 box
+
+
+
+
+### watchScrollProgress
+<small>util/scroll.js</small>
+#### Params
+el
+cb
 
 
 
@@ -643,6 +731,15 @@ classNames
 <small>util/string.jsx</small>
 #### Params
 flags
+
+
+
+
+### filterFlags
+<small>util/string.jsx</small>
+#### Params
+flags
+callback
 
 
 
@@ -797,6 +894,14 @@ className
 <small>util/bem.jsx</small>
 #### Params
 className
+
+
+
+
+### applyBem
+<small>util/bem.jsx</small>
+#### Params
+el
 
 
 
@@ -1015,6 +1120,15 @@ step
 
 
 
+### combine
+<small>util/array.jsx</small>
+#### Params
+keys
+values
+
+
+
+
 ### waveFromBase36
 <small>util/wave.jsx</small>
 #### Params
@@ -1028,6 +1142,34 @@ s
 #### Params
 a
 f
+
+
+
+
+### getExpectedCtr
+<small>util/statistics.jsx</small>
+#### Params
+rank
+
+
+
+
+### getCtrScore
+<small>util/statistics.jsx</small>
+#### Params
+rank
+impressions
+clicks
+
+
+
+
+### getWilsonScoreInterval
+<small>util/statistics.jsx</small>
+#### Params
+v
+n
+z
 
 
 
