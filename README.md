@@ -59,6 +59,7 @@ Index
 ### ui
 [slider](#slider)<wbr/>
 [scrollsync](#scrollsync)<wbr/>
+[accordion](#accordion)<wbr/>
 ### util
 [scrollTo](#scrollto)<wbr/>
 [animate](#animate)<wbr/>
@@ -521,6 +522,15 @@ param
 
 ### scrollsync
 <small>ui/scrollsync.jsx</small>
+#### Params
+el
+param
+
+
+
+
+### accordion
+<small>ui/accordion.jsx</small>
 #### Params
 el
 param
