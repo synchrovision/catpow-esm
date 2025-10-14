@@ -19,6 +19,3 @@ export const waveFromBase36 = (s) => {
 	const c = 1 / l / 32;
 	return (p) => ws.reduce((pv, w) => pv + (Math.abs((((p + w.t) * w.f) % 4) - 2) - 1) * w.a, 0) * c;
 };
-export const sinWave = (a, f) => {
-	return (p) => Math.sin(p * Math.PI * f) * a;
-};

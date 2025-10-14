@@ -33,11 +33,3 @@ export const perspective = (x, y, z) => {
 	(f.x = x), (f.y = y), (f.z = z);
 	return f;
 };
-
-export const preserveDistances = (w, c) => {
-	const r = [...Array(w).keys()];
-	return r.map((y) => r.map((x) => (c ? Math.round(Math.hypot(x, y) * c) : Math.hypot(x, y))));
-};
-export const preserveDerections = (w) => {
-	return preserveDistances.map((r, y) => r.map((d, x) => ({ x: x / d, y: y / d })));
-};
