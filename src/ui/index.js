@@ -1,3 +1,3 @@
-export * from "./slider.jsx";
-export * from "./scrollsync.jsx";
-export * from "./accordion.jsx";
+export * from "./slider.js";
+export * from "./scrollsync.js";
+export * from "./accordion.js";
