@@ -1,6 +1,8 @@
 import { el, getCharCategory } from "catpow/util";
 
-export const divideText = function (target, param = {}) {
+type divideTextParams = {};
+
+export const divideText = function (target: HTMLElement, params: divideTextParams = {}): void {
 	const primaryClass = target.className.split(" ")[0];
 	const classPrefix = primaryClass + (primaryClass.includes("__") ? "-" : "__");
 	const text = target.textContent;
@@ -22,13 +24,4 @@ export const divideText = function (target, param = {}) {
 	for (const line of lines) {
 		target.appendChild(line);
 	}
-};
-
-const getLettersNode = (text, start = 0) => {
-	const letters = document.createDocumentFragment();
-	text.split("").forEach((letter, index) => {
-		const letterNode = el("span", { class: "letter is-" + getCharCategory(letter), style: "--letter-index:" + (start + index) }, letter);
-		letters.appendChild(letterNode);
-	});
-	return letters;
 };
