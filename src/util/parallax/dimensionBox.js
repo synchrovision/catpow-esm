@@ -1,4 +1,5 @@
-export const dimensionBox = (box) => {
+export const dimensionBox = (box, params) => {
+	const { level = 0.5 } = params;
 	const body = box.children[0];
 	const observer = new ResizeObserver((entries) => {
 		box.style.setProperty("height", entries[0].contentRect.height + "px");
@@ -7,7 +8,7 @@ export const dimensionBox = (box) => {
 	const tick = (t) => {
 		const bnd = box.getBoundingClientRect(),
 			wh = window.innerHeight;
-		body.style.setProperty("perspective-origin", "center " + (wh / 2 - bnd.top) + "px");
+		body.style.setProperty("perspective-origin", "center " + (wh * level - bnd.top) + "px");
 		body.style.setProperty("transform", "translate3d(0," + bnd.top + "px,0)");
 		window.requestAnimationFrame(tick);
 	};
