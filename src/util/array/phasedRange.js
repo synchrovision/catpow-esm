@@ -1,6 +1,6 @@
 export const phasedRange = function* (steps) {
 	let i = 0;
-	for (let t in steps) {
+	for (let t of Object.keys(steps).sort((a, b) => a - b)) {
 		let step = parseFloat(steps[t]);
 		let end = parseFloat(t);
 		if (step > 0) {
