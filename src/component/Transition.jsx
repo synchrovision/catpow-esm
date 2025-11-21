@@ -4,6 +4,7 @@ import { useTransition } from "catpow/hooks";
 
 export const Transition = (props) => {
 	const { className = "cp-transition", children, initialSize = [100, 100] } = props;
+	const [contents, setContents] = useState(false);
 	const [prevContents, setPrevContents] = useState(false);
 	const [size, setSize] = useState(initialSize);
 	const classes = useMemo(() => bem(className), [className]);
@@ -15,9 +16,8 @@ export const Transition = (props) => {
 	}, [prevContents]);
 
 	useEffect(() => {
-		return () => {
-			setPrevContents(children);
-		};
+		setContents(children);
+		setPrevContents(contents);
 	}, [currentChildrenKey]);
 
 	const sizeVars = useMemo(() => ({ "--contents-width": size[0], "--contents-height": size[1] }), size);
@@ -27,8 +27,8 @@ export const Transition = (props) => {
 			<Contents classes={classes.contents} active={false} key={getTransitionContentsKey(prevContents)}>
 				{prevContents}
 			</Contents>
-			<Contents classes={classes.contents} active={true} setSize={setSize} key={getTransitionContentsKey(children)}>
-				{children}
+			<Contents classes={classes.contents} active={true} setSize={setSize} key={getTransitionContentsKey(contents)}>
+				{contents}
 			</Contents>
 		</div>
 	);
@@ -37,6 +37,7 @@ export const Transition = (props) => {
 const Contents = (props) => {
 	const { classes, active, setSize, children } = props;
 	const [ref, status, setIsActive] = useTransition();
+
 	useEffect(() => {
 		setIsActive(active);
 		if (setSize) {
