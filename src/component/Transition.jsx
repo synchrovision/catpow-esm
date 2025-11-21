@@ -16,9 +16,11 @@ export const Transition = (props) => {
 	}, [prevContents]);
 
 	useEffect(() => {
-		setContents(children);
 		setPrevContents(contents);
 	}, [currentChildrenKey]);
+	useEffect(() => {
+		setContents(children);
+	}, [children]);
 
 	const sizeVars = useMemo(() => ({ "--contents-width": size[0], "--contents-height": size[1] }), size);
 
