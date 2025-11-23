@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, createContext } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, createContext } from "react";
 import { useSlider } from "react-use";
 import { useThrottle } from "../../hooks/useThrottle";
 import { rangeValueConverter } from "../../util";
@@ -8,13 +8,35 @@ import clsx from "clsx";
 export const RangeInputContext = createContext({});
 
 export const RangeInput = (props) => {
-	const { className = "cp-rangeinput", steps = { 100: 1 }, snap = false, showInputs = false, values, onChange, children, ...otherProps } = props;
+	const { className = "cp-rangeinput", steps = { 100: 1 }, snap = false, showInputs = false, values, order, onChange, children, ...otherProps } = props;
 	const ref = React.useRef(null);
 	const { isSliding, value } = useSlider(ref);
 	const [isStart, setIsStart] = useState(false);
 	const [targetName, setTargetName] = useState(false);
 
 	const cnv = useMemo(() => rangeValueConverter(steps, snap), [steps]);
+
+	const { gt, lt } = useMemo(() => {
+		const orderMap = { gt: {}, lt: {} };
+		for (let i = 1; i < order.length; i++) {
+			orderMap.lt[order[i - 1]] = order[i];
+			orderMap.gt[order[i]] = order[i - 1];
+		}
+		return orderMap;
+	}, [order]);
+
+	const onChageCallback = useCallback(
+		(key, val) => {
+			if (gt[key] != null) {
+				val = Math.max(val, values[gt[key]]);
+			}
+			if (lt[key] != null) {
+				val = Math.min(val, values[lt[key]]);
+			}
+			onChange({ ...values, [key]: val });
+		},
+		[values, gt, lt, onChange]
+	);
 
 	useEffect(() => {
 		if (!isSliding) {
@@ -36,7 +58,7 @@ export const RangeInput = (props) => {
 				setIsStart(false);
 			}
 			if (targetName && onChange) {
-				onChange({ ...values, [targetName]: cnv.getValue(value) });
+				onChageCallback(targetName, cnv.getValue(value));
 			}
 		},
 		50,
@@ -47,21 +69,23 @@ export const RangeInput = (props) => {
 		<RangeInputContext.Provider value={{ values }}>
 			<Bem>
 				<div className={className} style={Object.keys(values).reduce((p, c) => ({ ...p, ["--pos-" + c]: cnv.getProgress(values[c]) }), {})}>
-					<div className="_bar" ref={ref}>
-						{Object.keys(values).map((name) => {
-							return (
-								<div className={clsx("_control", `is-control-${name}`)} style={{ "--pos": cnv.getProgress(values[name]) }}>
-									<div className="_value">{values[name]}</div>
-								</div>
-							);
-						})}
+					<div className="_bar">
+						<div className="_body" ref={ref}>
+							{Object.keys(values).map((name) => {
+								return (
+									<div className={clsx("_control", `is-control-${name}`)} style={{ "--pos": cnv.getProgress(values[name]) }}>
+										<div className="_value">{values[name]}</div>
+									</div>
+								);
+							})}
+						</div>
 					</div>
 					{showInputs && (
 						<div className="_inputs">
 							{Object.keys(values).map((name) => {
 								return (
 									<div className={clsx("_item", `is-input-${name}`)}>
-										<input type="number" value={values[name]} className="_input" onChange={(e) => onChange({ ...values, [name]: e.target.value })} />
+										<input type="number" value={values[name]} className="_input" onChange={(e) => onChageCallback(name, e.target.value)} />
 									</div>
 								);
 							})}
