@@ -21,22 +21,25 @@ export const rangeValueConverter = function (values, snap = false) {
 			const l = Math.floor(p);
 			return values[l] + (values[l + 1] - values[l]) * (p - l);
 		},
+		getProgress(value) {
+			return this.getPosition(value) / lastIndex;
+		},
 		getPosition(value) {
 			let l = 0,
 				r = lastIndex,
 				m;
-			if (values[0] > val) {
+			if (values[0] > value) {
 				return 0;
 			}
-			if (values[r] < val) {
+			if (values[r] < value) {
 				return r;
 			}
 			while (l <= r) {
 				m = l + ((r - l) >> 1);
-				if (values[m] === val) {
+				if (values[m] === value) {
 					return m;
 				}
-				if (values[m] > val) {
+				if (values[m] > value) {
 					r = m - 1;
 				} else {
 					l = m + 1;
