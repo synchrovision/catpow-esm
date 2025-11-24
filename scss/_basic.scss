@@ -168,7 +168,7 @@
 		$clr:map.get($colors,$clr);
 	}
 	@if meta.type-of($tint) == 'number'{$clr:tint($clr,$tint);}
-	@if meta.type-of($alpha) == 'number'{$clr:color.scale($clr,$alpha:$alpha);}
+	@if meta.type-of($alpha) == 'number'{$clr:color.scale($clr,$alpha:$alpha * 100% - 100%);}
 	@return $clr;
 }
 @function sz($val){
