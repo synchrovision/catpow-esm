@@ -31,7 +31,7 @@
 	@each $key,$val in $grd{
 		@if $key == rc or $key == rr{
 			@if(meta.type-of($val) == 'list'){
-				$v:minmax(szs(list.nth($val,1)),1fr);
+				$v:minmax(min(szs(list.nth($val,1)),100%),1fr);
 				$vals:();
 				@for $i from 1 through list.nth($val,2){
 					$vals:list.append($vals,$v);
@@ -39,7 +39,7 @@
 				$val:repeat(auto-fill,$vals)
 			}
 			@else{
-				$val:repeat(auto-fill,minmax(szs($val),1fr));
+				$val:repeat(auto-fill,minmax(min(szs($val),100%),1fr));
 			}
 		}
 		@if $key == r{
