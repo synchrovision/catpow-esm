@@ -70,8 +70,8 @@
 	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
 		@for $i from 1 through list.length($vals){
 			$v:list.nth($vals,$i);
-			@if meta.type-of($v) == 'list'{$vals:set-nth($vals,$i,replace_values($v,$dct));}
-			@else if map.has-key($dct,$v){$vals:set-nth($vals,$i,map.get($dct,$v));}
+			@if meta.type-of($v) == 'list'{$vals:list.set-nth($vals,$i,replace_values($v,$dct));}
+			@else if map.has-key($dct,$v){$vals:list.set-nth($vals,$i,map.get($dct,$v));}
 		}
 		@return $vals;
 	}
