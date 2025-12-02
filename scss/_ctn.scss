@@ -16,7 +16,7 @@
 					$c:'(width > ' + $c + ')';
 				}
 			}
-			$cnd:set-nth($cnd,$i,$c);
+			$cnd:list.set-nth($cnd,$i,$c);
 		}
 	}
 	@else if meta.type-of($cnd) == 'map'{
