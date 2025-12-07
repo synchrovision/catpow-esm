@@ -1,7 +1,10 @@
 import fs from "fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { parseArgs } from "node:util";
+import { fileURLToPath } from "node:url";
 import * as parser from "@babel/parser";
+
+const srcdir = dirname(dirname(fileURLToPath(import.meta.url)));
 
 const { values: options, positionals: files } = parseArgs({
 	allowPositionals: true,
@@ -16,7 +19,7 @@ const { values: options, positionals: files } = parseArgs({
 options.plugins = ["jsx", "typescript"];
 
 if (files.length === 0) {
-	files.push("modules/src/index.js");
+	files.push(srcdir + "/index.js");
 }
 
 const results = {};
@@ -64,7 +67,7 @@ function extractExportedFunctionsRecursive(file, options, functions, importMap) 
 						resolve(file, "../", token.source.value),
 						options,
 						exportedFunctions,
-						token.specifiers.reduce((p, c) => (p[c.local.name] = c.exported.name), {})
+						token.specifiers.reduce((p, c) => (p[c.local?.name] = c.exported?.name), {})
 					);
 				}
 				break;
