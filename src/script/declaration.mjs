@@ -62,7 +62,7 @@ function extractExportedFunctionsRecursive(file, options, functions, importMap) 
 							exportedFunctions[declaration.id.name] = getFunctionInfo(declaration.init);
 						}
 					}
-				} else if (token.specifiers) {
+				} else if (token.specifiers && token.source != null) {
 					extractExportedFunctionsRecursive(
 						resolve(file, "../", token.source.value),
 						options,
