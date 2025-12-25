@@ -70,6 +70,12 @@ const applyBem = (component, { ...ctx }) => {
 };
 
 export const Bem = ({ prefix = "cp", block, element, children }) => {
+	if (element == null && block != null) {
+		element = block;
+	}
+	if (block == null && element != null) {
+		block = element.split("__")[0];
+	}
 	const ctx = { prefix, block, element };
 	applyBem(children, ctx);
 	return <>{children}</>;
