@@ -15,6 +15,18 @@ export const Cloak = (props) => {
 
 	useEffect(() => {
 		if (phase === "complete") {
+			const removeAriaBusy = () => {
+				document.body.removeAttribute("aria-busy");
+				ref.current.removeEventListener("transitionend", removeAriaBusy);
+				ref.current.removeEventListener("animationend", removeAriaBusy);
+			};
+			ref.current.addEventListener("transitionend", removeAriaBusy);
+			ref.current.addEventListener("animationend", removeAriaBusy);
+			window.requestAnimationFrame(() => {
+				if (ref.current.getAnimations().length < 1) {
+					removeAriaBusy();
+				}
+			});
 			if (onComplete) {
 				onComplete();
 			}
