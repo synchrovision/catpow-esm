@@ -1,1186 +1,134 @@
-Catpow ESM
-==
-
-Index
---
-
-### app
-[appBase](#appbase)<wbr/>
-[eventMixin](#eventmixin)<wbr/>
-### component
-[renderComponents](#rendercomponents)<wbr/>
-[nl2br](#nl2br)<wbr/>
-[Animation](#animation)<wbr/>
-[MosaicWave](#mosaicwave)<wbr/>
-[PositionInput](#positioninput)<wbr/>
-[Nav](#nav)<wbr/>
-[Menu](#menu)<wbr/>
-[MenuItem](#menuitem)<wbr/>
-[MainMenu](#mainmenu)<wbr/>
-[SubMenu](#submenu)<wbr/>
-[SubMenuContents](#submenucontents)<wbr/>
-[ComputeLine](#computeline)<wbr/>
-[Honycomb](#honycomb)<wbr/>
-[Flux](#flux)<wbr/>
-[Star](#star)<wbr/>
-[SVG](#svg)<wbr/>
-[Bem](#bem)<wbr/>
-[Cloak](#cloak)<wbr/>
-[ElasticBox](#elasticbox)<wbr/>
-[Parallax](#parallax)<wbr/>
-[Portal](#portal)<wbr/>
-[PortalWindow](#portalwindow)<wbr/>
-[RawNode](#rawnode)<wbr/>
-[ScrollSpy](#scrollspy)<wbr/>
-[Slider](#slider)<wbr/>
-[TabPanel](#tabpanel)<wbr/>
-[TextBuild](#textbuild)<wbr/>
-[Transition](#transition)<wbr/>
-[Loop](#loop)<wbr/>
-### dom
-[divideText](#dividetext)<wbr/>
-### graphic
-[honeycomb](#honeycomb)<wbr/>
-### hooks
-[useAgent](#useagent)<wbr/>
-[useAgentContext](#useagentcontext)<wbr/>
-[useBem](#usebem)<wbr/>
-[useCache](#usecache)<wbr/>
-[useQuery](#usequery)<wbr/>
-[useTransition](#usetransition)<wbr/>
-[useLazyProvider](#uselazyprovider)<wbr/>
-[useLazyComponent](#uselazycomponent)<wbr/>
-[useThrottle](#usethrottle)<wbr/>
-[useDebounce](#usedebounce)<wbr/>
-[useChangeEffect](#usechangeeffect)<wbr/>
-### schema
-### scssc
-[translateColor](#translatecolor)<wbr/>
-### ui
-[slider](#slider)<wbr/>
-[scrollsync](#scrollsync)<wbr/>
-[accordion](#accordion)<wbr/>
-### util
-[scrollTo](#scrollto)<wbr/>
-[animate](#animate)<wbr/>
-[preserveAnimationValues](#preserveanimationvalues)<wbr/>
-[sequence](#sequence)<wbr/>
-[parallax](#parallax)<wbr/>
-[simpleParallax](#simpleparallax)<wbr/>
-[dimensionBox](#dimensionbox)<wbr/>
-[watchScrollProgress](#watchscrollprogress)<wbr/>
-[easeLinear](#easelinear)<wbr/>
-[easeInQuad](#easeinquad)<wbr/>
-[easeOutQuad](#easeoutquad)<wbr/>
-[easeInOutQuad](#easeinoutquad)<wbr/>
-[easeInCubic](#easeincubic)<wbr/>
-[easeOutCubic](#easeoutcubic)<wbr/>
-[easeInOutCubic](#easeinoutcubic)<wbr/>
-[perspective](#perspective)<wbr/>
-[preserveDistances](#preservedistances)<wbr/>
-[preserveDerections](#preservederections)<wbr/>
-[debounce](#debounce)<wbr/>
-[throttle](#throttle)<wbr/>
-[wordsToFlags](#wordstoflags)<wbr/>
-[flagsToWords](#flagstowords)<wbr/>
-[classNamesToFlags](#classnamestoflags)<wbr/>
-[flagsToClassNames](#flagstoclassnames)<wbr/>
-[filterFlags](#filterflags)<wbr/>
-[camelToKebab](#cameltokebab)<wbr/>
-[camelToSnake](#cameltosnake)<wbr/>
-[kebabToCamel](#kebabtocamel)<wbr/>
-[snakeToCamel](#snaketocamel)<wbr/>
-[ucFirst](#ucfirst)<wbr/>
-[ucWords](#ucwords)<wbr/>
-[getCharCategory](#getcharcategory)<wbr/>
-[rtf](#rtf)<wbr/>
-[el](#el)<wbr/>
-[xhtmlEl](#xhtmlel)<wbr/>
-[svgEl](#svgel)<wbr/>
-[mathEl](#mathel)<wbr/>
-[getTreeData](#gettreedata)<wbr/>
-[getChildrensOfLevel](#getchildrensoflevel)<wbr/>
-[getItemsOfLevel](#getitemsoflevel)<wbr/>
-[deepMap](#deepmap)<wbr/>
-[bem](#bem)<wbr/>
-[bemSelector](#bemselector)<wbr/>
-[applyBem](#applybem)<wbr/>
-[dataSizeStringToInt](#datasizestringtoint)<wbr/>
-[intToDataSizeString](#inttodatasizestring)<wbr/>
-[pfloor](#pfloor)<wbr/>
-[pround](#pround)<wbr/>
-[pceil](#pceil)<wbr/>
-[hfloor](#hfloor)<wbr/>
-[hround](#hround)<wbr/>
-[hceil](#hceil)<wbr/>
-[hunit](#hunit)<wbr/>
-[srand](#srand)<wbr/>
-[fib](#fib)<wbr/>
-[bez](#bez)<wbr/>
-[ready](#ready)<wbr/>
-[scrollspy](#scrollspy)<wbr/>
-[observeIntersection](#observeintersection)<wbr/>
-[observeSelector](#observeselector)<wbr/>
-[hexToRgb](#hextorgb)<wbr/>
-[rgbToHex](#rgbtohex)<wbr/>
-[hexToHsl](#hextohsl)<wbr/>
-[hslToHex](#hsltohex)<wbr/>
-[hexToHsb](#hextohsb)<wbr/>
-[hsbToHex](#hsbtohex)<wbr/>
-[colorToHsla](#colortohsla)<wbr/>
-[bsearch](#bsearch)<wbr/>
-[range](#range)<wbr/>
-[combine](#combine)<wbr/>
-[waveFromBase36](#wavefrombase36)<wbr/>
-[sinWave](#sinwave)<wbr/>
-[getExpectedCtr](#getexpectedctr)<wbr/>
-[getCtrScore](#getctrscore)<wbr/>
-[getWilsonScoreInterval](#getwilsonscoreinterval)<wbr/>
-
-
-## app
-### appBase
-<small>app/appBase.jsx</small>
-
-
-
-
-### eventMixin
-<small>app/eventMixin.jsx</small>
-
-
-
-
-## component
-### renderComponents
-<small>component/functions.jsx</small>
-
-
-
-
-### nl2br
-<small>component/functions.jsx</small>
-#### Params
-text
-
-
-
-
-### Animation
-<small>component/Animation/Animation.jsx</small>
-#### Params
-props
-
-
-
-
-### MosaicWave
-<small>component/Animation/MosaicWave.jsx</small>
-#### Params
-props
-
-
-
-
-### PositionInput
-<small>component/Input/PositionInput.jsx</small>
-#### Params
-props
-
-
-
-
-### Nav
-<small>component/Nav/Nav.jsx</small>
-#### Params
-props
-
-
-
-
-### Menu
-<small>component/Nav/Menu.jsx</small>
-#### Params
-props
-
-
-
-
-### MenuItem
-<small>component/Nav/MenuItem.jsx</small>
-#### Params
-props
-
-
-
-
-### MainMenu
-<small>component/Nav/MainMenu.jsx</small>
-#### Params
-props
-
-
-
-
-### SubMenu
-<small>component/Nav/SubMenu.jsx</small>
-#### Params
-props
-
-
-
-
-### SubMenuContents
-<small>component/Nav/SubMenuContents.jsx</small>
-#### Params
-props
-
-
-
-
-### ComputeLine
-<small>component/SVG/ComputeLine.jsx</small>
-#### Params
-props
-
-
-
-
-### Honycomb
-<small>component/SVG/Honycomb.jsx</small>
-#### Params
-props
-
-
-
-
-### Flux
-<small>component/SVG/Flux.jsx</small>
-#### Params
-props
-
-
-
-
-### Star
-<small>component/SVG/Star.jsx</small>
-#### Params
-props
-
-
-
-
-### SVG
-<small>component/SVG/SVG.jsx</small>
-#### Params
-props
-
-
-
-
-### Bem
-<small>component/Bem.jsx</small>
-#### Params
-
-
-
-
-### Cloak
-<small>component/Cloak.jsx</small>
-#### Params
-props
-
-
-
-
-### ElasticBox
-<small>component/ElasticBox.jsx</small>
-#### Params
-props
-
-
-
-
-### Parallax
-<small>component/Parallax.jsx</small>
-#### Params
-props
-
-
-
-
-### Portal
-<small>component/Portal.jsx</small>
-#### Params
-props
-
-
-
-
-### PortalWindow
-<small>component/PortalWindow.jsx</small>
-#### Params
-props
-
-
-
-
-### RawNode
-<small>component/RawNode.jsx</small>
-#### Params
-props
-
-
-
-
-### ScrollSpy
-<small>component/ScrollSpy.jsx</small>
-#### Params
-props
-
-
-
-
-### Slider
-<small>component/Slider.jsx</small>
-#### Params
-props
-
-
-
-
-### TabPanel
-<small>component/TabPanel.jsx</small>
-#### Params
-props
-
-
-
-
-### TextBuild
-<small>component/TextBuild.jsx</small>
-#### Params
-props
-
-
-
-
-### Transition
-<small>component/Transition.jsx</small>
-#### Params
-props
-
-
-
-
-### Loop
-<small>component/Loop.jsx</small>
-#### Params
-props
-
-
-
-
-## dom
-### divideText
-<small>dom/divideText.jsx</small>
-#### Params
-target
-param
-
-
-
-
-## graphic
-### honeycomb
-<small>graphic/honeycomb.js</small>
-#### Params
-param
-
-
-
-
-## hooks
-### useAgent
-<small>hooks/useAgent.jsx</small>
-#### Params
-settings
-deps
-
-
-
-
-### useAgentContext
-<small>hooks/useAgent.jsx</small>
-
-
-
-
-### useBem
-<small>hooks/useBem.jsx</small>
-#### Params
-prefix
-
-
-
-
-### useCache
-<small>hooks/useCache.jsx</small>
-#### Params
-callback
-args
-
-
-
-
-### useQuery
-<small>hooks/useQuery.jsx</small>
-#### Params
-uri
-
-
-
-
-### useTransition
-<small>hooks/useTransition.jsx</small>
-#### Params
-isInitialActive
-
-
-
-
-### useLazyProvider
-<small>hooks/useLazyProvider.jsx</small>
-#### Params
-Context
-callback
-args
-
-
-
-
-### useLazyComponent
-<small>hooks/useLazyComponent.jsx</small>
-#### Params
-Component
-asyncCallback
-args
-
-
-
-
-### useThrottle
-<small>hooks/useThrottle.jsx</small>
-#### Params
-callback
-interval
-deps
-
-
-
-
-### useDebounce
-<small>hooks/useDebounce.jsx</small>
-#### Params
-callback
-interval
-deps
-
-
-
-
-### useChangeEffect
-<small>hooks/useChangeEffect.jsx</small>
-#### Params
-callback
-deps
-
-
-
-
-## schema
-## scssc
-### translateColor
-<small>scssc/translateColor.js</small>
-#### Params
-color
-tint
-alpha
-
-
-
-
-## ui
-### slider
-<small>ui/slider.jsx</small>
-#### Params
-el
-param
-
-
-
-
-### scrollsync
-<small>ui/scrollsync.jsx</small>
-#### Params
-el
-param
-
-
-
-
-### accordion
-<small>ui/accordion.jsx</small>
-#### Params
-el
-param
-
-
-
-
-## util
-### scrollTo
-<small>util/animate.jsx</small>
-#### Params
-tgt
-dur
-ease
-
-
-
-
-### animate
-<small>util/animate.jsx</small>
-#### Params
-cb
-dur
-ease
-
-
-
-
-### preserveAnimationValues
-<small>util/animate.jsx</small>
-#### Params
-cb
-step
-ease
-
-
-
-
-### sequence
-<small>util/animate.jsx</small>
-#### Params
-cbs
-
-
-
-
-### parallax
-<small>util/dimension.jsx</small>
-#### Params
-el
-vars
-
-
-
-
-### simpleParallax
-<small>util/dimension.jsx</small>
-#### Params
-el
-target
-
-
-
-
-### dimensionBox
-<small>util/dimension.jsx</small>
-#### Params
-box
-
-
-
-
-### watchScrollProgress
-<small>util/scroll.js</small>
-#### Params
-el
-cb
-
-
-
-
-### easeLinear
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeInQuad
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeOutQuad
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeInOutQuad
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeInCubic
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeOutCubic
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### easeInOutCubic
-<small>util/ease.jsx</small>
-#### Params
-p
-
-
-
-
-### perspective
-<small>util/geom.jsx</small>
-#### Params
-x
-y
-z
-
-
-
-
-### preserveDistances
-<small>util/geom.jsx</small>
-#### Params
-w
-c
-
-
-
-
-### preserveDerections
-<small>util/geom.jsx</small>
-#### Params
-w
-
-
-
-
-### debounce
-<small>util/buffer.jsx</small>
-#### Params
-callback
-interval
-
-
-
-
-### throttle
-<small>util/buffer.jsx</small>
-#### Params
-callback
-interval
-
-
-
-
-### wordsToFlags
-<small>util/string.jsx</small>
-#### Params
-words
-
-
-
-
-### flagsToWords
-<small>util/string.jsx</small>
-#### Params
-flags
-
-
-
-
-### classNamesToFlags
-<small>util/string.jsx</small>
-#### Params
-classNames
-
-
-
-
-### flagsToClassNames
-<small>util/string.jsx</small>
-#### Params
-flags
-
-
-
-
-### filterFlags
-<small>util/string.jsx</small>
-#### Params
-flags
-callback
-
-
-
-
-### camelToKebab
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### camelToSnake
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### kebabToCamel
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### snakeToCamel
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### ucFirst
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### ucWords
-<small>util/string.jsx</small>
-#### Params
-str
-
-
-
-
-### getCharCategory
-<small>util/string.jsx</small>
-#### Params
-chr
-
-
-
-
-### rtf
-<small>util/rtf.jsx</small>
-#### Params
-text
-pref
-
-
-
-
-### el
-<small>util/dom.ts</small>
-#### Params
-tag
-props
-children
-namespace
-
-
-
-
-### xhtmlEl
-<small>util/dom.ts</small>
-#### Params
-tag
-props
-children
-
-
-
-
-### svgEl
-<small>util/dom.ts</small>
-#### Params
-tag
-props
-children
-
-
-
-
-### mathEl
-<small>util/dom.ts</small>
-#### Params
-tag
-props
-children
-
-
-
-
-### getTreeData
-<small>util/data.jsx</small>
-#### Params
-items
-
-
-
-
-### getChildrensOfLevel
-<small>util/data.jsx</small>
-#### Params
-tree
-level
-
-
-
-
-### getItemsOfLevel
-<small>util/data.jsx</small>
-#### Params
-tree
-level
-
-
-
-
-### deepMap
-<small>util/data.jsx</small>
-
-
-
-
-### bem
-<small>util/bem.jsx</small>
-#### Params
-className
-
-
-
-
-### bemSelector
-<small>util/bem.jsx</small>
-#### Params
-className
-
-
-
-
-### applyBem
-<small>util/bem.jsx</small>
-#### Params
-el
-
-
-
-
-### dataSizeStringToInt
-<small>util/calc.jsx</small>
-#### Params
-sizeString
-
-
-
-
-### intToDataSizeString
-<small>util/calc.jsx</small>
-#### Params
-sizeInt
-
-
-
-
-### pfloor
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### pround
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### pceil
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### hfloor
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### hround
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### hceil
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### hunit
-<small>util/calc.jsx</small>
-#### Params
-n
-p
-
-
-
-
-### srand
-<small>util/calc.jsx</small>
-#### Params
-w
-
-
-
-
-### fib
-<small>util/calc.jsx</small>
-#### Params
-n
-
-
-
-
-### bez
-<small>util/calc.jsx</small>
-#### Params
-ns
-t
-
-
-
-
-### ready
-<small>util/observer.jsx</small>
-#### Params
-cb
-
-
-
-
-### scrollspy
-<small>util/observer.jsx</small>
-#### Params
-items
-param
-
-
-
-
-### observeIntersection
-<small>util/observer.jsx</small>
-#### Params
-items
-param
-
-
-
-
-### observeSelector
-<small>util/observer.jsx</small>
-#### Params
-selector
-callback
-
-
-
-
-### hexToRgb
-<small>util/color.jsx</small>
-#### Params
-hex
-
-
-
-
-### rgbToHex
-<small>util/color.jsx</small>
-#### Params
-rgb
-
-
-
-
-### hexToHsl
-<small>util/color.jsx</small>
-#### Params
-hex
-
-
-
-
-### hslToHex
-<small>util/color.jsx</small>
-#### Params
-hsl
-
-
-
-
-### hexToHsb
-<small>util/color.jsx</small>
-#### Params
-hex
-
-
-
-
-### hsbToHex
-<small>util/color.jsx</small>
-#### Params
-hsb
-
-
-
-
-### colorToHsla
-<small>util/color.jsx</small>
-#### Params
-color
-
-
-
-
-### bsearch
-<small>util/array.jsx</small>
-#### Params
-arr
-val
-
-
-
-
-### range
-<small>util/array.jsx</small>
-#### Params
-start
-end
-step
-
-
-
-
-### combine
-<small>util/array.jsx</small>
-#### Params
-keys
-values
-
-
-
-
-### waveFromBase36
-<small>util/wave.jsx</small>
-#### Params
-s
-
-
-
-
-### sinWave
-<small>util/wave.jsx</small>
-#### Params
-a
-f
-
-
-
-
-### getExpectedCtr
-<small>util/statistics.jsx</small>
-#### Params
-rank
-
-
-
-
-### getCtrScore
-<small>util/statistics.jsx</small>
-#### Params
-rank
-impressions
-clicks
-
-
-
-
-### getWilsonScoreInterval
-<small>util/statistics.jsx</small>
-#### Params
-v
-n
-z
-
-
+# Catpow ESM
+
+
+|モジュール|関数・クラス|概要|Document|
+|:--|:--|:--|:-:|
+|**app**|appBase|eventMixinに状態管理と非同期のデータ取得処理の機能を追加した拡張オブジェクトを生成します。主にalipine.jsのx-dataに使用することを想定しています。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/app/appBase)|
+||eventMixin|イベントリスナーの追加と発火のためのメソッドを持ったオブジェクトを生成します。主にalipine.jsのx-dataに使用することを想定しています。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/app/eventMixin)|
+|**component**|renderComponents|data-compoentの属性値を持った要素に指定のReactコンポーネントをレンダリングします。コンポーネントにはdata-*属性値がpropsとして渡されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/renderComponents)|
+||nl2br|文字列中の改行を、Reactの要素としてbrに置き換えます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/nl2br)|
+||Animation|Reactの関数コンポーネント。要素の大きさや中心座標、マウス/タッチ位置と押下状態、フレーム番号を計測し、複数のContextで子要素に共有するラッパーです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Animation)|
+||MosaicWave|Reactのコンポーネント。画面をタイル状に分割し、Animationのフレームとサイズ情報を使って複数の波が広がるように色を時間変化させるモザイクアニメーションを描画します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MosaicWave)|
+||PositionInput|Reactの入力コンポーネント。SVG上をドラッグして座標を指定し、グリッドへのスナップやスロットリング付きで(x,y)をonChangeに通知します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/PositionInput)|
+||RangeInput|複数値を扱えるレンジ入力コンポーネント。スライド位置から最も近いハンドルを特定し、順序制約とスナップ・スロットリング付きで値を更新、入力欄表示にも対応します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/RangeInput)|
+||Nav|Reactのナビ用コンポーネント。メニューと階層付きアイテムの状態をContext＋useReducerで管理し、項目のアクティブ化・解除やフォーカスで階層レベルを更新します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Nav)|
+||Menu|Reactのメニュー用コンポーネント。NavのContextから状態とdispatchを受け取り、指定されたmenuがアクティブかどうかでクラスを切り替えます。内部要素の高さをResizeObserverで監視し、CSS変数--inner-heightとして設定。マウスがメニュー外へ出た時にメニューを非アクティブ化します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Menu)|
+||MenuItem|階層ナビの項目用コンポーネント。ホバーで項目を有効化し、クリックで階層に応じて有効化／無効化を切替。activeや子要素の有無でクラスを付与し、状態はContextで共有されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MenuItem)|
+||MainMenu|階層ナビのメインメニュー。現在レベルとの差分でクラスを付与し、ResizeObserverで内容の高さをCSS変数へ反映します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MainMenu)|
+||SubMenu|階層ナビのサブメニュー。指定レベルの子要素を取得し、現在レベルとの差で状態クラスを付与。内容高さはResizeObserverでCSS変数に反映します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SubMenu)|
+||SubMenuContents|親項目がアクティブのときだけ表示状態を切り替えるサブメニュー内容用コンポーネント。parent.activeに応じてis-activeクラスを付与します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SubMenuContents)|
+||ComputeLine|callbackで算出した値から折れ線のSVGパス文字列を生成するコンポーネント。step回の計算で座標を並べ、useMemoで効率的にpath要素へ反映します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/ComputeLine)|
+||Honycomb|六角形セルを敷き詰めた蜂の巣状グリッドをSVGで描画するReactコンポーネント。サイズや間隔、各セルの表示属性をコールバックで動的に指定できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Honycomb)|
+||Flux|形状生成用のシードから複数点の軌道を計算し、時間差で重なる曲線をSVGで描画するFluxコンポーネント。色や本数、進行度で表現を変えられます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Flux)|
+||Star|SVGで星形を描くReactコンポーネント。頂点数や中心位置、外半径・内半径、塗りと線色を指定し、path要素のd属性を計算して描画します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Star)|
+||SVG|SVG描画用のコンテキストを提供するReactコンポーネント。サイズや色設定をContextで共有しつつ、子要素を含むsvgを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SVG)|
+||Bem|子要素のclassNameを解析し、BEM方式の接頭辞・ブロック・エレメント名を自動付与するReactコンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Bem)|
+||Cloak|ページ読み込み時の“クローク（覆い隠し）演出”を行うためのReactコンポーネントです。CSSアニメーション／トランジションの完了を検知しながら、徐々に表示状態を進めます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Cloak)|
+||ElasticBox|子要素のサイズ変化をResizeObserverで監視し、高さや幅を自動追従させるReactコンポーネント。BEM形式のクラスを付与し、縦横どちらを監視するかを指定できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/ElasticBox)|
+||Parallax|要素の位置と画面高さからパララックス係数を算出し、requestAnimationFrameでCSS変数を更新。距離や内外判定で状態クラスを付与するReactのスクロール連動コンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Parallax)|
+||Portal|DOM外に要素を描画するReactポータル。指定ID/クラスの要素を生成し、trace要素の位置・サイズを定期取得して追従配置しつつcreatePortalで子要素を描画します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Portal)|
+||PortalWindow|新しいブラウザウィンドウをwindow.openで開き、その中にID付きのdivを用意してcreatePortalで子要素を描画するReactコンポーネント。タイトルやサイズ指定も可能です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/PortalWindow)|
+||RawNode|props.nodeに渡されたDOMノード（または複数ノード）をref先のdivへ直接appendChildして表示するReactコンポーネント。既存の子要素も並べて描画し、classNameは既定でcp-rawnode。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/RawNode)|
+||ScrollSpy|IntersectionObserverで要素の可視状態を監視し、表示中・ほぼ全体表示などの状態をフラグ化してクラス名に反映するスクロール監視用コンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/ScrollSpy)|
+||Slider|タッチ操作や自動再生に対応したスライダー。現在位置を管理し、矢印・ドット操作や無限ループ、スワイプ操作でスライドを切替え、CSS変数でアニメーションを制御します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Slider)|
+||TabPanel|子要素のkeyをタブ名として表示し、クリックで選択状態を更新。現在のタブだけ内容を表示するReact製タブ切替コンポーネント。BEMでクラス名を生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/TabPanel)|
+||TextBuild|子要素の文字列を1文字ずつ配列化し、delay後にinterval間隔で順次表示。表示中か否かでBEMクラスを付与し、テキストがタイプされるように見せるReactコンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/TextBuild)|
+||Transition|子要素の変化を検知し、前後の内容を保持して種類別にアニメーション遷移。内容サイズも自動計測しCSS変数で反映するトランジション用Reactコンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Transition)|
+||Loop|反復可能なオブジェクトから任意のコンポーネントのJSXオブジェクトを反復して生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Loop)|
+|**dom**|divideImage|画像をグリッド状に分割して表示する関数。要素を複製して配置し、ResizeObserverでサイズ変化に応じて分割数や配置を自動更新します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/dom/divideImage)|
+||divideText|テキストを行・単語・文字に分割し、階層的なspan要素でラップします。各要素にインデックスや文字種のクラスを付与し、アニメや装飾をしやすくします。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/dom/divideText)|
+|**graphic**|honeycomb||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/graphic/honeycomb)|
+||shape||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/graphic/shape)|
+|**hooks**|useAgent|Reactのカスタムフックで、イベント機能や共有/直列実行のPromise管理、状態管理を備えた「Agent」を生成し、Contextや遅延Providerとして提供できるようにします。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useAgent)|
+||useAgentContext|useAgentContextは、Contextに保存されたAgentインスタンスを取得するフックです。対応するProvider配下で共有され、未提供の場合の検出もしやすくなります。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useAgentContext)|
+||useBem|DOM変化を監視し規定のルールで命名されたクラス名を自動でBEM記法へ変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useBem)|
+||useCache|複数キーで階層化したMapに結果を保存し、同じ引数のときは計算せずに値を再利用するReactフックです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useCache)|
+||useQuery|指定URLの取得結果をキャッシュし、同じURIでは再リクエストせず保存データを返すReact用データ取得フックです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useQuery)|
+||useTransition|要素にrefを付与してアニメーション状態を管理するReactフックです。isActiveの切替でenter→active→leave→inactiveへ自動遷移し、非表示時はWeb Animationsの完了を待って状態更新します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useTransition)|
+||useLazyProvider|非同期で取得した値をContext.Providerへ渡す遅延ロード用コンポーネントをReact.lazyで生成し、useCacheで引数ごとにメモ化して再利用するフックです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useLazyProvider)|
+||useLazyComponent|非同期で取得したpropsを注入したラップドコンポーネントをReact.lazyで生成し、useCacheで引数ごとに再利用するフックです。同じ引数なら再生成せず動的ロードとメモ化を両立します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useLazyComponent)|
+||useThrottle|依存配列の変化でcallbackを実行。初回は即実行し、その後は指定間隔内の再実行を抑制、間隔後に1回だけ遅延実行するスロットル用フックです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useThrottle)|
+||useDebounce|依存配列の値が変わるたびにタイマーを作成し、一定時間内に再度変化があれば前回を破棄。最後の変化から指定時間後にcallbackを1回だけ実行するデバウンス用フックです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useDebounce)|
+||useChangeEffect|初回レンダー時は実行せず、依存配列の値が変化した2回目以降のみcallbackを実行するフック。useRefで初回を判定し、callbackの返り値でクリーンアップも行えます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/hooks/useChangeEffect)|
+|**scssc**|translateColor|色名やトーン指定を解析し、CSSカスタムプロパティを用いて hsla() 形式に変換する関数。単色、相対トーン、混合色や透明度にも対応。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/scssc/translateColor)|
+|**ui**|slider|HTML要素内のスライドをループ再生やナビゲーション操作で制御し、自動再生や同期表示にも対応するカルーセル機能を提供する。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/ui/slider)|
+||scrollsync|指定要素内のスクロール位置を同期管理し、ループや自動再生、ナビゲーション操作に対応するスクロール同期機能を提供する。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/ui/scrollsync)|
+||tabpanel|複数のタブと対応パネルを管理し、クリックやキーボード操作でパネルを切り替え、ARIA属性でアクセシビリティを確保するタブパネル機能を提供する。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/ui/tabpanel)|
+||accordion|指定要素をアコーディオン化し、開閉状態を管理。ボタンとパネルのARIA属性を設定し、クリックやEnter/Spaceで開閉可能にする。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/ui/accordion)|
+|**util**|animate|コールバックを継続時間とイージングから算出された0〜1の進捗度が引数としてマイフレーム実行する柔軟なアニメーション用関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/animate)|
+||easeLinear|一定スピードのイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeLinear)|
+||easeInQuad|減速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeInQuad)|
+||easeOutQuad|加速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeOutQuad)|
+||easeInOutQuad|加減速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeInOutQuad)|
+||easeInCubic|緩やかな減速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeInCubic)|
+||easeOutCubic|緩やかな加速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeOutCubic)|
+||easeInOutCubic|緩やかな加減速のイージング関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/easeInOutCubic)|
+||preserveAnimationValues|アニメーションの実行結果の値を任意ステップ数であらかじめ計算しておく関数。多数の要素が同じアニメーションをする、何度も同じアニメーションを繰り返す場合に計算量を節約できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/preserveAnimationValues)|
+||scrollTo|任意の継続時間とイージングでウィンドをスクロールするアニメーション関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/scrollTo)|
+||sequence|コールバックの配列を順次完了を待って実行する関数。各コールバックはPromiseのコールバックとしてresolve,rejectの２つの引数が渡され、resolveを実行して完了を通知します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/sequence)|
+||sinWave|任意の振幅と周波数から正弦波の関数を返す関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/sinWave)|
+||waveFromBase36|Base36 文字列をseedとして受け取り、その内容から複数の三角波を合成した波形関数を生成する関数。返り値は p（位相・時間のような値）を与えると、その時点の波形値を返すクロージャ関数になります。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/waveFromBase36)|
+||bsearch|ソート済みの数値の配列内での任意の値の位置を返す二分木探索の関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/bsearch)|
+||chunk||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/chunk)|
+||combine|キー値の配列と値の配列からオブジェクトを作成する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/combine)|
+||phasedRange|キー値・値ともに数値であるオブジェクトを受け取り、キー値を最大値、値を増加単位として、最終の最大値に達するまで数値を返すジェネレータ関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/phasedRange)|
+||range|任意の最小値から最大値に達するまで数値を返すジェネレータ関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/range)|
+||rangeValueConverter|ソート済みの数値の配列から、任意の値の位置、あるいは任意の位置の値を取得するためのメソッドを持ったオブジェクトを作成する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/rangeValueConverter)|
+||applyBem|HTML要素のclassNameを解析し、BEM方式の接頭辞・ブロック・エレメント名を自動付与する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/applyBem)|
+||bem|BEM方式のクラス名を生成する関数を返すカリー関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/bem)|
+||bemSelector|BEM方式のクラス名のCSSセレクタの文字列を生成する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/bemSelector)|
+||debounce|初回はコールバックを即実行し、その後は指定間隔内の再実行を抑制、間隔後に1回だけ遅延実行するラッパー関数を生成する関数です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/debounce)|
+||throttle|コールバックを遅延実行するラッパー関数を生成する関数です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/throttle)|
+||bez|引数の数に応じたn次ベジェの値を算出する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/bez)|
+||dataSizeStringToInt|1KBや1MBなどのデータサイズの文字列を、バイト単位の数値に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/dataSizeStringToInt)|
+||fib|任意長のフィボナッチ数列を取得する関数。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/fib)|
+||hunit|指数表記に変換した数値の桁を加工し、指定精度に基づいて人が扱いやすい単位へ正規化した数値を返す関数です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hunit)|
+||intToDataSizeString|バイト単位の数値をKB MB GB単位表記の文字列に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/intToDataSizeString)|
+||pfloor|任意の桁数で数値を切り捨てます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/pfloor)|
+||pround|任意の桁数で数値を四捨五入します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/pround)|
+||pceil|任意の桁数で数値を切り上げます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/pceil)|
+||hfloor|任意の頭の桁数で数値を切り捨てます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hfloor)|
+||hround|任意の頭の桁数で数値を四捨五入します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hround)|
+||hceil|任意の頭の桁数で数値を切り上げます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hceil)|
+||srand|xorshiftによる再現性のある乱数生成関数を生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/srand)|
+||colorToHsla|hex,rgb,hsbの色をhsla形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/colorToHsla)|
+||hexToHsb|hex形式の色をhsb形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hexToHsb)|
+||hexToHsl|hex形式の色をhsl形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hexToHsl)|
+||hexToRgb|hex形式の色をrgb形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hexToRgb)|
+||hsbToHex|hsb形式の色をhex形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hsbToHex)|
+||hslToHex|hsl形式の色をhex形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/hslToHex)|
+||rgbToHex|rgb形式の色をhex形式の色に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/rgbToHex)|
+||deepMap|キー値の配列から任意深度の多次元マップに値を代入・取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/deepMap)|
+||getChildrensOfLevel|childrenプロパティによって親子関係を持つツリー構造のデータから、任意世代の子要素を取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/getChildrensOfLevel)|
+||getItemsOfLevel|childrenプロパティによって親子関係を持つツリー構造のデータから、任意世代の要素を取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/getItemsOfLevel)|
+||getTreeData|uriまたはid、およびparentプロパティを持つオブジェクトの配列から、childrenプロパティによって親子関係を持つツリー構造のデータを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/getTreeData)|
+||perspective|3D座標を視点(x,y,z)から遠近法で2Dへ射影する関数を生成します。戻り値の関数に付与されたupdateで視点を更新することができます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/perspective)|
+||preserveDirections|任意の幅と高さの方眼の、各ベクトル(x,y)のラジアン角の２次配列を生成します。２次元グリッド上の２点の角度を何度も計算する場合に計算量を節約できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/preserveDirections)|
+||preserveDistances|任意の幅と高さの方眼の、各ベクトル(x,y)のノルム長の２次配列を生成します。２次元グリッド上の２点の距離を何度も計算する場合に計算量を節約できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/preserveDistances)|
+||observeIntersection|要素の画面への交差状態に応じてイベントを発火します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/observeIntersection)|
+||observeSelector|DOMツリーの変更によって、任意のセレクターに合致する要素が追加された際にその要素を引数としてコールバックを実行します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/observeSelector)|
+||ready|コールバックをDOMContentLoadedで実行します。すでに読み込み済みであれば即時実行します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/ready)|
+||scrollspy|IntersectionObserverでHTML要素の可視状態を監視し、表示中・ほぼ全体表示などの状態をフラグ化してクラス名に反映します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/scrollspy)|
+||watchScrollProgress|画面に対するHTML要素の位置に応じた進捗度の値を引数に、画面に要素が入っている間スクロール毎にコールバックを実行します。進捗度は（画面の高さ＋要素の高さ）を基準にした0〜1の値と、|（画面の高さー要素の高さ）|を基準にした値の２種類が渡されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/watchScrollProgress)|
+||dimensionBox|画面に対する要素の位置に応じて変形の原点を移動させることで、CSSの3D変形を利用した視差効果を与えます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/dimensionBox)|
+||parallax|HTML要素に毎フレーム、画面に対する相対位置のCSS変数を付与します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/parallax)|
+||simpleParallax|画面に対して要素を固定表示しつつ親要素に応じてクリップします。この手法はCSSのみでより良い形での実現が可能でありこの関数の使用は非推奨です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/simpleParallax)|
+||camelToKebab|キャメルケースの文字列をケバブケースに変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/camelToKebab)|
+||camelToSnake|キャメルケースの文字列をスネークケースに変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/camelToSnake)|
+||kebabToCamel|ケバブケースの文字列をキャメルケースに変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/kebabToCamel)|
+||snakeToCamel|スネークケースの文字列をキャメルケースに変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/snakeToCamel)|
+||ucFirst|最初の文字を大文字にします。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/ucFirst)|
+||ucWords|各単語の最初も文字を大文字にします。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/ucWords)|
+||classNamesToFlags|クラス名の文字列から、各クラス名をキー値とした連想配列を取得します。ケバブケースのクラス名はキャメルケースに変換されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/classNamesToFlags)|
+||filterFlags|連想配列からコールバックがtrueを返さないエントリーを除去します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/filterFlags)|
+||flagsToClassNames|クラス名をキー値とした連想配列からクラス名の文字列を取得します。キャメルケースのクラス名はケバブケースに変換されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/flagsToClassNames)|
+||flagsToWords|連想配列から値が空でないエントリーのキー値を半角スペース区切りで連結した文字列を取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/flagsToWords)|
+||getCharCategory|文字の種類が、大文字・小文字・数字・漢字・ひらがな・カタカナ・記号・その他いずれであるかを取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/getCharCategory)|
+||wordsToFlags|スペース区切りの文字列から、各文字列をキー値とした連想配列を取得します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/wordsToFlags)|
+||el|任意の属性値と子要素を持ったHTMLElementを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/el)|
+||xhtmlEl|任意の属性値と子要素を持った、xhtml名前空間のHTMLElementを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/xhtmlEl)|
+||svgEl|任意の属性値と子要素を持った、svg名前空間のHTMLElementを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/svgEl)|
+||mathEl|任意の属性値と子要素を持った、math名前空間のHTMLElementを生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/mathEl)|
+||rtf|マークダウン形式に似たフォーマットで、文字列をHTML文字列に変換します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/util/rtf)|
 
 
