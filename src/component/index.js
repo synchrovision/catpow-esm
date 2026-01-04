@@ -9,6 +9,7 @@ export * from "./Bem.jsx";
 export * from "./Cloak.jsx";
 export * from "./ElasticBox.jsx";
 export * from "./Parallax.jsx";
+export * from "./Popup.jsx";
 export * from "./Portal.jsx";
 export * from "./PortalWindow.jsx";
 export * from "./RawNode.jsx";
