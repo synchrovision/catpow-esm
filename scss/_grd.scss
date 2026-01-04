@@ -25,9 +25,14 @@
 	);
 	$fvals:(c:column,r:row,d:dense);
 	$jvals:(s:start,e:end,c:center,b:space-between,a:space-around,v:space-evenly);
-	display:-webkit-grid;
-	display:-ms-grid;
-	display:grid;
+	@if map.get($grd,i){
+		display:inline grid;
+	}
+	@else{
+		display:-webkit-grid;
+		display:-ms-grid;
+		display:grid;
+	}
 	@each $key,$val in $grd{
 		@if $key == rc or $key == rr{
 			@if(meta.type-of($val) == 'list'){
