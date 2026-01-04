@@ -20,3 +20,5 @@ export * from "./TextBuild.jsx";
 export * from "./Transition.jsx";
 
 export * from "./Loop.jsx";
+
+export * from "./JsonEditor/index.js";

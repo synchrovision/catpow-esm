@@ -1,0 +1,72 @@
+﻿import { useMemo, useCallback } from "react";
+import { Bem } from "catpow/component";
+
+export const Text = (props) => {
+	const { className = "cp-jsoneditor-input-text", agent, onChange, onUpdate } = props;
+
+	const autoComplete = useMemo(() => {
+		const schema = agent.getMergedSchemaForInput();
+		if (schema.hasOwnProperty("autoComplete")) {
+			return schema.autoComplete;
+		}
+		if (schema.hasOwnProperty("format")) {
+			switch (schema.format) {
+				case "email":
+				case "idn-email":
+					return "email";
+				case "uri":
+				case "uri-reference":
+					return "url";
+			}
+		}
+		return null;
+	}, [agent.getMergedSchemaForInput()]);
+
+	const inputType = useMemo(() => {
+		const schema = agent.getMergedSchemaForInput();
+		if (schema.hasOwnProperty("format")) {
+			switch (schema.format) {
+				case "datetime":
+					return "datetime-local";
+				case "uri":
+					return "url";
+				case "date":
+				case "time":
+				case "email":
+					return schema.format;
+				default:
+					return "text";
+			}
+		}
+		return "text";
+	}, [agent.getMergedSchemaForInput()]);
+
+	const size = useMemo(() => {
+		const schema = agent.getMergedSchemaForInput();
+		if (schema.hasOwnProperty("maxLength")) {
+			return schema.maxLength;
+		}
+		return null;
+	}, [agent.getMergedSchemaForInput()]);
+
+	const onChangeHandle = useCallback(
+		(e) => {
+			onChange(e.currentTarget.value);
+		},
+		[onChange]
+	);
+	const onUpdateHandle = useCallback(
+		(e) => {
+			onUpdate(e.currentTarget.value);
+		},
+		[onChange]
+	);
+
+	return (
+		<Bem>
+			<div className={className}>
+				<input type={inputType} value={agent.getValue() || ""} size={size} className="_input" onChange={onChangeHandle} onBlur={onUpdateHandle} autoComplete={autoComplete} />
+			</div>
+		</Bem>
+	);
+};

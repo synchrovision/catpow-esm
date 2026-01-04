@@ -1,0 +1,32 @@
+﻿import { useMemo } from "react";
+import { SearchSelect as SearchSelectComponent } from "catpow/component";
+
+export const SearchSelect = (props) => {
+	const { className = "cp-jsoneditor-input-searchselect", agent, onUpdate } = props;
+
+	const options = useMemo(() => {
+		const schema = agent.getMergedSchemaForInput();
+		if (schema.items != null) {
+			if (schema.items.options != null) {
+				return schema.items.options;
+			}
+			if (schema.items.enum != null) {
+				return schema.items.enum;
+			}
+			return [];
+		}
+		if (schema.options != null) {
+			return schema.options;
+		}
+		if (schema.enum != null) {
+			return schema.enum;
+		}
+		return [];
+	}, [agent.getMergedSchemaForInput()]);
+
+	return (
+		<div className={className}>
+			<SearchSelectComponent options={options} multiple={agent.getMergedSchemaForInput().type === "array"} onChange={onUpdate} />
+		</div>
+	);
+};
