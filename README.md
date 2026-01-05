@@ -9,8 +9,21 @@
 ||nl2br|文字列中の改行を、Reactの要素としてbrに置き換えます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/nl2br)|
 ||Animation|Reactの関数コンポーネント。要素の大きさや中心座標、マウス/タッチ位置と押下状態、フレーム番号を計測し、複数のContextで子要素に共有するラッパーです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Animation)|
 ||MosaicWave|Reactのコンポーネント。画面をタイル状に分割し、Animationのフレームとサイズ情報を使って複数の波が広がるように色を時間変化させるモザイクアニメーションを描画します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MosaicWave)|
+||ArrayInput||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/ArrayInput)|
+||CheckBox||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/CheckBox)|
+||CheckBoxes||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/CheckBoxes)|
+||InputDuration||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/InputDuration)|
+||MultiRangeInput||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MultiRangeInput)|
 ||PositionInput|Reactの入力コンポーネント。SVG上をドラッグして座標を指定し、グリッドへのスナップやスロットリング付きで(x,y)をonChangeに通知します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/PositionInput)|
+||RadioButtons||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/RadioButtons)|
 ||RangeInput|複数値を扱えるレンジ入力コンポーネント。スライド位置から最も近いハンドルを特定し、順序制約とスナップ・スロットリング付きで値を更新、入力欄表示にも対応します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/RangeInput)|
+||SearchSelect||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SearchSelect)|
+||SelectBox||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SelectBox)|
+||SelectTable||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/SelectTable)|
+||StepInput||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/StepInput)|
+||StepSelect||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/StepSelect)|
+||TableInput||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/TableInput)|
+||Toggle||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Toggle)|
 ||Nav|Reactのナビ用コンポーネント。メニューと階層付きアイテムの状態をContext＋useReducerで管理し、項目のアクティブ化・解除やフォーカスで階層レベルを更新します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Nav)|
 ||Menu|Reactのメニュー用コンポーネント。NavのContextから状態とdispatchを受け取り、指定されたmenuがアクティブかどうかでクラスを切り替えます。内部要素の高さをResizeObserverで監視し、CSS変数--inner-heightとして設定。マウスがメニュー外へ出た時にメニューを非アクティブ化します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Menu)|
 ||MenuItem|階層ナビの項目用コンポーネント。ホバーで項目を有効化し、クリックで階層に応じて有効化／無効化を切替。activeや子要素の有無でクラスを付与し、状態はContextで共有されます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/MenuItem)|
@@ -26,6 +39,7 @@
 ||Cloak|ページ読み込み時の“クローク（覆い隠し）演出”を行うためのReactコンポーネントです。CSSアニメーション／トランジションの完了を検知しながら、徐々に表示状態を進めます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Cloak)|
 ||ElasticBox|子要素のサイズ変化をResizeObserverで監視し、高さや幅を自動追従させるReactコンポーネント。BEM形式のクラスを付与し、縦横どちらを監視するかを指定できます。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/ElasticBox)|
 ||Parallax|要素の位置と画面高さからパララックス係数を算出し、requestAnimationFrameでCSS変数を更新。距離や内外判定で状態クラスを付与するReactのスクロール連動コンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Parallax)|
+||Popup||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Popup)|
 ||Portal|DOM外に要素を描画するReactポータル。指定ID/クラスの要素を生成し、trace要素の位置・サイズを定期取得して追従配置しつつcreatePortalで子要素を描画します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Portal)|
 ||PortalWindow|新しいブラウザウィンドウをwindow.openで開き、その中にID付きのdivを用意してcreatePortalで子要素を描画するReactコンポーネント。タイトルやサイズ指定も可能です。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/PortalWindow)|
 ||RawNode|props.nodeに渡されたDOMノード（または複数ノード）をref先のdivへ直接appendChildして表示するReactコンポーネント。既存の子要素も並べて描画し、classNameは既定でcp-rawnode。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/RawNode)|
@@ -35,6 +49,7 @@
 ||TextBuild|子要素の文字列を1文字ずつ配列化し、delay後にinterval間隔で順次表示。表示中か否かでBEMクラスを付与し、テキストがタイプされるように見せるReactコンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/TextBuild)|
 ||Transition|子要素の変化を検知し、前後の内容を保持して種類別にアニメーション遷移。内容サイズも自動計測しCSS変数で反映するトランジション用Reactコンポーネントです。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Transition)|
 ||Loop|反復可能なオブジェクトから任意のコンポーネントのJSXオブジェクトを反復して生成します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/Loop)|
+||JsonEditor||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/component/JsonEditor)|
 |**dom**|divideImage|画像をグリッド状に分割して表示する関数。要素を複製して配置し、ResizeObserverでサイズ変化に応じて分割数や配置を自動更新します。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/dom/divideImage)|
 ||divideText|テキストを行・単語・文字に分割し、階層的なspan要素でラップします。各要素にインデックスや文字種のクラスを付与し、アニメや装飾をしやすくします。|[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/dom/divideText)|
 |**graphic**|honeycomb||[![Document](https://img.shields.io/badge/Document-666)](https://catpow.info/products/esm/reference/graphic/honeycomb)|

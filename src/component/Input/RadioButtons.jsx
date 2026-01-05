@@ -5,7 +5,6 @@ import clsx from "clsx";
 
 export const RadioButtons = (props) => {
 	const { className = "cp-radiobuttons", size = "medium", onChange } = props;
-	console.log(props);
 
 	const [value, setValue] = useState(props.value ?? null);
 
