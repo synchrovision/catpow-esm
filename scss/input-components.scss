@@ -1,0 +1,257 @@
+@charset "utf-8";
+@use "_index.scss" as *;
+
+$exclude-popup:false !default;
+
+.cp{
+	&-checkboxes{
+		@include flx((w:w,g:.5em));
+	}
+	&-checkbox{
+		@include grd((tc:1em a,g:.5em));
+		@include bnd((pd:.5em,pdr:1em));
+		@include bdr((r:.2em));
+		@include shd((b:-1));
+		@include txt((p:16,h:1em));
+		@include usr((c:p));
+		&__icon{
+			@include bnd((d:b,p:r,w:1em,h:1em));
+			@include bdr((r:.2em));
+			@include shd((b:1));
+			&::before{
+				content:'';
+				@include bnd((d:b,p:a,i:0,mg:a,w:90%,h:90%));
+				@include bg((c:a));
+				@include bdr((r:.2em));
+				@include trn((t:.4s,gry:100%,s:.5));
+			}
+		}
+		&__label{
+		}
+		&.is-selected &{
+			&__icon{
+				&::before{
+					@include trn((e:b,gry:0%,s:1));
+				}
+			}
+			&__label{
+			}
+		}
+	}
+	&-radiobuttons{
+		@include flx((w:w,g:.5em));
+		&.is-size-medium{
+		}
+		&__button{
+			@include grd((tc:1em a,g:.5em));
+			@include bnd((pd:.5em,pdr:1em));
+			@include bdr((r:1em));
+			@include shd((b:-1));
+			@include txt((p:16,h:1em));
+			@include usr((c:p));
+			&-icon{
+				@include bnd((d:b,p:r,w:1em,h:1em));
+				@include bdr((r:50%));
+				@include shd((b:1));
+				&::before{
+					content:'';
+					@include bnd((d:b,p:a,i:0,mg:a,w:90%,h:90%));
+					@include bg((c:a));
+					@include bdr((r:50%));
+					@include trn((t:.4s,gry:100%,s:.5));
+				}
+			}
+			&-label{
+			}
+			&.is-selected &{
+				&-icon{
+					&::before{
+						@include trn((e:b,gry:0%,s:1));
+					}
+				}
+				&-label{
+				}
+			}
+		}
+	}
+	&-selectbox{
+		@include bnd((d:ib,p:r));
+		@include bdr((s:s,w:1,c:shd,r:.2em));
+		@include txt((p:16));
+		&::after{
+			content:'';
+			@include bnd((d:b,p:a,i:0,mg:a,mgr:.3em,w:.6em,h:.4em));
+			@include bg((c:t));
+			@include clp((t:b 100%));
+			@include trn((o:.5));
+			@include usr((e:n));
+		}
+		&__select{
+			@include bnd((ap:n,pd:.5em,pdr:1em));
+			@include bg((c:white));
+			@include bdr((s:n,r:0));
+			@include txt((p:16));
+			@include shd((b:-1));
+			&-option{
+			}
+		}
+	}
+	&-toggle{
+		$block:&;
+		@include bnd((d:ib,p:r,w:2em,h:1em,o:h));
+		@include bdr((r:.5em));
+		@include bg((c:sh));
+		@include txt((p:20));
+		@include shd((b:-1));
+		@include usr((c:p));
+		&__handler{
+			@include bnd((d:b,p:a,i:0,w:100%,h:100%));
+			@include bdr((r:.5em));
+			@include bg((c:a));
+			@include trn((t:.2s,x:-1em));
+			&::after{
+				content:'';
+				@include bnd((d:b,p:a,i:0,mgl:a,w:1em));
+				@include bdr((r:.5em));
+				@include bg((c:i));
+				@include shd((b:1));
+			}
+		}
+		&.is-selected{
+			#{$block}__handler{
+				@include trn((x:0));
+			}
+		}
+	}
+	&-selecttable{
+		@include bnd((w:f));
+		@include tbl(());
+		&.hasSmallFontSize{
+		}
+		&__tbody{
+			&-tr{
+				&-td{
+					@include bnd((pd:.5em));
+					@include bdr((s:s,w:1,c:t));
+					@include txt((a:c));
+					@include usr((c:p));
+					&.is-active{
+						@include bg((c:m));
+						@include txt((c:i));
+					}
+				}
+			}
+		}
+	}
+	&-searchselect,&-stepselect{
+		&__selected{
+			&-items{
+				@include flx((w:w,g:.5em));
+				@include txt((l:n));
+				&-item{
+					@include bnd((p:r,w:5em a,pd:.5em 1em));
+					@include bdr((r:.2em));
+					@include txt((p:14,h:1em));
+					@include usr((c:p));
+					@include shd((b:-1));
+					&::after{
+						content:'';
+						@include bnd((d:b,p:a,i:0,mg:a,mgr:.3em,w:.6em,h:.4em));
+						@include bg((c:t));
+						@include clp((t:b 100%));
+						@include trn((o:.5));
+						@include usr((e:n));
+					}
+				}
+			}
+		}
+		&__header{
+			@include bnd((p:s,t:0,h:2em a,pd:1em,mgb:1em));
+			@include bdr((p:b,s:s,w:1));
+			@include bg((c:b));
+			&-selected{
+				&-items{
+					@include flx((w:w,g:.5em));
+					@include txt((l:n));
+					&-item{
+						@include bnd((pd:.4em 1em));
+						@include bdr((r:1em));
+						@include bg((c:m));
+						@include txt((h:1em,c:i));
+					}
+				}
+			}
+		}
+	}
+	&-searchselect{
+		&__header{
+			@include grd((tc:1fr a));
+			&-search{
+				&-input{
+					@include bnd((pd:.5em 1em));
+					@include bdr((s:n,r:1em));
+					@include txt((p:16));
+					@include shd((b:-1));
+				}
+			}
+		}
+		&__body{
+			&-selections{
+				@include bnd((pd:.5em 1em));
+			}
+		}
+	}
+	&-stepselect{
+		&__body{
+			&-selections{
+				&-options{
+					@include bnd((pd:.5em 1em));
+					&-arrow{
+						&.is-hidden{
+						}
+						&.is-shown{
+						}
+					}
+					&-items{
+						@include flx((w:w,g:1em));
+						@include txt((l:n));
+						&-item{
+							@include bnd((pd:.5em 1em));
+							@include bdr((r:1em));
+							@include bg((c:s));
+							@include txt((h:1em));
+							@include usr((c:p));
+							&.has-children{
+							}
+							&.is-active,&.is-selected{
+								@include bg((c:m));
+								@include txt((c:i));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	@if $exclude-popup == false {
+		&-popup{
+			@include bnd((p:f,i:0,z:1000));
+			&.is-closed{
+				@include bnd((d:n));
+			}
+			&__bg{
+				@include bnd((d:b,p:a,i:0));
+				@include bg((c:shd));
+			}
+			&__body{
+				@include bnd((d:b,p:a,i:0,mg:a,w:90vw 720,h:90vh 720));
+			}
+			&-contents{
+				@include bnd((d:b,p:a,i:0,w:f,h:f,oy:a,bs:b));
+				@include bdr((r:1em));
+				@include bg((c:b));
+				@include shd((b:8));
+			}
+		}
+	}
+}
