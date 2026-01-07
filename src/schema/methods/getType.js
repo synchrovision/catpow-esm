@@ -12,7 +12,7 @@ export const getType = (schema, rootSchema) => {
 			if (schema.items != null || schema.prefixItems != null) {
 				return "array";
 			}
-			if (schema.minimum != null || schema.maximam != null || schema.multipleOf != null) {
+			if (schema.minimum != null || schema.maximam != null || schema.multipleOf != null || schema.steps != null) {
 				return "number";
 			}
 			if (schema.pattern != null || schema.minLength != null || schema.maxLength != null) {
