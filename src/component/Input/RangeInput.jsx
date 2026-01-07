@@ -8,7 +8,7 @@ import clsx from "clsx";
 export const RangeInputContext = createContext({});
 
 export const RangeInput = (props) => {
-	const { className = "cp-rangeinput", steps = { 100: 1 }, snap = false, showInputs = false, values, order, onChange, children, ...otherProps } = props;
+	const { className = "cp-rangeinput", steps = { 100: 1 }, snap = false, showInputs = false, values = { value: props.value }, order = [], onChange, children, ...otherProps } = props;
 	const ref = React.useRef(null);
 	const { isSliding, value } = useSlider(ref);
 	const [isStart, setIsStart] = useState(false);
