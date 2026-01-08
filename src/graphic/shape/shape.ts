@@ -27,6 +27,9 @@ export const shape = (points: point[]) => ({
 			const { x, y, f } = points[i];
 			const fn = pathCommands[f];
 			if (fn.length) {
+				if (points.length < i + fn.length) {
+					break;
+				}
 				d += fn.apply(null, points.slice(i, i + fn.length));
 				i += fn.length;
 			} else {
