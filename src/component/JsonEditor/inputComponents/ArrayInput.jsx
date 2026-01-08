@@ -13,24 +13,28 @@ export const ArrayInput = (props) => {
 	const onAddItem = useCallback(
 		(index, value) => {
 			agent.addItem(index, value);
+			agent.update();
 		},
 		[agent]
 	);
 	const onCopyItem = useCallback(
 		(from, to) => {
 			agent.copyItem(from, to);
+			agent.update();
 		},
 		[agent]
 	);
 	const onMoveItem = useCallback(
 		(from, to) => {
 			agent.moveItem(from, to);
+			agent.update();
 		},
 		[agent]
 	);
 	const onRemoveItem = useCallback(
 		(index) => {
 			agent.removeItem(index);
+			agent.update();
 		},
 		[agent]
 	);
@@ -103,7 +107,7 @@ export const ArrayInput = (props) => {
 			const { agent } = props;
 			return (
 				<ArrayInputComponent size={size} onAddItem={onAddItem} onCopyItem={onCopyItem} onMoveItem={onMoveItem} onRemoveItem={onRemoveItem}>
-					{props.agent.items.map((item) => (
+					{agent.items.map((item) => (
 						<Input agent={item} layout="inline" size="small" compact={true} key={getItemId(item)} />
 					))}
 				</ArrayInputComponent>
