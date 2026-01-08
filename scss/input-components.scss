@@ -2,6 +2,7 @@
 @use "_index.scss" as *;
 
 $exclude-popup:false !default;
+$exclude-popover:false !default;
 
 .cp{
 	&-arrayinput{
@@ -349,6 +350,141 @@ $exclude-popup:false !default;
 				@include bg((c:b));
 				@include shd((b:8));
 			}
+		}
+	}
+}
+@if $exclude-popover == false{
+	.cp-popover{
+		&.is-open{
+			@include anm((a:PopoverOpen .5s a 1 f));
+		}
+		&.is-close{
+			@include anm((a:PopoverClose .5s a 1 f));
+		}
+		&.is-closed{
+			@include bnd((d:n));
+			@include usr((e:n));
+		}
+		&-anchor{
+			@include bnd((d:b,p:a,t:0,b:0,l:0,r:0,z:10000));
+			@include usr((e:n));
+		}
+		&-container{
+			@include bnd((p:f,t:0,r:0,w:500,h:100,z:500000));
+			@include usr((e:n));
+			@include trn((t:.1s));
+		}
+		&__body{
+			@include bnd((d:b,p:a,mg:a,pd:12));
+			@include bdr((r:10));
+			@include bg((c:b));
+			@include shd((b:10));
+			@include usr((e:a));
+			&-arrow{
+				@include bnd((d:b,p:a,w:32,h:16));
+				@include bg((c:b));
+			}
+			&-contents{
+				@include bnd((h:a 50vh,ox:h,oy:a));
+				@include bdr((r:10));
+			}
+			&-control{
+				&-button{
+					&.is-button-close{
+						@include bnd((p:a,w:30,h:30,t:-15,r:-15));
+						@include bg((c:m));
+						@include bdr((r:50%));
+						@include shd((b:2));
+						&::before,&::after{
+							content:'';
+							@include bnd((p:a,i:0,mg:a,w:20,h:2));
+							@include bg((c:b));
+						}
+						&::before{
+							@include trn((r:45deg));
+						}
+						&::after{
+							@include trn((r:-45deg));
+						}
+					}
+				}
+			}
+		}
+		&.is-top &{
+			&__body{
+				@include bnd((b:f));
+				@include trn((y:-10));
+				&-arrow{
+					@include bnd((t:f));
+					clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+				}
+			}
+		}
+		&.is-bottom &{
+			&__body{
+				@include bnd((t:f));
+				@include trn((y:10));
+				&-arrow{
+					@include bnd((b:f));
+					clip-path: polygon(0% 100%, 100% 100%, 50% 0%);
+				}
+			}
+		}
+		&.is-left &{
+			&__body{
+				@include bnd((r:0));
+					&-arrow{
+					@include bnd((mgr:30));
+				}
+			}
+		}
+		&.is-center &{
+			&__body{
+				@include bnd((l:-30vw,r:-30vw));
+				&-arrow{
+					@include bnd((l:-30vw,r:-30vw,mgi:a));
+				}
+			}
+		}
+		&.is-right &{
+			&__body{
+				@include bnd((l:0));
+				&-arrow{
+					@include bnd((mgl:30));
+				}
+			}
+		}
+		
+		&.is-size-small &{
+			&__body{
+				@include bnd((w:max 320,h:a 160));
+			}
+		}
+		&.is-size-middle &{
+			&__body{
+				@include bnd((w:max 640,h:a 50vh));
+			}
+		}
+		&.is-size-large &{
+			&__body{
+				@include bnd((w:max 90vw,h:a 80vh));
+			}
+		}
+	}
+	@keyframes PopoverOpen{
+		0%{
+			@include trn((o:0));
+		}
+		100%{
+			@include trn((o:1));
+		}
+	}
+	@keyframes PopoverClose{
+		0%{
+			@include trn((o:1));
+		}
+		100%{
+			@include trn((o:0));
 		}
 	}
 }
