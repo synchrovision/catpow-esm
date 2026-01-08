@@ -13,10 +13,7 @@ export const ArrayInput = (props) => {
 			return (
 				<Bem>
 					<li className={className}>
-						<div className="_body">
-							<span>{props.id}</span>
-							{children}
-						</div>
+						<div className="_body">{children}</div>
 						<div className="_controls">
 							{index > 0 ? <div className={clsx("_button", "is-up")} onClick={() => onMoveItem(index, index - 1)}></div> : <div className="_spacer" />}
 							{index < length - 1 ? <div className={clsx("_button", "is-down")} onClick={() => onMoveItem(index, index + 1)}></div> : <div className="_spacer" />}
