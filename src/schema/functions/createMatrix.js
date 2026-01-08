@@ -322,6 +322,9 @@ export const createMatrix = (schemas) => {
 		},
 		addItem: (agent) => {
 			return (index, value) => {
+				if (value == null) {
+					value = typeof agent.value[index - 1] === "object" ? JSON.parse(JSON.stringify(agent.value[index - 1])) : agent.value[index - 1];
+				}
 				const item = createAgent(agent.matrix.items, agent.value, index, value, agent.parent);
 				agent.value.splice(index, 0, value);
 				agent.items.splice(index, 0, item);
