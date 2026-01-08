@@ -34,12 +34,9 @@ export const JsonEditor = (props: JsonEditorProps) => {
 		if (typeof props.json === "object") {
 			return props.json;
 		}
-		if (props.json == null) {
-			return {};
-		}
 		const json = JSON.parse(props.json);
 		if (json == null) {
-			return {};
+			return null;
 		}
 		return json;
 	}, []);
