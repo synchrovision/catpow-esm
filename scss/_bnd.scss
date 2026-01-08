@@ -1,6 +1,7 @@
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
+@use "sass:math";
 @use "_basic.scss" as *;
 
 @mixin bnd($bnd){
@@ -112,7 +113,7 @@
 						meta.type-of(list.nth($val,1)) != 'number' or
 						(
 							meta.type-of(list.nth($val,1)) == 'number' and
-							index(('%','vw','vh','vmax','vmin'),unit(list.nth($val,1))) != null and
+							list.index(('%','vw','vh','vmax','vmin'),math.unit(list.nth($val,1))) != null and
 							meta.type-of(list.nth($val,2)) == 'number'
 						)
 					){
