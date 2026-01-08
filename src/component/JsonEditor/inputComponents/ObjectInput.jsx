@@ -1,6 +1,6 @@
 ﻿import { useMemo, useCallback, useState } from "react";
 import { Input } from "./Input.jsx";
-import { Bem } from "catpow/component";
+import { Bem, Popover } from "catpow/component";
 import clsx from "clsx";
 
 export const ObjectInput = (props) => {
@@ -135,11 +135,11 @@ export const ObjectInput = (props) => {
 							<div className="_label" onClick={() => setOpen(!open)}>
 								{label}
 							</div>
-							<Catpow.Popover open={open} size={popoverSize} onClose={onClose} closeButton={true} closeOnClickAway={false}>
+							<Popover open={open} size={popoverSize} onClose={onClose} closeButton={true} closeOnClickAway={false}>
 								<div className="_body">
 									<InputBodyComponent agent={agent} />
 								</div>
-							</Catpow.Popover>
+							</Popover>
 						</div>
 					</Bem>
 				);
