@@ -1,7 +1,19 @@
-﻿import { useMemo, createContext } from "react";
+﻿import * as React from "react";
+import { useMemo, createContext } from "react";
 
-export const SVGColorsContext = createContext({});
-export const SVGScreenContext = createContext({});
+type SVGColorContextValueModel = {
+	h: number;
+	s: number;
+	l: number;
+};
+type SVGScreenContextValueModel = {
+	width: number;
+	height: number;
+	flex: boolean;
+};
+
+export const SVGColorsContext = createContext<SVGColorContextValueModel | null>({ h: 20, s: 80, l: 80 });
+export const SVGScreenContext = createContext<SVGScreenContextValueModel | null>({ width: 1200, height: 400, flex: false });
 
 export const SVG = (props) => {
 	const { className = "cp-svg", width = 1200, height = 400, colors = { h: 20, s: 80, l: 80 }, children, ...otherProps } = props;
