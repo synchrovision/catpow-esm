@@ -3,6 +3,7 @@ export * from "./ChartInputBox.tsx";
 export * from "./CheckBox.jsx";
 export * from "./CheckBoxes.jsx";
 export * from "./InputDuration.jsx";
+export * from "./LineChartInput.tsx";
 export * from "./MultiRangeInput.jsx";
 export * from "./PositionInput.jsx";
 export * from "./RadioButtons.jsx";
