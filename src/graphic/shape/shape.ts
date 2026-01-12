@@ -24,7 +24,7 @@ export const shape = (points: point[]) => ({
 	get d() {
 		let d = "";
 		for (let i = 0; i < this.points.length; ) {
-			const { x, y, f } = points[i];
+			const { x, y, f = i === 0 ? "M" : "L" } = points[i];
 			const fn = pathCommands[f];
 			if (fn.length) {
 				if (points.length < i + fn.length) {
