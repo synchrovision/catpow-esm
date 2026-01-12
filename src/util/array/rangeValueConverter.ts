@@ -1,12 +1,24 @@
 import { range } from "./range";
 import { phasedRange } from "./phasedRange";
-export const rangeValueConverter = function (values, snap = false) {
-	if (!Array.isArray(values)) {
-		values = [...(typeof values === "number" ? range : phasedRange)(values)];
+
+export type RangeValueConverterApp = {
+	length: number;
+	getValue: (pos: number) => number;
+	getProgress: (value: number) => number;
+	getPosition: (value: number) => number;
+};
+
+export const rangeValueConverter = function (rawValues: number | number[] | { [key: number]: number }, snap: boolean = false): RangeValueConverterApp {
+	let values: number[];
+	if (!Array.isArray(rawValues)) {
+		values = [...(typeof rawValues === "number" ? range : phasedRange)(rawValues)];
+	} else {
+		values = rawValues;
 	}
 	const len = values.length;
 	const lastIndex = len - 1;
 	return {
+		length: values.length,
 		getValue(pos) {
 			if (pos < 0) {
 				return values[0];
