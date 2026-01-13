@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useEffect, createContext } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, createContext, useRef } from "react";
 import { useSlider } from "react-use";
 import { useThrottle } from "../../hooks/useThrottle";
 import { rangeValueConverter } from "../../util";
@@ -9,7 +9,7 @@ export const RangeInputContext = createContext({});
 
 export const RangeInput = (props) => {
 	const { className = "cp-rangeinput", steps = { 100: 1 }, snap = false, showInputs = false, values = { value: props.value }, order = [], onChange, children, ...otherProps } = props;
-	const ref = React.useRef(null);
+	const ref = useRef(null);
 	const { isSliding, value } = useSlider(ref);
 	const [isStart, setIsStart] = useState(false);
 	const [targetName, setTargetName] = useState(false);
