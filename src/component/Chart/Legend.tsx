@@ -22,7 +22,8 @@ export const Legend = (props: LegendProps) => {
 							onClick={() => focusRow(r === focusedRow ? null : r)}
 							style={{ "--row-color": colors?.rows?.[r] } as React.CSSProperties}
 						>
-							{label}
+							<span className="_icon"></span>
+							<span className="_label">{label}</span>
 						</li>
 					))}
 				</ul>
