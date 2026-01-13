@@ -1,4 +1,5 @@
 export * from "./ArrayInput.jsx";
+export * from "./ChartInput.tsx";
 export * from "./CheckBox.jsx";
 export * from "./CheckBoxes.jsx";
 export * from "./InputDuration.jsx";
