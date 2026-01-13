@@ -1,9 +1,10 @@
 ﻿import * as React from "react";
-import { useState, useMemo, useCallback, useContext, forwardRef } from "react";
-import { range, rangeValueConverter } from "catpow/util";
+import { useMemo, useCallback, useContext } from "react";
+import { range } from "catpow/util";
 import { shape } from "catpow/graphic";
 import { Bem, SVG } from "catpow/component";
 import { Chart, ChartContext } from "./Chart";
+import { DataSetContext } from "./DataSet";
 import { clsx } from "clsx";
 
 type progressPoint = {
@@ -11,37 +12,35 @@ type progressPoint = {
 	py: number;
 };
 export type LineChartProps = {
-	className: string;
+	className?: string;
 	width?: number;
 	height?: number;
 	margin?: number[];
-	steps?: { [key: number]: number };
-	snap?: boolean;
-	values?: number[][];
-	labels?: string[][];
-	onChange: (values: number[][]) => void;
-	children: any;
+	children?: any;
 };
 
 export const LineChart = (props: LineChartProps) => {
-	const { className = "cp-linechart", width = 640, height = 480, margin = [4, 4, 4, 4], steps = { 100: 1 }, snap = true, values, onChange, children, ...otherProps } = props;
-
-	const cnv = useMemo(() => rangeValueConverter(steps, snap), [steps, snap]);
+	const { className = "cp-linechart", children, ...otherProps } = props;
+	const { width, height } = otherProps;
+	const { values, steps } = useContext(DataSetContext);
 
 	const getValueWithProgressPoint = useCallback(
 		(r: number, c: Number, { py }: progressPoint): number => {
-			return cnv.getValue(1 - py);
+			return steps.getValue(1 - py);
 		},
-		[cnv]
+		[steps]
 	);
 	const getCellWithProgressPoint = useCallback(
-		({ px, py }: progressPoint): { r: number; c: number } => {
+		({ px, py }: progressPoint, focusedRow: number | null): { r: number; c: number } => {
 			const c = Math.min(values[0].length - 1, Math.floor(values[0].length * px));
+			if (focusedRow != null) {
+				return { r: focusedRow, c };
+			}
 			let r = 0;
 			let oy = 1 - py;
-			let minD = Math.abs(cnv.getProgress(values[0][c]) - oy);
+			let minD = Math.abs(steps.getProgress(values[0][c]) - oy);
 			for (let i = 1; i < values.length; i++) {
-				const d = Math.abs(cnv.getProgress(values[i][c]) - oy);
+				const d = Math.abs(steps.getProgress(values[i][c]) - oy);
 				if (d < minD) {
 					minD = d;
 					r = i;
@@ -49,35 +48,29 @@ export const LineChart = (props: LineChartProps) => {
 			}
 			return { r, c };
 		},
-		[values]
+		[steps, values]
 	);
 
 	return (
-		<Chart
-			width={width}
-			height={height}
-			margin={margin}
-			values={values}
-			steps={cnv}
-			getValueWithProgressPoint={getValueWithProgressPoint}
-			getCellWithProgressPoint={getCellWithProgressPoint}
-			onChange={onChange}
-			{...otherProps}
-		>
+		<Chart getValueWithProgressPoint={getValueWithProgressPoint} getCellWithProgressPoint={getCellWithProgressPoint} {...otherProps}>
 			<Bem>
-				<SVG className={className} width={width} height={height} style={{ width: "100%", height: "auto" }}>
-					<Lines className="_lines" />
-					<Grid className="_grid" />
-				</SVG>
+				<div className={className} style={{ position: "relative" }}>
+					<SVG className="_chart" width={width} height={height} style={{ width: "100%", height: "auto" }}>
+						<Lines className="_lines" />
+						<Grid className="_grid" />
+					</SVG>
+					{children}
+				</div>
 			</Bem>
-			{children}
 		</Chart>
 	);
 };
 
 const Grid = (props) => {
 	const { className } = props;
-	const { width, height, margin, steps, values } = useContext(ChartContext);
+
+	const { steps, values } = useContext(DataSetContext);
+	const { width, height, margin } = useContext(ChartContext);
 
 	const x1 = margin[3];
 	const x2 = width - margin[3];
@@ -102,7 +95,8 @@ const Grid = (props) => {
 
 const Lines = (props) => {
 	const { className } = props;
-	const { width, height, margin, steps, values, activeRow, activeColumn } = useContext(ChartContext);
+	const { steps, values, colors, classNames, activeRow, focusedRow, activeColumn } = useContext(DataSetContext);
+	const { width, height, margin } = useContext(ChartContext);
 
 	const x1 = margin[3];
 	const w = width - margin[1] - margin[3];
@@ -114,12 +108,18 @@ const Lines = (props) => {
 
 	return (
 		<Bem>
-			<g className={className}>
+			<g className={clsx(className, { "has-focused": focusedRow != null })}>
 				{points.map((row, r) => (
-					<g className={clsx("_line", { "is-active": activeRow === r })}>
-						<path d={shape(row).d} fill="transparent" stroke="gray" />
+					<g className={clsx("_line", classNames?.rows?.[r], { "is-active": activeRow === r, "is-focused": focusedRow === r })} style={{ "--row-color": colors?.rows?.[r] } as React.CSSProperties}>
+						<path d={shape(row).d} fill="transparent" stroke={colors?.rows?.[r] || "gray"} />
 						{row.map((p, c) => (
-							<circle className={clsx("_circle", { "is-active": activeRow === r && activeColumn === c })} cx={p.x} cy={p.y} r={4} />
+							<circle
+								className={clsx("_circle", classNames?.columns?.[c], classNames?.cells?.[r]?.[c], { "is-active": activeRow === r && activeColumn === c })}
+								cx={p.x}
+								cy={p.y}
+								r={4}
+								fill={colors?.rows?.[r] || "gray"}
+							/>
 						))}
 					</g>
 				))}
