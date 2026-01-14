@@ -7,6 +7,7 @@ export * from "./InputDuration.jsx";
 export * from "./LineChartInput.tsx";
 export * from "./MultiRangeInput.jsx";
 export * from "./PositionInput.jsx";
+export * from "./RadarChartInput.jsx";
 export * from "./RadioButtons.jsx";
 export * from "./RangeInput.jsx";
 export * from "./SearchSelect.jsx";
