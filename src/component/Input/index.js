@@ -6,6 +6,7 @@ export * from "./CheckBoxes.jsx";
 export * from "./InputDuration.jsx";
 export * from "./LineChartInput.tsx";
 export * from "./MultiRangeInput.jsx";
+export * from "./PolarChartInput.jsx";
 export * from "./PositionInput.jsx";
 export * from "./RadarChartInput.jsx";
 export * from "./RadioButtons.jsx";
