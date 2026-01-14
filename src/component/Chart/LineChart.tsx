@@ -25,7 +25,7 @@ export const LineChart = (props: LineChartProps) => {
 	const { values, steps } = useContext(DataSetContext);
 
 	const getValueWithProgressPoint = useCallback(
-		(r: number, c: Number, { py }: progressPoint): number => {
+		(r: number, c: number, { py }: progressPoint): number => {
 			return steps.getValue(1 - py);
 		},
 		[steps]
