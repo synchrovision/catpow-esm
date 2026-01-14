@@ -3,3 +3,4 @@ export * from "./BarChart.tsx";
 export * from "./DataSet.tsx";
 export * from "./Legend.tsx";
 export * from "./LineChart.tsx";
+export * from "./RadarChart.tsx";
