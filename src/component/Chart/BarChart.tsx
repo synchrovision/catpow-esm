@@ -11,7 +11,7 @@ type progressPoint = {
 	px: number;
 	py: number;
 };
-export type LineChartProps = {
+export type BarChartProps = {
 	className?: string;
 	width?: number;
 	height?: number;
@@ -19,13 +19,13 @@ export type LineChartProps = {
 	children?: any;
 };
 
-export const BarChart = (props: LineChartProps) => {
-	const { className = "cp-linechart", children, ...otherProps } = props;
+export const BarChart = (props: BarChartProps) => {
+	const { className = "cp-barchart", children, ...otherProps } = props;
 	const { width, height } = otherProps;
 	const { values, steps } = useContext(DataSetContext);
 
 	const getValueWithProgressPoint = useCallback(
-		(r: number, c: Number, { py }: progressPoint): number => {
+		(r: number, c: number, { py }: progressPoint): number => {
 			return steps.getValue(1 - py);
 		},
 		[steps]
@@ -108,7 +108,7 @@ const Bars = (props) => {
 					<g className={clsx("_row", classNames?.rows?.[r], { "is-active": activeRow === r, "is-focused": focusedRow === r })} style={{ "--row-color": colors?.rows?.[r] } as React.CSSProperties}>
 						{row.map((p, c) => (
 							<rect
-								className={clsx("_circle", classNames?.columns?.[c], classNames?.cells?.[r]?.[c], { "is-active": activeRow === r && activeColumn === c })}
+								className={clsx("_bar", classNames?.columns?.[c], classNames?.cells?.[r]?.[c], { "is-active": activeRow === r && activeColumn === c })}
 								x={p.x}
 								y={p.y}
 								width={uw}
