@@ -35,7 +35,6 @@ export const RadarChart = (props: RadarChartProps) => {
 	const getCellWithProgressPoint = useCallback(
 		({ px, py }: progressPoint, focusedRow: number | null): { r: number; c: number } => {
 			const c = Math.min(values[0].length - 1, Math.floor(values[0].length * ((getAngleAsProgress(px, py) + 1 / values[0].length / 2) % 1)));
-			console.log({ p: getAngleAsProgress(px, py), c });
 			if (focusedRow != null) {
 				return { r: focusedRow, c };
 			}
