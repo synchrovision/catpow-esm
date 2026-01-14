@@ -16,7 +16,7 @@ export const pathCommands = {
 	S: ({ x: x1, y: y1 }, { x: x2, y: y2 }) => ` S ${x1},${y1} ${x2},${y2}`,
 	Q: ({ x: x1, y: y1 }, { x: x2, y: y2 }) => ` Q ${x1},${y1} ${x2},${y2}`,
 	T: ({ x, y }) => ` T ${x},${y}`,
-	A: ({ rx, ry, rotation = 0, large = 0, sweep = 1, x, y }) => ` A ${rx} ${ry} ${rotation} ${large} ${sweep} ${x},${y}`,
+	A: ({ r, rx, ry, rotation = 0, large = 0, sweep = 1, x, y }) => ` A ${rx ?? r} ${ry ?? r} ${rotation} ${large} ${sweep} ${x},${y}`,
 };
 
 export const shape = (points: point[]) => ({
