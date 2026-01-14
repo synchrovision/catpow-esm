@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import { useState, useMemo, useCallback, createContext } from "react";
+import { useState, useMemo, useCallback, createContext, ReactNode } from "react";
 import { rangeValueConverter, RangeValueConverterApp } from "catpow/util";
 
 type dataSetConfig = {
@@ -12,6 +12,7 @@ type DataSetProps = {
 	labels?: dataSetConfig;
 	colors?: dataSetConfig;
 	classNames?: dataSetConfig;
+	translateToDisplayValue?: (value: number, ctx: { r: number; c: number; className?: string; label?: string; color?: string }) => ReactNode;
 	values?: number[][];
 	steps?: { [key: number]: number } | RangeValueConverterApp;
 	snap?: boolean;
@@ -25,6 +26,7 @@ export type DataSetContextValue = {
 	values: number[][];
 	steps: RangeValueConverterApp;
 	setValue: (r: number, c: number, value: number) => void;
+	getDisplayValue: (r: number, c: number) => ReactNode;
 	setActiveCellValue: (value: number) => void;
 	activeRow: number;
 	setActiveRow: (r: number) => void;
@@ -39,7 +41,7 @@ export type DataSetContextValue = {
 export const DataSetContext = createContext<DataSetContextValue | null>(null);
 
 export const DataSet = (props: DataSetProps) => {
-	const { labels, colors, classNames, values, steps = { 100: 1 }, snap = true, onChange, children, ...otherProps } = props;
+	const { labels, colors, classNames, translateToDisplayValue, values, steps = { 100: 1 }, snap = true, onChange, children, ...otherProps } = props;
 
 	const [activeRow, setActiveRow] = useState(null);
 	const [activeColumn, setActiveColumn] = useState(null);
@@ -65,6 +67,22 @@ export const DataSet = (props: DataSetProps) => {
 		},
 		[values, onChange]
 	);
+	const getDisplayValue = useCallback(
+		(r: number, c: number) => {
+			if (translateToDisplayValue == null) {
+				return values[r][c];
+			}
+			return translateToDisplayValue(values[r][c], {
+				r,
+				c,
+				className: classNames?.cells?.[r]?.[c],
+				label: labels?.cells?.[r]?.[c],
+				color: colors?.cells?.[r]?.[c] || colors?.columns?.[c] || colors?.rows?.[r],
+			});
+		},
+		[values, translateToDisplayValue]
+	);
+
 	const setActiveCellValue = useCallback(
 		(value: number) => {
 			setValue(activeRow, activeColumn, value);
@@ -79,6 +97,7 @@ export const DataSet = (props: DataSetProps) => {
 			labels,
 			colors,
 			classNames,
+			getDisplayValue,
 			steps: converter,
 			setValue,
 			setActiveCellValue,
@@ -91,7 +110,24 @@ export const DataSet = (props: DataSetProps) => {
 			selectCell,
 			unselectCell,
 		}),
-		[values, labels, colors, classNames, converter, setValue, setActiveCellValue, activeRow, setActiveRow, activeColumn, setActiveColumn, focusedRow, focusRow, selectCell, unselectCell]
+		[
+			values,
+			labels,
+			colors,
+			classNames,
+			getDisplayValue,
+			converter,
+			setValue,
+			setActiveCellValue,
+			activeRow,
+			setActiveRow,
+			activeColumn,
+			setActiveColumn,
+			focusedRow,
+			focusRow,
+			selectCell,
+			unselectCell,
+		]
 	);
 
 	return <DataSetContext.Provider value={DataSetContextValue}>{children}</DataSetContext.Provider>;
