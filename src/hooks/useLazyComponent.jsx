@@ -2,7 +2,7 @@
 import { useCache } from "./useCache.jsx";
 
 export const useLazyComponent = (Component, asyncCallback, args) => {
-	const { useMemo, useCallback, lazy } = React;
+	const { lazy } = React;
 
 	return useCache(
 		() =>
