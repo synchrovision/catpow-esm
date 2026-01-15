@@ -1,22 +1,24 @@
 ﻿import React from "react";
-import { bem } from "catpow/util";
+import { useState, useMemo } from "react";
+import { Bem } from "catpow/component";
+import { clsx } from "clsx";
 
 export const TabPanel = (props) => {
-	const { useState, useMemo, useCallback, useEffect, useRef, useReducer } = React;
 	const { className = "cp-tabpanel", children } = props;
 	const [current, setCurrent] = useState(props.initialOpen || 0);
-	const classes = useMemo(() => bem(className), [className]);
 
 	return (
-		<div className={classes()}>
-			<div className={classes.tabs()}>
-				{children.map((child, index) => (
-					<div className={classes.tabs.tab({ "is-active": current === index })} onClick={() => setCurrent(index)} key={child.key}>
-						{child.key}
-					</div>
-				))}
+		<Bem>
+			<div className={className}>
+				<div className="_tabs">
+					{children.map((child, index) => (
+						<div className={clsx("_tab", { "is-active": current === index })} onClick={() => setCurrent(index)} key={child.key}>
+							{child.key}
+						</div>
+					))}
+				</div>
+				<div className="_contents">{children[current]}</div>
 			</div>
-			<div className={classes.contents()}>{children[current]}</div>
-		</div>
+		</Bem>
 	);
 };
