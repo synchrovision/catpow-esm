@@ -104,7 +104,7 @@ const Grid = (props) => {
 						/>
 					))}
 					{corners.map(({ x, y }) => (
-						<line x1={cx} y1={cy} x2={x} y2={y} fill="transparent" stroke="gray" />
+						<line x1={cx} y1={cy} x2={x} y2={y} fill="transparent" stroke="lightgray" />
 					))}
 				</g>
 			</Bem>

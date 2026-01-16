@@ -83,10 +83,10 @@ const Grid = (props) => {
 		<Bem>
 			<g className={className}>
 				{[...range(steps.length - 1)].map((i) => (
-					<line x1={x1} y1={margin[0] + uy * i} x2={x2} y2={margin[0] + uy * i} fill="transparent" stroke="gray" />
+					<line x1={x1} y1={margin[0] + uy * i} x2={x2} y2={margin[0] + uy * i} fill="transparent" stroke="lightgray" />
 				))}
 				{[...range(values[0].length)].map((i) => (
-					<line x1={margin[3] + ux * i} y1={y1} x2={margin[3] + ux * i} y2={y2} fill="transparent" stroke="gray" />
+					<line x1={margin[3] + ux * i} y1={y1} x2={margin[3] + ux * i} y2={y2} fill="transparent" stroke="lightgray" />
 				))}
 			</g>
 		</Bem>
