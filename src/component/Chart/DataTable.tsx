@@ -6,20 +6,22 @@ import { clsx } from "clsx";
 
 type DataTableProps = {
 	className?: string;
+	showColumnHeader?: boolean;
+	showRowHeader?: boolean;
 };
 
 export const DataTable = (props: DataTableProps) => {
-	const { className = "cp-datatabel", ...otherProps } = props;
+	const { className = "cp-datatabel", showColumnHeader = true, showRowHeader = true, ...otherProps } = props;
 	const { labels, classNames, colors, values, getDisplayValue } = useContext(DataSetContext);
 
 	return (
 		<Bem>
 			<div className={className}>
 				<table>
-					{labels.columns && (
+					{showColumnHeader && labels.columns && (
 						<thead>
 							<tr>
-								{labels.rows && <td></td>}
+								{showRowHeader && labels.rows && <td></td>}
 								{labels.columns.map((label) => (
 									<th>{label}</th>
 								))}
@@ -29,7 +31,7 @@ export const DataTable = (props: DataTableProps) => {
 					<tbody>
 						{values.map((row, r) => (
 							<tr>
-								{labels.rows && <th>{labels.rows[r]}</th>}
+								{showRowHeader && labels.rows && <th>{labels.rows[r]}</th>}
 								{row.map((v, c) => (
 									<td>{getDisplayValue(r, c)}</td>
 								))}
