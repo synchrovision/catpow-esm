@@ -12,11 +12,11 @@ type DataTableProps = {
 
 export const DataTable = (props: DataTableProps) => {
 	const { className = "cp-datatabel", showColumnHeader = true, showRowHeader = true, ...otherProps } = props;
-	const { labels, classNames, colors, values, getDisplayValue } = useContext(DataSetContext);
+	const { labels, classNames, colors, values, focusedRow, getDisplayValue } = useContext(DataSetContext);
 
 	return (
 		<Bem>
-			<div className={className}>
+			<div className={clsx(className, { "has-focused": focusedRow != null })}>
 				<table>
 					{showColumnHeader && labels.columns && (
 						<thead>
@@ -30,7 +30,7 @@ export const DataTable = (props: DataTableProps) => {
 					)}
 					<tbody>
 						{values.map((row, r) => (
-							<tr>
+							<tr className={clsx("_tr", classNames?.rows?.[r], { "is-focused": r === focusedRow })}>
 								{showRowHeader && labels.rows && <th>{labels.rows[r]}</th>}
 								{row.map((v, c) => (
 									<td>{getDisplayValue(r, c)}</td>
