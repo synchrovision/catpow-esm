@@ -1,14 +1,20 @@
 import { range } from "./range";
 import { phasedRange } from "./phasedRange";
 
+const RANGE_CONVERTER = Symbol.for("RangeValueConverterApp");
+
 export type RangeValueConverterApp = {
+	readonly [RANGE_CONVERTER]: true;
 	length: number;
 	getValue: (pos: number) => number;
 	getProgress: (value: number) => number;
 	getPosition: (value: number) => number;
 };
 
-export const rangeValueConverter = function (rawValues: number | number[] | { [key: number]: number }, snap: boolean = false): RangeValueConverterApp {
+export const rangeValueConverter = function (rawValues: number | number[] | { [key: number]: number } | RangeValueConverterApp, snap: boolean = false): RangeValueConverterApp {
+	if (isRangeValueConverterApp(rawValues)) {
+		return rawValues;
+	}
 	let values: number[];
 	if (!Array.isArray(rawValues)) {
 		values = [...(typeof rawValues === "number" ? range : phasedRange)(rawValues)];
@@ -18,6 +24,7 @@ export const rangeValueConverter = function (rawValues: number | number[] | { [k
 	const len = values.length;
 	const lastIndex = len - 1;
 	return {
+		[RANGE_CONVERTER]: true,
 		length: values.length,
 		getValue(pos) {
 			if (pos < 0) {
@@ -62,3 +69,4 @@ export const rangeValueConverter = function (rawValues: number | number[] | { [k
 		},
 	};
 };
+const isRangeValueConverterApp = (maybeApp: any): maybeApp is RangeValueConverterApp => Boolean(maybeApp?.[RANGE_CONVERTER]);
