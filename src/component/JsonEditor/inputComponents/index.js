@@ -22,5 +22,7 @@ export * from "./Duration.jsx";
 export * from "./Range.jsx";
 export * from "./Number.jsx";
 
+export * from "./Angle.jsx";
+
 export * from "./ObjectInput.jsx";
 export * from "./ArrayInput.jsx";
