@@ -1,3 +1,4 @@
+export * from "./AngleInput.jsx";
 export * from "./ArrayInput.jsx";
 export * from "./BarChartInput.tsx";
 export * from "./ChartInput.tsx";
