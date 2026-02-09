@@ -1,7 +1,7 @@
-export const throttle = (callback, interval) => {
-	let timer,
-		hold = false;
-	return (e) => {
+export const throttle = (callback: (e: Event) => void, interval: number) => {
+	let timer: ReturnType<typeof setTimeout>,
+		hold: boolean = false;
+	return (e: Event) => {
 		if (timer) {
 			clearTimeout(timer);
 		}
