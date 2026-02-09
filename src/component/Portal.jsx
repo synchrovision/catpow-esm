@@ -22,7 +22,11 @@ export const Portal = (props) => {
 		if (props.className) {
 			el.className = props.className;
 		}
-		document.body.appendChild(el);
+		if (props.container) {
+			document.querySelector(props.container).appendChild(el);
+		} else {
+			document.body.appendChild(el);
+		}
 		return el;
 	}, []);
 
