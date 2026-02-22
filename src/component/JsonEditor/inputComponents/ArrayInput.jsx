@@ -15,28 +15,28 @@ export const ArrayInput = (props) => {
 			agent.addItem(index, value);
 			agent.update();
 		},
-		[agent]
+		[agent],
 	);
 	const onCopyItem = useCallback(
 		(from, to) => {
 			agent.copyItem(from, to);
 			agent.update();
 		},
-		[agent]
+		[agent],
 	);
 	const onMoveItem = useCallback(
 		(from, to) => {
 			agent.moveItem(from, to);
 			agent.update();
 		},
-		[agent]
+		[agent],
 	);
 	const onRemoveItem = useCallback(
 		(index) => {
 			agent.removeItem(index);
 			agent.update();
 		},
-		[agent]
+		[agent],
 	);
 
 	const [lastUpdated, setLastUpdated] = useState(Date.now());
@@ -97,7 +97,7 @@ export const ArrayInput = (props) => {
 									return false;
 								}
 								return <Input agent={item.properties[col]} layout="inline" size="small" compact={true} key={getItemId(item)} />;
-							})
+							}),
 						)}
 					</TableInputComponent>
 				);
