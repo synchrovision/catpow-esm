@@ -63,7 +63,7 @@ export const useAgent = (settings, deps) => {
 								return true;
 							},
 						}),
-					[ref]
+					[ref],
 				);
 			},
 			useProvider(Context, callback, deps) {
@@ -73,7 +73,7 @@ export const useAgent = (settings, deps) => {
 					(props) => {
 						return <Context.Provider value={ref.current}>{props.children}</Context.Provider>;
 					},
-					[Context]
+					[Context],
 				);
 			},
 			useLazyProvider(Context, asyncCallback, deps) {
@@ -123,7 +123,7 @@ export const useAgent = (settings, deps) => {
 				}
 				return { default: ({ children }) => <AgentContext.Provider value={agent}>{children}</AgentContext.Provider> };
 			}),
-		[agent]
+		[agent],
 	);
 
 	return agent;
