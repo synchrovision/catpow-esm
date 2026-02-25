@@ -11,7 +11,7 @@ import { ObjectInput } from "./inputComponents/ObjectInput.jsx";
 import { Input } from "./inputComponents/Input.jsx";
 import { Bem } from "catpow/component";
 import { schema } from "catpow/schema";
-import clsx from "clsx";
+import { clsx } from "clsx";
 export const DataContext = createContext({});
 
 type JsonEditorProps = {
@@ -70,7 +70,7 @@ export const JsonEditor = (props: JsonEditorProps) => {
 						() => {
 							isHold = false;
 						},
-						autoSave === true ? 1000 : autoSave
+						autoSave === true ? 1000 : autoSave,
 					);
 				} else {
 					clearTimeout(timer);
