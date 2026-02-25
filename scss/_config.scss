@@ -1,19 +1,25 @@
 $size-unit:0.0625rem !default;
 $colors:(
-	b:#fff,
-	s:#eee,
-	m:#234,
-	a:#08c,
-	t:#1a1e23,
-	i:#fff,
-	shd:rgba(0,0,0,.2),
-	sh:rgba(0,0,0,.1),
+	b:oklch(var(--cp-tones-b-l,100%) var(--cp-tones-b-c,50%) var(--cp-tones-b-h,220) / var(--cp-tones-b-a,1)),
+	s:oklch(var(--cp-tones-s-l,90%) var(--cp-tones-s-c,50%) var(--cp-tones-s-h,220) / var(--cp-tones-s-a,1)),
+	m:oklch(var(--cp-tones-m-l,60%) var(--cp-tones-m-c,20%) var(--cp-tones-m-h,220) / var(--cp-tones-m-a,1)),
+	a:oklch(var(--cp-tones-a-l,60%) var(--cp-tones-a-c,60%) var(--cp-tones-a-h,220) / var(--cp-tones-a-a,1)),
+	t:oklch(var(--cp-tones-t-l,10%) var(--cp-tones-t-c,5%) var(--cp-tones-t-h,220) / var(--cp-tones-t-a,1)),
+	i:oklch(var(--cp-tones-i-l,100%) var(--cp-tones-i-c,5%) var(--cp-tones-i-h,220) / var(--cp-tones-i-a,1)),
+	h:oklch(var(--cp-tones-h-l,60%) var(--cp-tones-h-c,60%) var(--cp-tones-h-h,220) / var(--cp-tones-h-a,1)),
+	e:oklch(var(--cp-tones-e-l,90%) var(--cp-tones-e-c,60%) var(--cp-tones-e-h,220) / var(--cp-tones-e-a,1)),
+	l:oklch(var(--cp-tones-l-l,10%) var(--cp-tones-l-c,5%) var(--cp-tones-l-h,220) / var(--cp-tones-l-a,1)),
+	r:oklch(var(--cp-tones-r-l,100%) var(--cp-tones-r-c,5%) var(--cp-tones-r-h,220) / var(--cp-tones-r-a,1)),
+	shd:oklch(var(--cp-tones-shd-l,0%) var(--cp-tones-shd-c,0%) var(--cp-tones-shd-h,220) / var(--cp-tones-shd-a,0.2)),
+	sh:oklch(var(--cp-tones-sh-l,0%) var(--cp-tones-sh-c,0%) var(--cp-tones-sh-h,220) / var(--cp-tones-sh-a,0.1)),
+	lst:oklch(var(--cp-tones-lst-l,100%) var(--cp-tones-lst-c,0%) var(--cp-tones-lst-h,220) / var(--cp-tones-lst-a,0.8)),
+	lt:oklch(var(--cp-tones-sh-l,100%) var(--cp-tones-sh-c,0%) var(--cp-tones-sh-h,220) / var(--cp-tones-sh-a,0.4)),
 ) !default;
 $fonts:(
-	g:('Helvetica Neue',"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif),
-	m:(Georgiam,'Hiragino Mincho ProN','Yu Mincho', serif),
-	e:'times',
-	i:'Material Icons'
+	h:var(--cp-fonts-h,sefif),
+	p:var(--cp-fonts-p,sans-serif),
+	e:var(--cp-fonts-e,('times',serif)),
+	i:var(--cp-fonts-i,'Material Icons')
 ) !default;
 $breakpoints:(
 	pc:'min-width:960px',
