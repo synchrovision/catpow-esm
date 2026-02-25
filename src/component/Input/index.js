@@ -17,5 +17,5 @@ export * from "./SelectBox.jsx";
 export * from "./SelectTable.jsx";
 export * from "./StepInput.jsx";
 export * from "./StepSelect.jsx";
-export * from "./TableInput.jsx";
+export * from "./TableInput.tsx";
 export * from "./Toggle.jsx";
