@@ -35,7 +35,7 @@ export const RangeInput = (props) => {
 			}
 			onChange({ ...values, [key]: val });
 		},
-		[values, gt, lt, onChange]
+		[values, gt, lt, onChange],
 	);
 
 	useEffect(() => {
@@ -53,7 +53,7 @@ export const RangeInput = (props) => {
 							return c;
 						}
 						return p;
-					}, null)
+					}, null),
 				);
 				setIsStart(false);
 			}
@@ -62,18 +62,23 @@ export const RangeInput = (props) => {
 			}
 		},
 		50,
-		[value]
+		[value],
 	);
+
+	const positions = Object.keys(values).reduce((p, c) => ({ ...p, ["--pos-" + c]: cnv.getProgress(values[c]) }), {});
+	positions["--min-pos"] = Math.min(...Object.values(positions));
+	positions["--max-pos"] = Math.max(...Object.values(positions));
 
 	return (
 		<RangeInputContext.Provider value={{ values }}>
 			<Bem>
-				<div className={className} style={Object.keys(values).reduce((p, c) => ({ ...p, ["--pos-" + c]: cnv.getProgress(values[c]) }), {})}>
+				<div className={className} style={positions}>
 					<div className="_bar">
 						<div className="_body" ref={ref}>
+							<div className="_range"></div>
 							{Object.keys(values).map((name) => {
 								return (
-									<div className={clsx("_control", `is-control-${name}`)} style={{ "--pos": cnv.getProgress(values[name]) }}>
+									<div className={clsx("_control", `is-control-${name}`)} style={{ "--pos": positions["--pos-" + name] }} key={name}>
 										<div className="_value">{values[name]}</div>
 									</div>
 								);
