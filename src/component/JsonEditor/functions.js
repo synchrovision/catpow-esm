@@ -1,5 +1,5 @@
 ﻿import * as inputComponents from "./inputComponents/index.js";
-import { JsonEditor } from "./JsonEditor.jsx";
+import { JsonEditor } from "./JsonEditor.tsx";
 
 export const getInputComponentForSchema = (schema, params) => {
 	if (schema.hasOwnProperty("@editor")) {

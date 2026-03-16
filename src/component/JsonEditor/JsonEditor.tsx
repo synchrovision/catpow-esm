@@ -4,7 +4,7 @@
 	function clearTimeout(timer: number): void;
 }
 
-import React from "react";
+import * as React from "react";
 import { useState, useCallback, useMemo, useEffect, createContext } from "react";
 
 import { ObjectInput } from "./inputComponents/ObjectInput.jsx";

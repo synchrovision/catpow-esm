@@ -1,6 +1,6 @@
 ﻿declare var window: Window, document: Document;
 
-import React from "react";
+import * as React from "react";
 import { useState, useCallback, useEffect, ReactElement } from "react";
 import { Bem } from "catpow/component";
 import { clsx } from "clsx";
@@ -88,7 +88,7 @@ const Row = (props) => {
 					e.preventDefault();
 					setEditMode(false);
 					window.queueMicrotask(() => {
-						document.activeElement.blur();
+						document.activeElement instanceof HTMLElement && document.activeElement.blur();
 						cell.focus({ focusVisible: true });
 					});
 				}
