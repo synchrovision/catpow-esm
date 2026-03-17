@@ -15,7 +15,7 @@ export const divideImage = function (target: HTMLElement, params: divideImagePar
 	let nw, nh;
 
 	const dividedImage = el("div", { class: classPrefix + "divided", style: `display:grid` }, []);
-	const image: HTMLElement = target.cloneNode(true);
+	const image: HTMLElement = target.cloneNode(true) as HTMLElement;
 	image.style.setProperty("visibility", "hidden");
 	dividedImage.appendChild(image);
 	target.replaceWith(dividedImage);
@@ -29,7 +29,7 @@ export const divideImage = function (target: HTMLElement, params: divideImagePar
 		}
 		console.log({ w, h, nw, nh });
 		if (nw !== w || nh !== h) {
-			(w = nw), (h = nh);
+			((w = nw), (h = nh));
 			dividedImage.style.setProperty("grid-template-columns", `repeat(${w},1fr)`);
 			dividedImage.replaceChildren(image, ...getDividedImageParts({ target, classPrefix, w, h }));
 		}
