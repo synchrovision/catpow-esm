@@ -1,0 +1,16 @@
+id,num,str,bool
+s1,1,あ,TRUE
+,2,い,FALSE
+,3,う,TRUE
+,4,え,FALSE
+,5,お,TRUE
+s2,6,か,FALSE
+,7,き,TRUE
+,8,く,FALSE
+,9,け,TRUE
+,10,こ,FALSE
+s3,11,さ,TRUE
+,12,し,FALSE
+,13,す,TRUE
+,14,せ,FALSE
+,15,そ,TRUE

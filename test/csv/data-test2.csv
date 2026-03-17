@@ -1,0 +1,17 @@
+[sec1],,,,[sec2],,,
+id,num,str,bool,id,num,str,bool
+s1,1,あ,TRUE,s1,1,あ,TRUE
+,2,い,FALSE,,2,い,FALSE
+,3,う,TRUE,,3,う,TRUE
+,4,え,FALSE,,4,え,FALSE
+,5,お,TRUE,,5,お,TRUE
+s2,6,か,FALSE,s2,6,か,FALSE
+,7,き,TRUE,,7,き,TRUE
+,8,く,FALSE,,8,く,FALSE
+,9,け,TRUE,,9,け,TRUE
+,10,こ,FALSE,,10,こ,FALSE
+s3,11,さ,TRUE,s3,11,さ,TRUE
+,12,し,FALSE,,12,し,FALSE
+,13,す,TRUE,,13,す,TRUE
+,14,せ,FALSE,,14,せ,FALSE
+,15,そ,TRUE,,15,そ,TRUE
