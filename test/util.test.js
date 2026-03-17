@@ -19,7 +19,7 @@ import {
 	getExpectedCtr,
 	getCtrScore,
 	getWilsonScoreInterval,
-} from "catpow/util";
+} from "../src/util";
 
 describe("test util", () => {
 	test("bem", () => {
@@ -58,7 +58,7 @@ describe("test util", () => {
 		expect(Array.from(range(1, 9, 2))).toEqual([1, 3, 5, 7, 9]);
 	});
 	test("color", () => {
-		expect(hexToRgb("#ff0000")).toEqual({ r: 255, g: 0, b: 0 });
+		expect(hexToRgb("#ff0000")).toEqual({ r: 255, g: 0, b: 0, a: 255 });
 		expect(rgbToHex({ r: 255, g: 0, b: 0 })).toBe("#ff0000");
 		expect(hexToHsl("#FF0000")).toEqual({ h: 0, s: 100, l: 50 });
 		expect(hexToHsl("#FFFFFF")).toEqual({ h: 0, s: 0, l: 100 });
