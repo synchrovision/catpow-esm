@@ -8,6 +8,7 @@
 		"types": ["jest", "jsdom"],
 		"paths": {
 			"catpow/*": ["./src/*"]
-		}
+		},
+		"esModuleInterop": true
 	}
 }
