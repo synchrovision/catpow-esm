@@ -1,6 +1,6 @@
 import fs from "fs";
 import { describe, expect, test } from "@jest/globals";
-import { csv, parseCSV } from "../src/csv";
+import { csv, generateCSV } from "../src/csv";
 
 describe("test csv", () => {
 	test("csv", () => {
@@ -21,5 +21,11 @@ describe("test csv", () => {
 		expect(data.id[0].length).toBe(10);
 		const sections = csv(fs.readFileSync("./test/csv/data-test2.csv", { encoding: "utf-8" }));
 		expect([...sections.sec1[0]]).toEqual(["s1", 1, "あ", true]);
+		expect(
+			generateCSV([
+				["あ\nい", 1, true],
+				['う,え"お', 2, false],
+			]),
+		).toBe(`"あ\nい",1,TRUE\n"う,え""お",2,FALSE`);
 	});
 });
