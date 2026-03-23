@@ -1,4 +1,7 @@
 export const tabpanel = function (tabs, panels, param = {}) {
+	if (el instanceof NodeList) {
+		return [...el].map((el) => tabpanel(el, param));
+	}
 	const app = {};
 	app.param = Object.assign({ initialOpen: 0 }, param);
 	tabs = convertToArrayIfIsNotNodeList(tabs);

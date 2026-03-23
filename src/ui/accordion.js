@@ -1,4 +1,7 @@
 export const accordion = function (el, param = {}) {
+	if (el instanceof NodeList) {
+		return [...el].map((el) => accordion(el, param));
+	}
 	const app = {};
 	app.param = Object.assign({ initialOpen: false }, param);
 	app.init = () => {

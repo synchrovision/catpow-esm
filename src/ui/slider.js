@@ -1,4 +1,7 @@
 export const slider = function (el, param = {}) {
+	if (el instanceof NodeList) {
+		return [...el].map((el) => slider(el, param));
+	}
 	const app = {};
 	app.param = Object.assign({ interval: 5000, pauseInterval: 10000, autoPlay: true, isNav: false }, param);
 	const l = (app.length = el.children.length);
@@ -73,7 +76,7 @@ export const slider = function (el, param = {}) {
 					}
 				});
 			},
-			{ threshold: [0, 0.1] }
+			{ threshold: [0, 0.1] },
 		);
 		app.observer.observe(el);
 	}

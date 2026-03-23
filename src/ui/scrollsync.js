@@ -1,6 +1,9 @@
 import { debounce } from "catpow/util";
 
 export const scrollsync = function (el, param = {}) {
+	if (el instanceof NodeList) {
+		return [...el].map((el) => scrollsync(el, param));
+	}
 	const app = {};
 	if (el == null) {
 		return null;
