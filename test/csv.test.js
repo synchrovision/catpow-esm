@@ -14,11 +14,11 @@ describe("test csv", () => {
 		expect(data[0].num).toBe(1);
 		expect(data[0].str).toBe("あ");
 		expect(data[0].bool).toBe(true);
-		expect(data.id[0][0].num).toBe(1);
-		expect(data.id.s1[0].num).toBe(1);
-		expect(data.id.s1.length).toBe(5);
+		expect(data.sect("id")[0][0].num).toBe(1);
+		expect(data.sect("id").s1[0].num).toBe(1);
+		expect(data.sect("id").s1.length).toBe(5);
 		data[5].id = "";
-		expect(data.id[0].length).toBe(10);
+		expect(data.sect("id")[0].length).toBe(10);
 		const sections = csv(fs.readFileSync("./test/csv/data-test2.csv", { encoding: "utf-8" }));
 		expect([...sections.sec1[0]]).toEqual(["s1", 1, "あ", true]);
 		expect(
