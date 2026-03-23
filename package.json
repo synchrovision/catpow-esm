@@ -15,8 +15,8 @@
 		"./component": {
 			"import": "./src/component/index.js"
 		},
-		"./csv": {
-			"import": "./src/csv/index.js"
+		"./data": {
+			"import": "./src/data/index.js"
 		},
 		"./graphic": {
 			"import": "./src/graphic/index.js"

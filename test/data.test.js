@@ -1,8 +1,8 @@
 import fs from "fs";
 import { describe, expect, test } from "@jest/globals";
-import { csv, generateCSV } from "../src/csv";
+import { csv, generateCSV } from "../src/data";
 
-describe("test csv", () => {
+describe("test data", () => {
 	test("csv", () => {
 		const data = csv(fs.readFileSync("./test/csv/data-test1.csv", { encoding: "utf-8" }));
 		expect([...data[0]]).toEqual(["s1", 1, "あ", true]);
