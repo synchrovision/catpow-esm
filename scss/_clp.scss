@@ -143,5 +143,9 @@
 			}
 			clip-path: polygon(0% #{$tl},100% #{$tr},100% #{$br},0% #{$bl});
 		}
+		@else if $key=='i'{
+			$val:szs(replace-values($val,$ivals));
+			clip-path:inset(#{$val});
+		}
 	}
 }
