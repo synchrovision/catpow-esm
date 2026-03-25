@@ -6,9 +6,10 @@ type rawTableRowObject = { [key: string]: string | boolean | number };
 
 const cache = new WeakMap();
 
-export const tableDataAgent = (keys: string[], rootData: rawTableData) => {
-	const rows = rootData.map((row, rootIndex) => convertToTableRow(row, keys, { rootIndex, rootData }));
-	const tableData = tableRows(keys, rows);
+export const tableDataAgent = (keys: string[], originalData: rawTableData): tableData => {
+	const rootData = [];
+	rootData.push(...originalData.map((row, rootIndex) => convertToTableRow(row, keys, { rootIndex, rootData })));
+	const tableData = tableRows(keys, rootData);
 	resetCache(tableData);
 	return tableData;
 };
