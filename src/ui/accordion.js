@@ -58,9 +58,7 @@ export const accordion = function (el, param = {}) {
 		if (app.isOpen) {
 			return;
 		}
-		if (e.preventDefault) {
-			e.preventDefault();
-		}
+		e?.preventDefault();
 		app.isOpen = true;
 		app.updateState();
 		app.panel.style.setProperty("--panel-height", app.panel.scrollHeight);
@@ -69,9 +67,7 @@ export const accordion = function (el, param = {}) {
 		if (!app.isOpen) {
 			return;
 		}
-		if (e.preventDefault) {
-			e.preventDefault();
-		}
+		e?.preventDefault();
 		app.isOpen = false;
 		app.updateState();
 		app.panel.style.setProperty("--panel-height", 0);
