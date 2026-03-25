@@ -1,27 +1,16 @@
-type rawTableRow = (string | boolean | number)[];
+type rawTableRow = (string | boolean | number)[] & { rootIndex?: number };
 type rawTableData = rawTableRow[];
 type tableRow = rawTableRow & { rootIndex: number; rootData: rawTableData };
-type tableData = tableRow[] & { rootIndex: number; rootData: rawTableData };
+type tableData = tableRow[] & { rootIndex: number; rootData: rawTableData; keys: string[] };
+type rawTableRowObject = { [key: string]: string | boolean | number };
 
 const cache = new WeakMap();
 
 export const tableDataAgent = (keys: string[], rootData: rawTableData) => {
-	const cacheKeyFunctions = [tableDataCollections, tableDataDictionary, tableDataSections];
-	cache.set(
-		rootData,
-		keys.reduce((cacheByKey, key) => {
-			cacheByKey.set(
-				key,
-				cacheKeyFunctions.reduce((cacheByFunc, func) => {
-					cacheByFunc.set(func, new Map());
-					return cacheByFunc;
-				}, new Map()),
-			);
-			return cacheByKey;
-		}, new Map()),
-	);
 	const rows = rootData.map((row, rootIndex) => convertToTableRow(row, keys, { rootIndex, rootData }));
-	return tableRows(keys, rows);
+	const tableData = tableRows(keys, rows);
+	resetCache(tableData);
+	return tableData;
 };
 
 const convertToTableRow = (row: rawTableRow, keys: string[], meta: { rootIndex: number; rootData: rawTableData }): tableRow => {
@@ -42,6 +31,13 @@ const convertToTableRow = (row: rawTableRow, keys: string[], meta: { rootIndex: 
 	});
 	return tableRow;
 };
+const tableRowFromObj = (obj: rawTableRowObject, keys: string[], meta: { rootIndex: number; rootData: rawTableData }): tableRow => {
+	return convertToTableRow(
+		keys.map((key) => obj[key] || ""),
+		keys,
+		meta,
+	);
+};
 
 const tableRows = (keys: string[], rows: tableRow[]): tableData => {
 	const tableData = Object.assign(rows, {
@@ -51,6 +47,7 @@ const tableRows = (keys: string[], rows: tableRow[]): tableData => {
 		get rootData(): rawTableData {
 			return rows[0].rootData;
 		},
+		keys,
 	});
 	Object.defineProperties(tableData, {
 		collect: {
@@ -65,11 +62,28 @@ const tableRows = (keys: string[], rows: tableRow[]): tableData => {
 		sect: {
 			get: () => (key: string) => tableDataSections(keys, key, tableData),
 		},
+		preppend: {
+			get: () => (dataToAdd: rawTableRowObject[]) => {
+				tableData.rootData.splice(tableData.rootIndex, 0, ...dataToAdd.map((obj, index) => tableRowFromObj(obj, keys, { rootIndex: tableData.rootIndex + index, rootData: tableData.rootData })));
+				resetIndex(tableData);
+				resetCache(tableData);
+			},
+		},
+		append: {
+			get: () => (dataToAdd: rawTableRowObject[]) => {
+				tableData.rootData.splice(
+					tableData.rootIndex + tableData.length,
+					0,
+					...dataToAdd.map((obj, index) => tableRowFromObj(obj, keys, { rootIndex: tableData.rootIndex + tableData.length + index, rootData: tableData.rootData })),
+				);
+				resetIndex(tableData);
+				resetCache(tableData);
+			},
+		},
 	});
 	return tableData;
 };
 const tableDataCollections = (key: string, rows: tableData): { [key: string]: tableData } => {
-	console.log(rows.rootData);
 	const parentCache = cache.get(rows.rootData).get(key).get(tableDataCollections);
 	if (parentCache.has(rows)) {
 		return parentCache.get(rows);
@@ -106,4 +120,26 @@ const tableDataSections = (keys: string[], primaryKey: string, rows: tableData):
 	}, []);
 	parentCache.set(rows, secitons);
 	return secitons;
+};
+
+const resetIndex = (rows: tableData) => {
+	for (let i = rows.rootIndex; i < rows.rootData.length; i++) {
+		rows.rootData[i].rootIndex = i;
+	}
+};
+const resetCache = (rows: tableData) => {
+	const cacheKeyFunctions = [tableDataCollections, tableDataDictionary, tableDataSections];
+	cache.set(
+		rows.rootData,
+		rows.keys.reduce((cacheByKey, key) => {
+			cacheByKey.set(
+				key,
+				cacheKeyFunctions.reduce((cacheByFunc, func) => {
+					cacheByFunc.set(func, new Map());
+					return cacheByFunc;
+				}, new Map()),
+			);
+			return cacheByKey;
+		}, new Map()),
+	);
 };
