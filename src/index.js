@@ -1,6 +1,6 @@
 export * as app from "./app/index.js";
 export * as component from "./component/index.js";
-export * as csv from "./data/index.js";
+export * as data from "./data/index.js";
 export * as dom from "./dom/index.js";
 export * as graphic from "./graphic/index.js";
 export * as hooks from "./hooks/index.js";
