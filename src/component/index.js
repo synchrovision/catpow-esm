@@ -6,7 +6,7 @@ export * from "./Input/index.js";
 export * from "./Nav/index.js";
 export * from "./SVG/index.js";
 
-export * from "./Bem.jsx";
+export * from "./Bem.tsx";
 export * from "./Cloak.jsx";
 export * from "./ElasticBox.jsx";
 export * from "./Parallax.jsx";

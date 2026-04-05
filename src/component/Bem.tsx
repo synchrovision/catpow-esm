@@ -1,5 +1,12 @@
 ﻿import React from "react";
 
+type BemProps = {
+	prefix?: string;
+	block?: string;
+	element?: string;
+	children?: any;
+};
+
 const applyBem = (component, { ...ctx }) => {
 	if (Array.isArray(component)) {
 		component.forEach((child) => {
@@ -69,7 +76,7 @@ const applyBem = (component, { ...ctx }) => {
 	}
 };
 
-export const Bem = ({ prefix = "cp", block, element, children }) => {
+export const Bem = ({ prefix = "cp", block, element, children }: BemProps) => {
 	if (element == null && block != null) {
 		element = block;
 	}
