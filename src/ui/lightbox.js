@@ -11,7 +11,15 @@ export const lightbox = function (el, param = {}) {
 			}
 		},
 	};
-	app.param = Object.assign({ initialOpen: false }, param);
+	app.param = Object.assign(
+		{
+			initialOpen: false,
+			onClose: (el) => {
+				el.querySelectorAll("video,audio").forEach((mediaElement) => mediaElement.pause());
+			},
+		},
+		param,
+	);
 	app.init = () => {
 		document.querySelectorAll(`[href="#${el.id}"]`).forEach((link) => {
 			link.setAttribute("aria-controls", el.id);
@@ -53,6 +61,9 @@ export const lightbox = function (el, param = {}) {
 		}
 		app.isOpen = true;
 		app.updateState();
+		if (app.param.onOpen) {
+			app.param.onOpen(el);
+		}
 	};
 	app.close = (e) => {
 		if (!app.isOpen) {
@@ -64,6 +75,9 @@ export const lightbox = function (el, param = {}) {
 		}
 		app.isOpen = false;
 		app.updateState();
+		if (app.param.onClose) {
+			app.param.onClose(el);
+		}
 	};
 	app.init();
 	return app;
