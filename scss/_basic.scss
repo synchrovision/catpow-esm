@@ -6,18 +6,66 @@
 @use "sass:list";
 @use 'config' as *;
 
-@mixin default_break(){
+@mixin default-break(){
 	*{margin:0;padding:0;background:transparent;text-decoration:none;font-style:normal;}
 	img{vertical-align:bottom;border:none;}
 	html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 }
-@mixin hide_scrollbar(){
+@mixin hide-scrollbar(){
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 	&::-webkit-scrollbar{
 		display:none;
 	}
 }
+@mixin define-color-vars($color-map:false){
+	@if meta.function-exists('get-color-vars'){
+		@if meta.global-variable-exists("colors") and $color-map == false{
+			$color-map:$colors;
+		}
+		$vars:get-color-vars($color-map);
+		:root{
+			@each $key,$val in $vars{
+				#{$key}:$val;
+			}
+		}
+	}
+}
+@function is-quoted($string){
+	@if meta.function-exists('get-real-type'){
+		@return get-real-type($string) == 'string';
+	}
+	@return meta.type-of($string) == 'string';
+}
+@mixin define-color-classes($color-map:false){
+	@if meta.function-exists('get-color-classes'){
+		@if meta.global-variable-exists("colors") and $color-map == false{
+			$color-map:$colors;
+		}
+		$classes:get-color-classes($color-map);
+		@each $class,$vars in $classes{
+			#{$class}{
+				@each $key,$val in $vars{
+					#{$key}:$val;
+				}
+			}
+		}
+	}
+}
+
+@mixin clear-float(){
+	content:"";display:block;clear:both;height:0;margin:0;padding:0;line-height:0;
+}
+@mixin clear-fix(){
+	&:after{@include clear-float;}
+}
+@mixin pull-left(){
+	display:inline;float:left;
+}
+@mixin pull-right(){
+	display:inline;float:right;
+}
+
 @function tint($color,$tint,$alpha:false){
 	@if meta.type-of($color) =='list'{
 		$a:false;
@@ -35,6 +83,9 @@
 			}
 		}
 		@return clr(($c,$t,$a));
+	}
+	@if meta.type-of($color) != 'color'{
+		@return $color;
 	}
 	$tint:$tint*0.01;$ff:255;
 	$r:$ff+$tint*(color.channel($color, "red", $space: rgb)-$ff);
@@ -66,11 +117,11 @@
 	@return $ease;
 }
 
-@function replace_values($vals,$dct){
+@function replace-values($vals,$dct){
 	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
 		@for $i from 1 through list.length($vals){
 			$v:list.nth($vals,$i);
-			@if meta.type-of($v) == 'list'{$vals:list.set-nth($vals,$i,replace_values($v,$dct));}
+			@if meta.type-of($v) == 'list'{$vals:list.set-nth($vals,$i,replace-values($v,$dct));}
 			@else if map.has-key($dct,$v){$vals:list.set-nth($vals,$i,map.get($dct,$v));}
 		}
 		@return $vals;
@@ -81,7 +132,7 @@
 	}
 }
 
-@function fill_4_values($vals){
+@function fill-4-values($vals){
 	@if meta.type-of($vals) == 'list' or meta.type-of($vals) == 'arglist'{
 		@if list.length($vals) == 1{
 			$v:list.nth($vals,1);
@@ -144,6 +195,7 @@
 @function clr($clr){
 	@if meta.type-of($clr) == 'color'{@return $clr;}
 	@if $clr == n{@return transparent;}
+	@if $clr == crr{@return currentcolor;}
 	$alpha:false;
 	$tint:false;
 	@if meta.type-of($clr) =='list'{
@@ -175,8 +227,8 @@
 	@if meta.global-variable-exists("sizes") and meta.type-of($sizes) == 'map' {
 		@if map.has-key($sizes,$val){$val:map.get($sizes,$val);}
 	}
-	@else if meta.function-exists('translate_size') {
-		$size:translate_size($val);
+	@else if meta.function-exists('translate-size') {
+		$size:translate-size($val);
 		@if($size != false){$val:$size;}
 	}
 	$svals:(
@@ -187,17 +239,33 @@
 		saib:env(safe-area-inset-bottom)
 	);
 	@if map.has-key($svals,$val){@return map.get($svals,$val);}
-	@if meta.type-of($val) == 'number' and math.is-unitless($val){
-		@if meta.global-variable-exists("size-unit"){@return $val*$size-unit;}
-		@return $val * 1px;
+	@return translate-numeric-unitless-size($val);
+}
+@function pd($val){
+	@if meta.global-variable-exists("paddings") and meta.type-of($paddings) == 'map' {
+		@if map.has-key($paddings,$val){$val:map.get($paddings,$val);}
 	}
-	@return $val;
+	@else if meta.function-exists('translate-padding') {
+		$padding:translate-padding($val);
+		@if($padding != false){$val:$padding;}
+	}
+	@return szs($val);
+}
+@function mg($val){
+	@if meta.global-variable-exists("margins") and meta.type-of($margins) == 'map' {
+		@if map.has-key($margins,$val){$val:map.get($margins,$val);}
+	}
+	@else if meta.function-exists('translate-margin') {
+		$margin:translate-margin($val);
+		@if($margin != false){$val:$margin;}
+	}
+	@return szs($val);
 }
 @function szs($vals){
 	@if meta.type-of($vals) == 'list'{
 		$rtn:false;
 		@each $v in $vals{
-			@if meta.type-of($rtn) == 'list'{$rtn:list.append($rtn,sz($v));}
+			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
 			@else if $rtn == false{$rtn:sz($v);}
 			@else {$rtn:$rtn sz($v);}
 		}
@@ -207,29 +275,110 @@
 		@return sz($vals);
 	}
 }
-@function wt($val){
-	@if meta.global-variable-exists("weights") and meta.type-of($weights) == 'map' {
-		@if map.has-key($weights,$val){$val:map.get($weights,$val);}
+@function fsz($val){
+	@if meta.global-variable-exists("font-sizes") and meta.type-of($font-sizes) == 'map' {
+		@if map.has-key($font-sizes,$val){$val:map.get($font-sizes,$val);}
 	}
-	@else if meta.function-exists('translate_weight') {
-		$weight:translate_weight($val);
-		@if($weight != false){$val:$weight;}
+	@else if meta.function-exists('translate-font-size') {
+		$font-size:translate-font-size($val);
+		@if($font-size != false){$val:$font-size;}
+	}
+	@return translate-numeric-unitless-sizes($val);
+}
+
+@function fwt($val){
+	@if meta.global-variable-exists("font-weights") and meta.type-of($font-weights) == 'map' {
+		@if map.has-key($font-weights,$val){$val:map.get($font-weights,$val);}
+	}
+	@else if meta.function-exists('translate-font-weight') {
+		$font-weight:translate-font-weight($val);
+		@if($font-weight != false){$val:$font-weight;}
 	}
 	$wvals:(t:100,e:200,l:300,r:400,m:500,d:600,b:700,u:800,h:900);
 	@if map.has-key($wvals,$val){@return map.get($wvals,$val);}
 	@return $val;
 }
-@function fnt($fnt){
-	@if meta.global-variable-exists("fonts") and meta.type-of($fonts) == 'map' and map.has-key($fonts,$fnt){
-		$fnt:map.get($fonts,$fnt);
+@function ffm($fnt){
+	@if meta.global-variable-exists("font-families") and meta.type-of($font-families) == 'map' and map.has-key($font-families,$fnt){
+		$fnt:map.get($font-families,$fnt);
 	}
-	@else if meta.function-exists('translate_font') {
-		$font:translate_font($fnt);
+	@else if meta.function-exists('translate-font') {
+		$font:translate-font($fnt);
 		@if $font{@return $font;}
 	}
 	@return $fnt;
 }
-@function slice($list,$start:1,$end:list.length($list)){
+@function lh($role){
+	@if meta.global-variable-exists("line-heights") and meta.type-of($line-heights) == 'map' and map.has-key($line-heights,$role){
+		$role:map.get($line-heights,$role);
+	}
+	@else if meta.function-exists('translate-line-height') {
+		$line-height:translate-line-height($role);
+		@if $line-height{@return $line-height;}
+	}
+	@return $role;
+}
+@function ls($role){
+	@if meta.global-variable-exists("letter-spacings") and meta.type-of($letter-spacings) == 'map' and map.has-key($letter-spacings,$role){
+		$role:map.get($letter-spacings,$role);
+	}
+	@else if meta.function-exists('translate-letter-spacing') {
+		$letter-spacing:translate-letter-spacing($role);
+		@if $letter-spacing{@return $letter-spacing;}
+	}
+	@return $role;
+}
+@function bw($val){
+	@if meta.global-variable-exists("border-widths") and meta.type-of($border-widths) == 'map' and map.has-key($border-widths,$val){
+		$val:map.get($border-widths,$val);
+	}
+	@else if meta.function-exists('translate-border-width') {
+		$border-width:translate-border-width($val);
+		@if $border-width{@return $border-width;}
+	}
+	@return translate-numeric-unitless-sizes($val);
+}
+@function br($val){
+	@if meta.global-variable-exists("border-radiuses") and meta.type-of($border-radiuses) == 'map' and map.has-key($border-radiuses,$val){
+		$val:map.get($border-radiuses,$val);
+	}
+	@else if meta.function-exists('translate-border-radius') {
+		$border-radius:translate-border-radius($val);
+		@if $border-radius{@return $border-radius;}
+	}
+	@return translate-numeric-unitless-sizes($val);
+}
+@function shd($val){
+	@if meta.global-variable-exists("shadows") and meta.type-of($shadows) == 'map' and map.has-key($shadows,$val){
+		$val:map.get($shadows,$val);
+	}
+	@else if meta.function-exists('translate-shadow') {
+		$shadow:translate-shadow($val);
+		@if $shadow{@return $shadow;}
+	}
+	@return $val;
+}
+@function translate-numeric-unitless-size($val){
+	@if meta.type-of($val) == 'number' and unitless($val){
+		@if meta.global-variable-exists("size-unit"){@return $val*$size-unit;}
+		@return $val * 1px;
+	}
+	@return $val;
+}
+@function translate-numeric-unitless-sizes($vals){
+	@if meta.type-of($vals) == 'list'{
+		$rtn:false;
+		@each $v in $vals{
+			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,translate-numeric-unitless-size($v));}
+			@else if $rtn == false{$rtn:translate-numeric-unitless-size($v);}
+			@else {$rtn:$rtn translate-numeric-unitless-size($v);}
+		}
+		@return $rtn;
+	}
+	@return translate-numeric-unitless-size($vals);
+}
+
+@function slice($list,$start:1,$end:length($list)){
 	$rtn:();
 	@if $start < 0 {
 		$start: list.length($list) + $start;

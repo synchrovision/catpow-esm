@@ -5,20 +5,32 @@
 
 @mixin bdr($bdr){
 	$keys:(c:color,w:width,s:style);
-	$pvals:(l:left,r:right,t:top,b:bottom);
+	$pvals:(l:left,r:right,t:top,b:bottom,o:outline);
 	$svals:(n:none,h:hidden,s:solid,d:dotted,ds:dashed,w:double,r:ridge,g:groove,i:inset,o:outset);
 	$ivals:(s:stretch,r:round,f:fill);
 	$ps:false;
-	@if map.has-key($bdr,p){$ps:replace_values(map.get($bdr,p),$pvals);}
+	@if map.has-key($bdr,p){$ps:replace-values(map.get($bdr,p),$pvals);}
 	@each $key,$val in $bdr{
-		@if $key == w{$val:szs($val);}
+		@if $key == w{$val:bw($val);}
 		@if $key == c{$val:clr($val);}
-		@if $key == s{$val:replace_values($val,$svals);}
-		@if $key == r{border-radius:szs($val);}
-		@if $key == i{border-image:img(list.nth($val,1)) list.nth($val,2) map.get($ivals,list.nth($val,3));}
-		@if map.has-key($keys,$key){
-			@if $ps == false{border-#{map.get($keys,$key)}:$val;}
-			@else if meta.type-of($ps) == 'list'{
+		@if $key == s{$val:replace-values($val,$svals);}
+		@if $key == o{outline-offset:sz($val);}
+		@if $key == r{border-radius:br($val);}
+		@if $key == tlr{border-top-left-radius:br($val);}
+		@if $key == trr{border-top-right-radius:br($val);}
+		@if $key == blr{border-bottom-left-radius:br($val);}
+		@if $key == brr{border-bottom-right-radius:br($val);}
+		@if $key == tr{border-top-left-radius:br($val);border-top-right-radius:br($val);}
+		@if $key == br{border-bottom-left-radius:br($val);border-bottom-right-radius:br($val);}
+		@if $key == lr{border-top-left-radius:br($val);border-bottom-left-radius:br($val);}
+		@if $key == rr{border-top-right-radius:br($val);border-bottom-right-radius:br($val);}
+		@if $key == i{border-image:img(nth($val,1)) nth($val,2) map-get($ivals,nth($val,3));}
+		@if map-has-key($keys,$key){
+			@if $ps == false{border-#{map-get($keys,$key)}:$val;}
+			@else if $ps == 'outline'{
+				outline-#{map-get($keys,$key)}:$val;
+			}
+			@else if type-of($ps) == 'list'{
 				@each $p in $ps{
 					border-#{$p}-#{map.get($keys,$key)}:$val;
 				}

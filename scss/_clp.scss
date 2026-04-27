@@ -5,6 +5,7 @@
 @use "_basic.scss" as *;
 
 @mixin clp($clp:false){
+	$ivals:(r:round);
 	@each $key,$val in $clp{
 		@if $key=='c'{
 			$d:list.nth($val,1);

@@ -46,14 +46,14 @@
 		}
 		@if $key == c{
 			@if meta.type-of($val) == 'list'{
-				@include flex_equalize(list.nth($val,1),list.nth($val,2));
+				@include flex-equalize(list.nth($val,1),list.nth($val,2));
 			}
-			@else{@include flex_equalize($val);}
+			@else{@include flex-equalize($val);}
 		}
 	}
 }
 
-@mixin flex_equalize($cols) {
+@mixin flex-equalize($cols) {
 	$id:random(10000);
 	&>*{
 		flex-grow: 1;
@@ -78,8 +78,8 @@
 			&>*:list.nth-child(#{$cols - 1}n):list.nth-last-child(#{$cols}n + 1)~*{
 				@extend %c#{$cols}c#{$id};
 			}
-			$max_len: ($cols - 1) * ($cols - 2) - 1;
-			@for $len from ceil($cols / 2) through $max_len {
+			$max-len: ($cols - 1) * ($cols - 2) - 1;
+			@for $len from ceil($cols / 2) through $max-len {
 				$r: ceil($len / $cols);
 				$mod:$len % $cols;
 				$mgn:$cols - $r - $mod;

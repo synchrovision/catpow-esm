@@ -23,14 +23,14 @@
 	@each $key,$val in $svg{
 		@if $key == c or $key == f or $key == s or $key == sc{$val:clr($val);}
 		@if $key == w{$val:sz($val);}
-		@if $key == ta{$val:replace_values($val,$tavals);}
-		@if $key == db{$val:replace_values($val,$dbvals);}
-		@if $key == po{$val:replace_values($val,$povals);}
-		@if $key == slc{$val:replace_values($val,$cvals);}
-		@if $key == slj{$val:replace_values($val,$jvals);}
+		@if $key == ta{$val:replace-values($val,$tavals);}
+		@if $key == db{$val:replace-values($val,$dbvals);}
+		@if $key == po{$val:replace-values($val,$povals);}
+		@if $key == slc{$val:replace-values($val,$cvals);}
+		@if $key == slj{$val:replace-values($val,$jvals);}
 		@if $key == e{
-			stroke-linecap:replace_values($val,$cvals);
-			stroke-linejoin:replace_values($val,$jvals);
+			stroke-linecap:replace-values($val,$cvals);
+			stroke-linejoin:replace-values($val,$jvals);
 		}
 		@if $key == d{
 			@if meta.type-of($val) =='list' and meta.type-of(nth($val,1)) == 'list'{

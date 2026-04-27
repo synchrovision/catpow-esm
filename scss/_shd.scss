@@ -127,7 +127,10 @@
 					#{$bo}px #{$bo}px #{$bo}px #{$co2};
 			}
 		}
-		@if map.has-key($btvals,$val){$val:map.get($btvals,$val);}
+		@else{
+			@if map.has-key($btvals,$val){$val:map.get($btvals,$val);}
+			@else{$val:shd($val) clr($clr);}
+		}
 		@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br' or $key == 'bc' or $key == 'bv' or $key == 'bvi' or $key == 'bvo' or $key == 'bve'
 		{box-shadow:$val;}
 		@if $key == 't' or $key == 'tc' or $key == 'ts' or $key == 'tg' or $key == 'tbv'{text-shadow:$val;}

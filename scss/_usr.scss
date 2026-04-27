@@ -17,10 +17,10 @@
 	$evals:(a:auto,n:none);
 	$svals:(n:none,a:all,t:text,c:contain);
 	@each $key,$val in $usr{
-		@if $key == c{$val:replace_values($val,$cvals);}
-		@if $key == e{$val:replace_values($val,$evals);}
+		@if $key == c{$val:replace-values($val,$cvals);}
+		@if $key == e{$val:replace-values($val,$evals);}
 		@if $key == s{
-			$val:replace_values($val,$svals);
+			$val:replace-values($val,$svals);
 			-webkit-user-select:$val;
 				-ms-user-select:$val;
 					user-select:$val;

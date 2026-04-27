@@ -8,7 +8,7 @@
 	@each $key,$val in $col{
 		@if $key == w or $key == g or $key == rw{$val:szs($val);}
 		@if $key == rc{$val:clr($val);}
-		@if $key == rs{$val:replace_values($val,$rsvals);}
+		@if $key == rs{$val:replace-values($val,$rsvals);}
 		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}
 }

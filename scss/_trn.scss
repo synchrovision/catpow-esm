@@ -35,8 +35,8 @@
 			$fl:list.append($fl,(map.get($ffncs,$key) + '(' + $val + ')'));
 		}
 		@if $key == 'clr'{
-			@if function-exists('extract_color_tone') {
-				$tone:extract_color_tone($val);
+			@if function-exists('extract-color-tone') {
+				$tone:extract-color-tone($val);
 				@if $tone {
 					$fl:list.append($fl,invert(50%));
 					$fl:list.append($fl,sepia(100%));
@@ -62,25 +62,25 @@
 		@if $key == 'p'{perspective:$val;}
 		@if $key == 'd'{transition-delay:$val;}
 		@if $key == 'e'{transition-timing-function:ease($val);}
-		@if $key == 'a'{animation:replace_values($val,$avals);}
+		@if $key == 'a'{animation:replace-values($val,$avals);}
 		@if $key == 'o'{opacity:$val;}
 		@if $key == 'bm'{
 			@if meta.type-of($val) == 'list'{
-				mix-blend-mode:replace_values(list.nth($val,1),$bmvals);
-				isolation:replace_values(list.nth($val,2),$bmivals);
+				mix-blend-mode:replace-values(list.nth($val,1),$bmvals);
+				isolation:replace-values(list.nth($val,2),$bmivals);
 			}
 			@else{
-				mix-blend-mode:replace_values($val,$bmvals);
+				mix-blend-mode:replace-values($val,$bmvals);
 			}
 		}
 		@if $key == 't'{
-			$val:replace_values($val,$trvals);
+			$val:replace-values($val,$trvals);
 			-webkit-transition:$val;
 					transition:$val;
 		}
-		@if $key == 'tb'{@include transition_by($val);}
+		@if $key == 'tb'{@include transition-by($val);}
 		@if $key == 'bf'{
-			$val:replace_values($val,$bfvals);
+			$val:replace-values($val,$bfvals);
 			-webkit-backface-visibility:$val;
 					backface-visibility:$val;
 		}

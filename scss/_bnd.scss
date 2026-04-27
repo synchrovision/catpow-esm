@@ -6,7 +6,7 @@
 
 @mixin bnd($bnd){
 	$keys:(
-		d:display,p:position,w:width,h:height,v:visibility,
+		d:display,p:position,v:visibility,
 		l:left,r:right,t:top,b:bottom,i:inset,
 		x:left,y:bottom,z:z-index,
 		pd:padding,mg:margin,
@@ -16,7 +16,9 @@
 		pdr:padding-right,mgr:margin-right,
 		pdi:padding-inline,mgi:margin-inline,
 		bs:box-sizing,fl:float,cl:clear,
+		bb:break-before,
 		bi:break-inside,
+		ba:break-after,
 		pbb:page-break-before,
 		pbi:page-break-inside,
 		pba:page-break-after,
@@ -38,6 +40,7 @@
 		spdr:scroll-padding-right,smgr:scroll-margin-right,
 		sb:scroll-behavior
 	);
+	$skeys:(w:width,h:height);
 	$dvals:(
 		b:block,ib:inline-block,
 		f:flex,if:inline-flex,
@@ -63,17 +66,18 @@
 	$flvals:(l:left,r:right,n:none);
 	$clvals:(l:left,r:right,b:both);
 	$apvals:(n:none,b:button);
-	$bivals:(n:auto,a:avoid,b:always,p:avoid-page,c:avoid-column);
+	$bvals:(n:auto,a:avoid,b:always,p:page,c:column,ap:avoid-page,ac:avoid-column,l:left,r:right);
+	$bivals:(n:auto,a:avoid,b:always,ap:avoid-page,ac:avoid-column);
 	$ofvals:(f:fill,c:cover,i:contain,cvr:cover,cnt:contain,sd:scale-down);
 	$avals:(a:auto,v:'4 / 3',h:'16 / 9');
 	$asvals:(f:stretch,c:center,e:flex-end,s:flex-start);
 	$acvals:(f:stretch,c:center,e:end,s:start,fe:flex-end,fs:flex-start,n:normal,b:baseline,sb:space-between,sa:space-around);
-	$opvals:(c:center);
+	$opvals:(l:left,r:right,t:top,b:bottom,c:center);
 	$sssvals:(n:normal,a:always);
 	$ssavals:(n:none,s:start,e:end,c:center);
 	$sstvals:(n:none,m:mandatory,p:proximity);
 	$sbvals:(a:auto,s:smooth);
-	$ctnvals:(s:size,i:inline-size,n:normal);
+	$cntvals:(s:size,i:inline-size,n:normal);
 	
 	$abstractSize:(auto,min-content,max-content,fit-content);
 	@each $key,$val in $bnd{
@@ -83,11 +87,14 @@
 		@if $key == fl{$val:map.get($flvals,$val);}
 		@if $key == cl{$val:map.get($clvals,$val);}
 		@if $key == bs{$val:map.get($bsvals,$val);}
+		@if $key == bb or $key == ba 
+			{$val:map.get($bvals,$val);}
 		@if $key == bi or $key == pbb or $key == pbi or $key == pba
 			{$val:map.get($bivals,$val);}
-		@if $key == w or $key == h or $key == x or $key == y or $key == g or 
+		@if $key == pd{$val:pd($val);}
+		@if $key == mg or $key == g{$val:mg($val);}
+		@if $key == w or $key == h or $key == x or $key == y or 
 			$key == l or $key == r or $key == t or $key == b or $key == i or 
-			$key == pd or $key == mg or
 			$key == pdt or $key == mgt or
 			$key == pdb or $key == mgb or
 			$key == pdl or $key == mgl or
@@ -100,7 +107,7 @@
 			$key == spdr or $key == smgr
 			{$val:szs($val);}
 		@if $key == i{
-			$vals:fill_4_values($val);
+			$vals:fill-4-values($val);
 			top:list.nth($vals,1);
 			right:list.nth($vals,2);
 			bottom:list.nth($vals,3);
@@ -110,31 +117,44 @@
 			@if meta.type-of($val) == 'list'{
 				@if list.length($val) == 2{
 					@if (
-						meta.type-of(list.nth($val,1)) != 'number' or
-						(
-							meta.type-of(list.nth($val,1)) == 'number' and
-							list.index(('%','vw','vh','vmax','vmin'),math.unit(list.nth($val,1))) != null and
-							meta.type-of(list.nth($val,2)) == 'number'
-						)
+						list.nth($val,2) == n or
+						index($abstractSize,list.nth($val,2)) != null
 					){
-						max-#{map.get($keys,$key)}:list.nth($val,2);
-						$val:list.nth($val,1);
+						@if list.nth($val,1) != n{
+							min-#{map.get($skeys,$key)}:list.nth($val,1);
+						}
+						@if list.nth($val,2) != n{
+							#{map.get($skeys,$key)}:list.nth($val,2);
+						}
 					}
 					@else{
-						min-#{map.get($keys,$key)}:list.nth($val,1);
-						$val:list.nth($val,2);
+						@if list.nth($val,2) != n{
+							max-#{map.get($skeys,$key)}:list.nth($val,2);
+						}
+						@if list.nth($val,1) != n{
+							#{map.get($skeys,$key)}:list.nth($val,1);
+						}
 					}
 				}
 				@else{
-					min-#{map.get($keys,$key)}:list.nth($val,1);
-					max-#{map.get($keys,$key)}:list.nth($val,3);
-					$val:list.nth($val,2);
+					@if list.nth($val,1) != n{
+						min-#{map.get($skeys,$key)}:list.nth($val,1);
+					}
+					@if list.nth($val,3) != n{
+						max-#{map.get($skeys,$key)}:list.nth($val,3);
+					}
+					@if list.nth($val,2) != n{
+						#{map.get($skeys,$key)}:list.nth($val,2);
+					}
 				}
+			}
+			@else{
+				#{map.get($skeys,$key)}:$val;
 			}
 		}
 		@if $key == o or $key == ox or $key == oy{$val:map.get($ovals,$val);}
 		@if $key == of{$val:map.get($ofvals,$val);}
-		@if $key == op{$val:replace_values($val,$opvals);}
+		@if $key == op{$val:replace-values($val,$opvals);}
 		@if $key == f{
 			@if meta.type-of($val) == 'list'{
 				-webkit-box-flex:list.nth($val,1);
@@ -167,18 +187,18 @@
 					columns:$val;
 		}
 		@if $key == ap{
-			$val:replace_values($val,$apvals);
+			$val:replace-values($val,$apvals);
 			-webkit-appearance:$val;
 			   -moz-appearance:$val;
 					appearance:$val;
 		}
 		@if $key == as{$val:map.get($asvals,$val);}
 		@if $key == ac{$val:map.get($acvals,$val);}
-		@if $key == sss{$val:replace_values($val,$sssvals);}
-		@if $key == ssa{$val:replace_values($val,$ssavals);}
-		@if $key == sst{$val:replace_values($val,$sstvals);}
-		@if $key == sb{$val:replace_values($val,$sbvals);}
-		@if $key == ctn{
+		@if $key == sss{$val:replace-values($val,$sssvals);}
+		@if $key == ssa{$val:replace-values($val,$ssavals);}
+		@if $key == sst{$val:replace-values($val,$sstvals);}
+		@if $key == sb{$val:replace-values($val,$sbvals);}
+		@if $key == cnt{
 			@if meta.type-of($val) == 'list' {
 				@each $v in $val{
 					@if map.has-key($ctnvals,$v){

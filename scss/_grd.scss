@@ -33,6 +33,7 @@
 		display:-ms-grid;
 		display:grid;
 	}
+	$tvals:(s:subgrid,m:masonry);
 	@each $key,$val in $grd{
 		@if $key == rc or $key == rr{
 			@if(meta.type-of($val) == 'list'){
@@ -88,13 +89,17 @@
 				}
 			}
 		}
-		@if $key == tc or $key == tr or
-			$key == ac or $key == ar or $key == g
+		@if $key == g {
+			$val:mg($val);
+		}
+		@if $key == tc or $key == tr 
+			{$val:replace-values($val,$tvals);$val:szs($val);}
+		@if $key == ac or $key == ar
 			{$val:szs($val);}
 		@if $key == j or $key == a or
 			$key == ji or $key == ai
 			{$val:map.get($jvals,$val);}
-		@if $key == f{$val:replace_values($val,$fvals);}
+		@if $key == f{$val:replace-values($val,$fvals);}
 		@if map.has-key($iekeys,$key){#{map.get($iekeys,$key)}:$val;}
 		@if map.has-key($keys,$key){#{map.get($keys,$key)}:$val;}
 	}

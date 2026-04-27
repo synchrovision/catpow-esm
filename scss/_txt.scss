@@ -34,28 +34,29 @@
 	$cmbvals:(n:none,a:all,d:digits);
 	$ffsvals:(p:"palt",t:"trad",n:"nalt");
 	@each $key,$val in $txt{
-		@if $key == p or $key == h or $key == uo{$val:sz($val);}
+		@if $key == p or $key == uo{$val:fsz($val);}
+		@if $key == h{$val:lh($val);}
 		@if $key == c{$val:clr($val);}
-		@if $key == f{$val:fnt($val);}
-		@if $key == b{$val:replace_values($val,$bvals);}
-		@if $key == a{$key:replace_values($val,$akeys);$val:replace_values($val,$avals);}
-		@if $key == v{$val:replace_values($val,$vvals);}
-		@if $key == s{$key:replace_values($val,$skeys);$val:replace_values($val,$svals);}
-		@if $key == l{$val:replace_values($val,$lvals);}
-		@if $key == w{$val:wt($val);}
+		@if $key == f{$val:ffm($val);}
+		@if $key == b{$val:replace-values($val,$bvals);}
+		@if $key == a{$key:replace-values($val,$akeys);$val:replace-values($val,$avals);}
+		@if $key == v{$val:replace-values($val,$vvals);}
+		@if $key == s{$key:replace-values($val,$skeys);$val:replace-values($val,$svals);}
+		@if $key == l{$val:replace-values($val,$lvals);}
+		@if $key == w{$val:fwt($val);}
 		@if $key == m{
-			$val:replace_values($val,$mvals);
+			$val:replace-values($val,$mvals);
 			-webkit-writing-mode:$val;
 					writing-mode:$val;
 		}
-		@if $key == t{$val:sz($val);}
-		@if $key == to{$val:replace_values($val,$tovals);}
+		@if $key == t{$val:ls($val);}
+		@if $key == to{$val:replace-values($val,$tovals);}
 		@if $key == td{@include text-decoration($val);}
 		@if $key == te{@include text-emphasis($val);}
-		@if $key == o{$val:replace_values($val,$ovals);}
-		@if $key == whs{$val:replace_values($val,$whsvals);}
-		@if $key == cmb{$val:replace_values($val,$cmbvals);}
-		@if $key == ffs{$val:replace_values($val,$ffsvals);}
+		@if $key == o{$val:replace-values($val,$ovals);}
+		@if $key == whs{$val:replace-values($val,$whsvals);}
+		@if $key == cmb{$val:replace-values($val,$cmbvals);}
+		@if $key == ffs{$val:replace-values($val,$ffsvals);}
 		@if map.has-key($keys,$key){
 			@if meta.type-of(map.get($keys,$key)) == 'list'{
 				@each $sel in map.get($keys,$key){
@@ -129,7 +130,7 @@
 	$s2:false;
 	$s:();
 	@each $val in $vals{
-		@if(is_quoted($val)){
+		@if(is-quoted($val)){
 			$s1:true;
 			$s2:true;
 			$s:list.append($s,$val);

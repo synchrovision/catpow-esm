@@ -11,11 +11,11 @@
 	$svals:(i:contain,c:cover);
 	@each $key,$val in $msk{
 		@if $key == i{$val:img($val);}
-		@if $key == m{$val:replace_values($val,$mvals);}
-		@if $key == c{$val:replace_values($val,$cvals);}
-		@if $key == p{$val:replace_values($val,$pvals);}
-		@if $key == r{$val:replace_values($val,$rvals);}
-		@if $key == s{$val:replace_values($val,$svals);}
+		@if $key == m{$val:replace-values($val,$mvals);}
+		@if $key == c{$val:replace-values($val,$cvals);}
+		@if $key == p{$val:replace-values($val,$pvals);}
+		@if $key == r{$val:replace-values($val,$rvals);}
+		@if $key == s{$val:replace-values($val,$svals);}
 		@if map.has-key($keys,$key){
 			-webkit-#{map.get($keys,$key)}:#{$val};
 			#{map.get($keys,$key)}:#{$val};

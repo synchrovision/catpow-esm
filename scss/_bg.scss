@@ -21,9 +21,9 @@
 	@each $key,$val in $bg{
 		@if $key == i{$val:img($val);}
 		@if $key == c{$val:clr($val);}
-		@if $key == r{$val:map.get($rvals,$val);}
-		@if $key == a{$val:map.get($avals,$val);}
-		@if $key == bm{$val:map.get($bmvals,$val);}
+		@if $key == r{$val:replace-values($val,$rvals);}
+		@if $key == a{$val:replace-values($val,$avals);}
+		@if $key == bm{$val:replace-values($val,$bmvals);}
 		@if $key == s{
 			@if map.has-key($svals,$val){$val:map.get($svals,$val);}
 			@else {$val:szs($val);}
@@ -80,7 +80,7 @@
 				@if $mxn == p{@include stripe($clr...);}
 			}
 		}
-		@if $key == p{$val:replace_values($val,$pvals);$val:szs($val);}
+		@if $key == p{$val:replace-values($val,$pvals);$val:szs($val);}
 		@if $key == 'cl'{
 			$val:map.get($clvals,$val);
 			-webkit-background-clip:$val;

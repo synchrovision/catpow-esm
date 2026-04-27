@@ -7,10 +7,10 @@
 	$r:0;
 	$lvals:(a:auto,f:fixed);
 	@each $key,$val in $tbl{
-		@if $key == s{$s:$val;}
+		@if $key == s{$s:mg($val);}
 		@if $key == r{
 			$r:$val;
-			@include round_table($val);
+			@include round-table($val);
 		}
 		@if $key == l{
 			table-layout: map.get($lvals,$val);
@@ -20,7 +20,7 @@
 	@else{border-collapse:separate;border-spacing:sz($s);}
 }
 
-@mixin round_table($r:5){
+@mixin round-table($r:5){
 	$r:sz($r);
 	@include bdr((r:$r));
 	tr:first-of-type{
