@@ -99,6 +99,13 @@ export const useAgent = (settings, deps) => {
 		if (agent.states) {
 			agent.stateSettings = agent.states;
 		}
+		if (agent.actions) {
+			Object.keys(agent.actions).forEach((action) => {
+				Object.defineProperty(agent, action, {
+					value: (...args) => agent.actions[action](agent, ...args),
+				});
+			});
+		}
 		agent.$ = new Proxy(agent, {
 			get(agent, prop) {
 				if (agent.hasOwnProperty(prop)) {
