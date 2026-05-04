@@ -47,7 +47,13 @@ function extractFunctions(file, options, results) {
 }
 function extractExportedFunctionsRecursive(file, options, functions, importMap) {
 	if (!fs.existsSync(file)) {
-		let ext = [".js", ".jsx", ".ts", ".tsx", "/index.js", "/index.jsx", "/index.ts", "/index.tsx"].find((ext) => fs.existsSync(file + ext));
+		let ext = [".js", ".jsx", ".ts", ".tsx"].find((ext) => fs.existsSync(file + ext));
+		if (!ext) {
+			return;
+		}
+		file += ext;
+	} else if (fs.statSync(file).isDirectory()) {
+		let ext = ["/index.js", "/index.jsx", "/index.ts", "/index.tsx"].find((ext) => fs.existsSync(file + ext));
 		if (!ext) {
 			return;
 		}
