@@ -46,6 +46,13 @@ function extractFunctions(file, options, results) {
 	}
 }
 function extractExportedFunctionsRecursive(file, options, functions, importMap) {
+	if (!fs.existsSync(file)) {
+		let ext = [".js", ".jsx", ".ts", ".tsx", "/index.js", "/index.jsx", "/index.ts", "/index.tsx"].find((ext) => fs.existsSync(file + ext));
+		if (!ext) {
+			return;
+		}
+		file += ext;
+	}
 	const code = fs.readFileSync(file, "utf-8");
 	const ast = parser.parse(code, options);
 	const exportedFunctions = {};
@@ -67,7 +74,7 @@ function extractExportedFunctionsRecursive(file, options, functions, importMap) 
 						resolve(file, "../", token.source.value),
 						options,
 						exportedFunctions,
-						token.specifiers.reduce((p, c) => (p[c.local?.name] = c.exported?.name), {})
+						token.specifiers.reduce((p, c) => (p[c.local?.name] = c.exported?.name), {}),
 					);
 				}
 				break;
