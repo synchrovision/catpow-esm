@@ -1,11 +1,11 @@
-export const rtf = (text, pref = "rtf") => {
+export const rtf = (text, pref = "rtf", level = 3) => {
 	if (typeof text !== "string") {
 		if (text.toString == null) {
 			return "";
 		}
 		text = text.toString();
 	}
-	text = replaceBlockFormat(text, pref);
+	text = replaceBlockFormat(text, pref, level);
 	text = joinConsecutiveLists(text, pref);
 	text = replaceInlineFormat(text, pref);
 	text = replaceLineBreak(text);
@@ -37,36 +37,37 @@ const replaceInlineFormat = (text, pref) => {
 	return text;
 };
 
-const replaceBlockFormat = (text, pref, level = 0) => {
-	if (level > 3) return text;
-	const prefix = level > 0 ? `([ 　\t]{${level}})` : "";
-	const classLevel = level > 0 ? ` is-level-${level}` : "";
+const replaceBlockFormat = (text, pref, level = 3, indent = 0) => {
+	if (level > 6) return text;
 
-	const h = "^" + (level > 0 ? `([　\\t]{${level}})` : "()");
-	const t = "(.+((\\n" + (level > 0 ? "\\1" : "") + "[　\\t]).+)*)$";
-	const c = level > 0 ? ` is-level-${level}` : "";
-	const l = level + 4;
-	const p = "$2\n";
-	const p2 = "$3\n";
-	if (level > 0 && !text.match(new RegExp(h, "gum"))) {
+	const h = "^" + (indent > 0 ? `([　\\t]{${indent}})` : "()");
+	const t = "(.+((\\n" + (indent > 0 ? "\\1" : "") + "[　\\t]).+)*)$";
+	const c = ` is-level${level}` + (indent > 0 ? ` is-indent${indent}` : "");
+	const l = level;
+	const p = "$2";
+	const p2 = "$3";
+	if (indent > 0 && !text.match(new RegExp(h, "gum"))) {
 		return text;
+	}
+	if (indent > 0) {
+		text = text.replace(new RegExp(`((\\n[　\\t]{${indent}}[^\\n]*)+)`), `<div class="${pref}-indent is-level${level} is-indent${indent}">$1</div>`);
 	}
 	text = text.replace(
 		new RegExp(h + "\\^([^\\s　].{0,20}?) [:：] " + t, "gum"),
 		`<dl class="${pref}-notes${c}"><dt class="${pref}-notes__dt">$2</dt><dd class="${pref}-notes__dd">${p2}</dd></dl><!--/notes-->`,
-		text
+		text,
 	);
 	text = text.replace(new RegExp(h + "([^\\s　].{0,20}?) [:：] " + t, "gum"), `<dl class="${pref}-dl${c}"><dt class="${pref}-dl__dt">$2</dt><dd class="${pref}-dl__dd">${p2}</dd></dl>`, text);
-	text = text.replace(new RegExp(h + "※" + t, "gum"), `<span class="${pref}-annotation${c}">${p}</span>`);
-	text = text.replace(new RegExp(h + "■ " + t, "gum"), `<h${l} class="${pref}-title${c}">${p}</h${l}>`);
-	text = text.replace(new RegExp(h + "・ " + t, "gum"), `<ul class="${pref}-ul${c}"><li class="${pref}-ul__li">${p}</li></ul>`);
+	text = text.replace(new RegExp(h + "[※*] " + t, "gum"), `<span class="${pref}-annotation${c}">${p}</span>`);
+	text = text.replace(new RegExp(h + "[■#] " + t, "gum"), `<h${l} class="${pref}-title${c}">${p}</h${l}>`);
+	text = text.replace(new RegExp(h + "[\-・] " + t, "gum"), `<ul class="${pref}-ul${c}"><li class="${pref}-ul__li">${p}</li></ul>`);
 	text = text.replace(new RegExp(h + "\\d{1,2}\\. " + t, "gum"), `<ol class="${pref}-ol${c}"><li class="${pref}-ol__li">${p}</li></ol>`);
 	text = text.replace(
 		new RegExp(h + "([①-⑳]|[^\\s　]\\.) " + t, "gum"),
-		`<dl class="${pref}-listed${c}"><dt class="${pref}-listed__dt">$2</dt><dd class="${pref}-listed__dd">${p2}</dd></dl><!--/listed-->`
+		`<dl class="${pref}-listed${c}"><dt class="${pref}-listed__dt">$2</dt><dd class="${pref}-listed__dd">${p2}</dd></dl><!--/listed-->`,
 	);
-	if (level < 3) {
-		return replaceBlockFormat(text, pref, level + 1);
+	if (level < 6) {
+		return replaceBlockFormat(text, pref, level + 1, indent + 1);
 	}
 	return text;
 };
@@ -78,7 +79,8 @@ const joinConsecutiveLists = (text, pref) => {
 };
 
 const replaceLineBreak = (text) => {
-	text = text.replace(/\s*(<\/(h\d|dl|dt|dd|ul|ol|li)+?>)\s*/g, "$1");
-	text = text.replace(/(\n[　\t]*|\n[　\t]+)/g, "<br/>");
+	text = text.replace(/\s*(<(h\d|div|dl|dt|dd|ul|ol|li) .+?>)\s*/g, "$1");
+	text = text.replace(/\s*(<\/(h\d|div|dl|dt|dd|ul|ol|li)>)\s*/g, "$1");
+	text = text.replace(/(\n[　\t]*)/g, "<br/>");
 	return text;
 };
