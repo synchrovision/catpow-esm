@@ -17,7 +17,7 @@ const applyBem = (component, { ...ctx }) => {
 	if (component?.props == null) {
 		return;
 	}
-	if (component.type == React.Fragment) {
+	if (component.type == React.Fragment || component.type == "template") {
 		applyBem(component.props.children, ctx);
 		return;
 	}
