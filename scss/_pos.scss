@@ -1,0 +1,34 @@
+@use "sass:meta";
+@use "sass:map";
+@use "_basic.scss" as *;
+
+@mixin pos($pos){
+	$keys:(anc:position-anchor,a:position-area,t:position-try,v:position-visibility);
+	$avals:(
+		t:top,b:bottom,l:left,r:right,c:center,
+		s:start,e:end,
+		bs:block-start,be:block-end,
+		is:inline-start,ie:inline-end,
+		st:span-top,sb:span-bottom,sl:span-left,sr:span-right,sa:span-all,
+		ss:span-start,se:span-end,
+		sbs:span-block-start,sbe:span-block-end,
+		sis:span-inline-start,sie:span-inline-end,
+	);
+	$tvals:(
+		mh:most-height,mw:most-width,
+		mb:most-block-size,mi:most-inline-size,
+		fb:flip-block,fi:flip-inline,fs:flip-start,
+	);
+	$vvals:(
+		a:always,v:anchors-visible,n:no-overflow
+	);
+	@each $key,$val in $pos{
+		@if $key == a{$val:replace_values($val,$avals);}
+		@if $key == t{$val:replace_values($val,$tvals);}
+		@if $key == v{$val:replace_values($val,$vvals);}
+		@if map.has-key($keys,$key){
+			-webkit-#{map.get($keys,$key)}:#{$val};
+			#{map.get($keys,$key)}:#{$val};
+		}
+	}
+}
