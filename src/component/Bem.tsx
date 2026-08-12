@@ -1,4 +1,4 @@
-﻿import React from "react";
+﻿import React, { cloneElement, isValidElement, ReactNode } from "react";
 
 type BemProps = {
 	prefix?: string;
@@ -6,26 +6,27 @@ type BemProps = {
 	element?: string;
 	children?: any;
 };
+type ElementProps = {
+	children?: ReactNode;
+	className?: string;
+};
 
-const applyBem = (component, { ...ctx }) => {
+const applyBem = (component: ReactNode, { ...ctx }): ReactNode => {
 	if (Array.isArray(component)) {
-		component.forEach((child) => {
-			applyBem(child, ctx);
-		});
-		return;
+		return component.map((child) => applyBem(child, ctx));
 	}
-	if (component?.props == null) {
-		return;
+	if (!isValidElement<ElementProps>(component)) {
+		return component;
 	}
 	if (component.type == React.Fragment || component.type == "template") {
-		applyBem(component.props.children, ctx);
-		return;
+		return cloneElement(component, component?.props || {}, applyBem(component.props.children, ctx));
 	}
+	let newClassName: string;
 	const {
 		props: { className, children },
 	} = component;
 	if (className) {
-		component.props.className = className
+		newClassName = className
 			.split(" ")
 			.map((className) => {
 				if (className.slice(0, 2) === "--") {
@@ -46,12 +47,12 @@ const applyBem = (component, { ...ctx }) => {
 				return className;
 			})
 			.join(" ");
-		if (component.props.className === className) {
+		if (newClassName === className) {
 			const matches =
 				(ctx.prefix && className.match(new RegExp(`\\b((${ctx.prefix.replaceAll("-", "\\-")})\\-[a-z]+(\\-[a-z]+)*)(__[a-z]+(\\-[a-z]+)*)?\\b`))) ||
 				className.match(/\b(([a-z]+)\-[a-z]+(\-[a-z]+)*)(__[a-z]+(\-[a-z]+)*)?\b/);
 			if (!matches) {
-				return;
+				return component;
 			}
 			if (!matches[1].startsWith(ctx.prefix)) {
 				ctx.prefix = matches[2];
@@ -60,20 +61,14 @@ const applyBem = (component, { ...ctx }) => {
 			ctx.element = matches[0];
 		}
 	} else if (typeof component.type === "string") {
-		component.props.className = ctx.element = ctx.element + (ctx.element === ctx.block ? "__" : "-") + component.type;
+		newClassName = ctx.element = ctx.element + (ctx.element === ctx.block ? "__" : "-") + component.type;
 	} else {
-		return;
+		return component;
 	}
 	if (children == null) {
-		return;
+		return cloneElement(component, { ...component.props, className: newClassName });
 	}
-	if (Array.isArray(children)) {
-		children.forEach((child) => {
-			applyBem(child, ctx);
-		});
-	} else {
-		applyBem(children, ctx);
-	}
+	return cloneElement(component, { ...component.props, className: newClassName }, applyBem(children, ctx));
 };
 
 export const Bem = ({ prefix = "cp", block, element, children }: BemProps) => {
@@ -84,6 +79,5 @@ export const Bem = ({ prefix = "cp", block, element, children }: BemProps) => {
 		block = element.split("__")[0];
 	}
 	const ctx = { prefix, block, element };
-	applyBem(children, ctx);
-	return <>{children}</>;
+	return <>{applyBem(children, ctx)}</>;
 };
