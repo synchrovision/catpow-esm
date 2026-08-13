@@ -18,7 +18,6 @@ export const AngleInput = (props) => {
 	}, [state.dx, state.dy]);
 	useThrottle(
 		() => {
-			console.log({ originalValue, value });
 			onChange(value);
 		},
 		50,
