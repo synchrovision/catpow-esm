@@ -10,7 +10,7 @@ export const Range = (props) => {
 		({ value }) => {
 			onUpdate(value);
 		},
-		[onUpdate]
+		[onUpdate],
 	);
 
 	return (

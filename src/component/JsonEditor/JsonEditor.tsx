@@ -31,19 +31,16 @@ export const JsonEditor = (props: JsonEditorProps) => {
 
 	const [hasChange, setHasChange] = useState(false);
 	const json = useMemo(() => {
-		if (typeof props.json === "object") {
-			return props.json;
-		}
+		if (typeof props.json === "object") return props.json;
+		if (typeof props.json !== "string") return {};
 		const json = JSON.parse(props.json);
-		if (json == null) {
-			return null;
-		}
+		if (json == null) return null;
 		return json;
 	}, []);
 
 	const rootAgent = useMemo(() => {
 		const rootAgent = schema(props.schema, { debug }).createAgent(json);
-		rootAgent.on("change", (e) => {
+		rootAgent.on("change", () => {
 			setHasChange(true);
 		});
 		return rootAgent;
@@ -59,9 +56,9 @@ export const JsonEditor = (props: JsonEditorProps) => {
 	}, [getAdditionalInputComponent]);
 
 	useEffect(() => {
-		let timer,
+		let timer: number,
 			isHold = false;
-		const cb = (e) => {
+		const cb = () => {
 			if (autoSave) {
 				if (!isHold) {
 					save();
