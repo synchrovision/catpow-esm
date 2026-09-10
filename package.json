@@ -18,6 +18,9 @@
 		"./data": {
 			"import": "./src/data/index.js"
 		},
+		"./dom": {
+			"import": "./src/dom/index.js"
+		},
 		"./graphic": {
 			"import": "./src/graphic/index.js"
 		},
