@@ -130,6 +130,7 @@
 		}
 		@else{
 			@if map.has-key($btvals,$val){$val:map.get($btvals,$val);}
+			@else if meta.type-of(list.nth($val,-1)) == 'number'{$val:shd($val) clr($clr);}
 			@else{$val:shd($val) clr($clr);}
 		}
 		@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br' or $key == 'bc' or $key == 'bv' or $key == 'bvi' or $key == 'bvo' or $key == 'bve'
