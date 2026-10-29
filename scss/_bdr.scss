@@ -1,7 +1,8 @@
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
-@use "_basic.scss" as *;
+@use "config" as *;
+@use "basic" as *;
 
 @mixin bdr($bdr){
 	$keys:(c:color,w:width,s:style);
