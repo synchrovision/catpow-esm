@@ -201,8 +201,8 @@
 		@if $key == cnt{
 			@if meta.type-of($val) == 'list' {
 				@each $v in $val{
-					@if map.has-key($ctnvals,$v){
-						container-type:map.get($ctnvals,$v);
+					@if map.has-key($cntvals,$v){
+						container-type:map.get($cntvals,$v);
 					}
 					@else{
 						container-name:$v;
@@ -210,8 +210,8 @@
 				}
 			}
 			@else{
-				@if map.has-key($ctnvals,$val){
-					container-type:map.get($ctnvals,$val);
+				@if map.has-key($cntvals,$val){
+					container-type:map.get($cntvals,$val);
 				}
 				@else{
 					container-name:$val;
