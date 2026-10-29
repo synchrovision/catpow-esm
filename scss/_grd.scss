@@ -1,3 +1,4 @@
+@use "sass:string";
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
@@ -50,7 +51,7 @@
 		}
 		@if $key == r{
 			$rc:list.nth($val,1);
-			@if(length($val)==2){
+			@if(list.length($val)==2){
 				$w:auto;
 				$rr:list.nth($val,2);
 			}
@@ -58,15 +59,15 @@
 				$w:list.nth($val,2);
 				$rr:list.nth($val,3);
 			}
-			@if(length($val)==4){
+			@if(list.length($val)==4){
 				$h:list.nth($val,4);
 			}
 			@else{
 				$h:auto;
 			}
-			-ms-grid-columns:unquote('(#{$w})[#{$rc}]');
+			-ms-grid-columns:string.unquote('(#{$w})[#{$rc}]');
 			grid-template-columns:repeat(#{$rc},#{$w});
-			-ms-grid-rows:unquote('(#{$h})[#{$rr}]');
+			-ms-grid-rows:string.unquote('(#{$h})[#{$rr}]');
 			grid-template-rows:repeat(#{$rr},#{$h});
 			@for $x from 1 through $rc - 1{
 				&>*:list.nth-child(#{$rr}n + #{$x}){

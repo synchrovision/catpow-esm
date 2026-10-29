@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
@@ -10,7 +11,7 @@
 			@if meta.type-of($c) == 'number'{
 				$c:sz($c);
 				@if $c < 0{
-					$c:'(width < ' + abs($c) + ')';
+					$c:'(width < ' + math.abs($c) + ')';
 				}
 				@else if $c > 0{
 					$c:'(width > ' + $c + ')';
@@ -38,7 +39,7 @@
 					}
 					@if $val < 0{
 						$op:' < ';
-						$val:abs($val);
+						$val:math.abs($val);
 					}
 					@else{
 						$op:' > ';
@@ -57,7 +58,7 @@
 	@else if meta.type-of($cnd) == 'number'{
 		$cnd:sz($cnd);
 		@if $cnd < 0{
-			$cnd:'(width < ' + abs($cnd) + ')';
+			$cnd:'(width < ' + math.abs($cnd) + ')';
 		}
 		@else if $cnd > 0{
 			$cnd:'(width > ' + $cnd + ')';

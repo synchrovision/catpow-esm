@@ -118,7 +118,7 @@
 				@if list.length($val) == 2{
 					@if (
 						list.nth($val,2) == n or
-						index($abstractSize,list.nth($val,2)) != null
+						list.index($abstractSize,list.nth($val,2)) != null
 					){
 						@if list.nth($val,1) != n{
 							min-#{map.get($skeys,$key)}:list.nth($val,1);
@@ -169,7 +169,7 @@
 				}
 			}
 			@else{
-				@if unitless($val){
+				@if math.is-unitless($val){
 					-webkit-box-flex:$val;
 					flex-grow:$val;
 					flex-shrink:$val;
@@ -181,7 +181,7 @@
 			}
 		}
 		@if $key == c{
-			@if(is-unitless($val) and $val > 20){$val:szs($val);}
+			@if(math.is-unitless($val) and $val > 20){$val:szs($val);}
 			-webkit-columns:$val;
 			   -moz-columns:$val;
 					columns:$val;

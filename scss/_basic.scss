@@ -163,8 +163,8 @@
 	$clr:false;
 	@if meta.type-of($img) == 'list' {
 		$clr:clr(list.nth($img,2));
-		@if(str-slice($clr,0,1) == '#'){
-			$clr:'%23' + str-slice($clr,1);
+		@if(string.slice($clr,0,1) == '#'){
+			$clr:'%23' + string.slice($clr,1);
 		}
 		$img:list.nth($img,1);
 	}
@@ -265,7 +265,7 @@
 	@if meta.type-of($vals) == 'list'{
 		$rtn:false;
 		@each $v in $vals{
-			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,sz($v));}
+			@if meta.type-of($rtn) == 'list'{$rtn:list.append($rtn,sz($v));}
 			@else if $rtn == false{$rtn:sz($v);}
 			@else {$rtn:$rtn sz($v);}
 		}
@@ -359,7 +359,7 @@
 	@return $val;
 }
 @function translate-numeric-unitless-size($val){
-	@if meta.type-of($val) == 'number' and unitless($val){
+	@if meta.type-of($val) == 'number' and math.is-unitless($val){
 		@if meta.global-variable-exists("size-unit"){@return $val*$size-unit;}
 		@return $val * 1px;
 	}
@@ -369,7 +369,7 @@
 	@if meta.type-of($vals) == 'list'{
 		$rtn:false;
 		@each $v in $vals{
-			@if meta.type-of($rtn) == 'list'{$rtn:append($rtn,translate-numeric-unitless-size($v));}
+			@if meta.type-of($rtn) == 'list'{$rtn:list.append($rtn,translate-numeric-unitless-size($v));}
 			@else if $rtn == false{$rtn:translate-numeric-unitless-size($v);}
 			@else {$rtn:$rtn translate-numeric-unitless-size($v);}
 		}
@@ -378,7 +378,7 @@
 	@return translate-numeric-unitless-size($vals);
 }
 
-@function slice($list,$start:1,$end:length($list)){
+@function slice($list,$start:1,$end:list.length($list)){
 	$rtn:();
 	@if $start < 0 {
 		$start: list.length($list) + $start;

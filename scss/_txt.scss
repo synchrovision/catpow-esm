@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:meta";
 @use "sass:map";
 @use "_basic.scss" as *;
@@ -92,19 +93,19 @@
 		@if map.has-key($tvals,$val){
 			text-decoration:map.get($tvals,$val);
 		}
-		@else if index(map.values($tvals),$val) != null{
+		@else if list.index(map.values($tvals),$val) != null{
 			text-decoration:$val;
 		}
 		@else if map.has-key($lvals,$val){
 			text-decoration-line:map.get($lvals,$val);
 		}
-		@else if index(map.values($lvals),$val) != null{
+		@else if list.index(map.values($lvals),$val) != null{
 			text-decoration-line:$val;
 		}
 		@else if map.has-key($svals,$val){
 			text-decoration-style:map.get($svals,$val);
 		}
-		@else if index(map.values($svals),$val) != null{
+		@else if list.index(map.values($svals),$val) != null{
 			text-decoration-style:$val;
 		}
 		@else if meta.type-of($val) == 'number'{
@@ -139,7 +140,7 @@
 			$s1:true;
 			$s:list.append($s,map.get($s1vals,$val));
 		}
-		@else if ($s1 == false and index(map.values($s1vals),$val) != null){
+		@else if ($s1 == false and list.index(map.values($s1vals),$val) != null){
 			$s1:true;
 			$s:list.append($s,$val);
 		}
@@ -147,7 +148,7 @@
 			$s2:true;
 			$s:list.append($s,map.get($s2vals,$val));
 		}
-		@else if ($s2 == false and index(map.values($s2vals),$val) != null){
+		@else if ($s2 == false and list.index(map.values($s2vals),$val) != null){
 			$s2:true;
 			$s:list.append($s,$val);
 		}

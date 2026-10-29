@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:meta";
 @use "sass:map";
 @use "_basic.scss" as *;
@@ -33,7 +34,7 @@
 			stroke-linejoin:replace-values($val,$jvals);
 		}
 		@if $key == d{
-			@if meta.type-of($val) =='list' and meta.type-of(nth($val,1)) == 'list'{
+			@if meta.type-of($val) =='list' and meta.type-of(list.nth($val,1)) == 'list'{
 				stroke-dasharray:list.nth($val,1);
 				stroke-dashoffset:list.nth($val,2);
 			}

@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
@@ -18,9 +19,9 @@
 		@if meta.type-of($val) == 'number'{
 			$inset:($val < 0);
 			@if $key == 'b' or $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
-				$blur:abs($val) * 2 + 1;
+				$blur:math.abs($val) * 2 + 1;
 			}
-			@else{$blur:abs($val);}
+			@else{$blur:math.abs($val);}
 			@if $inset{
 				@if $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
 					$spr:$blur * -1;
@@ -35,7 +36,7 @@
 				@else if $key == 'bc' or $key == 'tc'{
 					$val:0 0 #{$blur}px #{clr($clr)} inset;
 				}
-				@else{$val:0 #{abs($val)}px #{$blur}px #{clr($clr)} inset;}
+				@else{$val:0 #{math.abs($val)}px #{$blur}px #{clr($clr)} inset;}
 			}
 			@else{
 				@if $key == 'bt' or $key == 'bb' or $key == 'bl' or $key == 'br'{
@@ -88,7 +89,7 @@
 						(0 0 #{$b5}px #{$c})
 					);
 				}
-				@else{$val:0 #{abs($val)}px #{$blur}px #{clr($clr)};}
+				@else{$val:0 #{math.abs($val)}px #{$blur}px #{clr($clr)};}
 			}
 			@if $key == 'tbv'{
 				$b:$blur;

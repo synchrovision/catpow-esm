@@ -1,3 +1,5 @@
+@use "sass:string";
+@use "sass:color";
 @use "sass:meta";
 @use "sass:map";
 @use "sass:list";
@@ -35,27 +37,27 @@
 			$fl:list.append($fl,(map.get($ffncs,$key) + '(' + $val + ')'));
 		}
 		@if $key == 'clr'{
-			@if function-exists('extract-color-tone') {
+			@if meta.function-exists('extract-color-tone') {
 				$tone:extract-color-tone($val);
 				@if $tone {
 					$fl:list.append($fl,invert(50%));
 					$fl:list.append($fl,sepia(100%));
-					$fl:list.append($fl,unquote('hue-rotate(calc('+map.get($tone,h)+' - 40deg))'));
+					$fl:list.append($fl,string.unquote('hue-rotate(calc('+map.get($tone,h)+' - 40deg))'));
 					$fl:list.append($fl,saturate(300%));
-					$fl:list.append($fl,unquote('saturate(calc('+map.get($tone,S)+' * 4))'));
+					$fl:list.append($fl,string.unquote('saturate(calc('+map.get($tone,S)+' * 4))'));
 					$fl:list.append($fl,brightness(160%));
-					$fl:list.append($fl,unquote('brightness('+map.get($tone,B)+')'));
+					$fl:list.append($fl,string.unquote('brightness('+map.get($tone,B)+')'));
 				}
 			}
 			@else{
 				$clr:clr($val);
 				@if meta.type-of($clr) == 'color'{
 					$fl:list.append($fl,invert(50%));
-					$fl:list.append($fl,brightness(lightness($clr)*1.7));
+					$fl:list.append($fl,brightness(color.channel($clr, "lightness", $space: hsl)*1.7));
 					$fl:list.append($fl,sepia(100%));
 					$fl:list.append($fl,saturate(1000%));
-					$fl:list.append($fl,saturate(saturation($clr)*.7));
-					$fl:list.append($fl,hue-rotate(hue($clr) - 34deg));
+					$fl:list.append($fl,saturate(color.channel($clr, "saturation", $space: hsl)*.7));
+					$fl:list.append($fl,hue-rotate(color.channel($clr, "hue", $space: hsl) - 34deg));
 				}
 			}
 		}
