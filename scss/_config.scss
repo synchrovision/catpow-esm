@@ -1,4 +1,5 @@
 $size-unit:0.0625rem !default;
+$sizes:() !default;
 $colors:(
 	b:oklch(var(--cp-tones-b-l,100%) var(--cp-tones-b-c,50%) var(--cp-tones-b-h,220) / var(--cp-tones-b-a,1)),
 	s:oklch(var(--cp-tones-s-l,90%) var(--cp-tones-s-c,50%) var(--cp-tones-s-h,220) / var(--cp-tones-s-a,1)),
@@ -15,7 +16,7 @@ $colors:(
 	lst:oklch(var(--cp-tones-lst-l,100%) var(--cp-tones-lst-c,0%) var(--cp-tones-lst-h,220) / var(--cp-tones-lst-a,0.8)),
 	lt:oklch(var(--cp-tones-sh-l,100%) var(--cp-tones-sh-c,0%) var(--cp-tones-sh-h,220) / var(--cp-tones-sh-a,0.4)),
 ) !default;
-$fonts:(
+$font-families:(
 	h:var(--cp-fonts-h,sefif),
 	p:var(--cp-fonts-p,sans-serif),
 	e:var(--cp-fonts-e,('times',serif)),
